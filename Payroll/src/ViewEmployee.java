@@ -113,7 +113,7 @@ public class ViewEmployee extends javax.swing.JFrame {
         });
 
         cmbRole.setForeground(new java.awt.Color(153, 153, 153));
-        cmbRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Role" }));
+        cmbRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select a Role" }));
         cmbRole.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbRoleActionPerformed(evt);
