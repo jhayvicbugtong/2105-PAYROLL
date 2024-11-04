@@ -67,7 +67,7 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(228, 143, 69));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(245, 204, 160));
+        jButton1.setForeground(new java.awt.Color(107, 36, 12));
         jButton1.setText("View Timesheet");
         jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -78,8 +78,8 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         jButton4.setBackground(new java.awt.Color(228, 143, 69));
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(245, 204, 160));
-        jButton4.setText("Generate Payslip");
+        jButton4.setForeground(new java.awt.Color(107, 36, 12));
+        jButton4.setText("View Payroll");
         jButton4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,7 +89,7 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         jButton6.setBackground(new java.awt.Color(228, 143, 69));
         jButton6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(245, 204, 160));
+        jButton6.setForeground(new java.awt.Color(107, 36, 12));
         jButton6.setText("Logout");
         jButton6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -100,7 +100,7 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         jButton2.setBackground(new java.awt.Color(228, 143, 69));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(245, 204, 160));
+        jButton2.setForeground(new java.awt.Color(107, 36, 12));
         jButton2.setText("View Employees");
         jButton2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton2.addActionListener(new java.awt.event.ActionListener() {

@@ -143,7 +143,7 @@
               <Font name="Segoe UI" size="14" style="1"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="a0" green="cc" red="f5" type="rgb"/>
+              <Color blue="c" green="24" red="6b" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="View Timesheet"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -165,9 +165,9 @@
               <Font name="Segoe UI" size="14" style="1"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="a0" green="cc" red="f5" type="rgb"/>
+              <Color blue="c" green="24" red="6b" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Generate Payslip"/>
+            <Property name="text" type="java.lang.String" value="View Payroll"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
                 <BevelBorder/>
@@ -187,7 +187,7 @@
               <Font name="Segoe UI" size="14" style="1"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="a0" green="cc" red="f5" type="rgb"/>
+              <Color blue="c" green="24" red="6b" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Logout"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -209,7 +209,7 @@
               <Font name="Segoe UI" size="14" style="1"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="a0" green="cc" red="f5" type="rgb"/>
+              <Color blue="c" green="24" red="6b" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="View Employees"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
