@@ -83,8 +83,6 @@ public class SecondPayrollPanel extends javax.swing.JFrame {
             }
         ));
         jTable2.setShowGrid(true);
-        jTable2.setShowHorizontalLines(true);
-        jTable2.setShowVerticalLines(true);
         jTable2.setSurrendersFocusOnKeystroke(true);
         jScrollPane2.setViewportView(jTable2);
 
@@ -120,8 +118,6 @@ public class SecondPayrollPanel extends javax.swing.JFrame {
             }
         ));
         jTable3.setShowGrid(true);
-        jTable3.setShowHorizontalLines(true);
-        jTable3.setShowVerticalLines(true);
         jTable3.setSurrendersFocusOnKeystroke(true);
         jScrollPane3.setViewportView(jTable3);
 
