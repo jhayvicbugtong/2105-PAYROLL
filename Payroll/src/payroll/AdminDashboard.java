@@ -29,10 +29,10 @@ public class AdminDashboard extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        viewTimesheetbutton = new javax.swing.JButton();
+        viewPayrollbutton = new javax.swing.JButton();
+        logOutbutton = new javax.swing.JButton();
+        viewEmployeebotton = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -65,47 +65,47 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(153, 77, 28));
 
-        jButton1.setBackground(new java.awt.Color(228, 143, 69));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(107, 36, 12));
-        jButton1.setText("View Timesheet");
-        jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        viewTimesheetbutton.setBackground(new java.awt.Color(228, 143, 69));
+        viewTimesheetbutton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        viewTimesheetbutton.setForeground(new java.awt.Color(107, 36, 12));
+        viewTimesheetbutton.setText("View Timesheet");
+        viewTimesheetbutton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        viewTimesheetbutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                viewTimesheetbuttonActionPerformed(evt);
             }
         });
 
-        jButton4.setBackground(new java.awt.Color(228, 143, 69));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(107, 36, 12));
-        jButton4.setText("View Payroll");
-        jButton4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        viewPayrollbutton.setBackground(new java.awt.Color(228, 143, 69));
+        viewPayrollbutton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        viewPayrollbutton.setForeground(new java.awt.Color(107, 36, 12));
+        viewPayrollbutton.setText("View Payroll");
+        viewPayrollbutton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        viewPayrollbutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                viewPayrollbuttonActionPerformed(evt);
             }
         });
 
-        jButton6.setBackground(new java.awt.Color(228, 143, 69));
-        jButton6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(107, 36, 12));
-        jButton6.setText("Logout");
-        jButton6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        logOutbutton.setBackground(new java.awt.Color(228, 143, 69));
+        logOutbutton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        logOutbutton.setForeground(new java.awt.Color(107, 36, 12));
+        logOutbutton.setText("Logout");
+        logOutbutton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        logOutbutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                logOutbuttonActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(228, 143, 69));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(107, 36, 12));
-        jButton2.setText("View Employees");
-        jButton2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        viewEmployeebotton.setBackground(new java.awt.Color(228, 143, 69));
+        viewEmployeebotton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        viewEmployeebotton.setForeground(new java.awt.Color(107, 36, 12));
+        viewEmployeebotton.setText("View Employees");
+        viewEmployeebotton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        viewEmployeebotton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                viewEmployeebottonActionPerformed(evt);
             }
         });
 
@@ -116,23 +116,23 @@ public class AdminDashboard extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(viewEmployeebotton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(logOutbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(viewPayrollbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(viewTimesheetbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(152, 152, 152)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(viewEmployeebotton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(viewTimesheetbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(viewPayrollbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(logOutbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -178,21 +178,21 @@ public class AdminDashboard extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void viewTimesheetbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewTimesheetbuttonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_viewTimesheetbuttonActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void viewPayrollbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewPayrollbuttonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_viewPayrollbuttonActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void logOutbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutbuttonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_logOutbuttonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void viewEmployeebottonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewEmployeebottonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_viewEmployeebottonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -230,10 +230,6 @@ public class AdminDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -241,5 +237,9 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JButton logOutbutton;
+    private javax.swing.JButton viewEmployeebotton;
+    private javax.swing.JButton viewPayrollbutton;
+    private javax.swing.JButton viewTimesheetbutton;
     // End of variables declaration//GEN-END:variables
 }
