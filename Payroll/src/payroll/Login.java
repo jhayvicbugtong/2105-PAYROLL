@@ -1,9 +1,12 @@
 package payroll;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 
 
 public class Login extends javax.swing.JFrame {
@@ -25,9 +28,9 @@ public class Login extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtPassword = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        loginbotton = new javax.swing.JButton();
+        userName = new javax.swing.JTextField();
+        userPassword = new javax.swing.JPasswordField();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jCheckBox1 = new javax.swing.JCheckBox();
@@ -59,39 +62,39 @@ public class Login extends javax.swing.JFrame {
         jLabel4.setText("jLabel4");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-80, 150, 440, 430));
 
-        jButton1.setBackground(new java.awt.Color(228, 143, 69));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(107, 36, 12));
-        jButton1.setText("LOGIN");
-        jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        loginbotton.setBackground(new java.awt.Color(228, 143, 69));
+        loginbotton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        loginbotton.setForeground(new java.awt.Color(107, 36, 12));
+        loginbotton.setText("LOGIN");
+        loginbotton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        loginbotton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                loginbottonActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 90, -1));
+        jPanel2.add(loginbotton, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 90, -1));
 
-        jTextField1.setBackground(new java.awt.Color(153, 77, 28));
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(228, 143, 69));
-        jTextField1.setBorder(null);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        userName.setBackground(new java.awt.Color(153, 77, 28));
+        userName.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        userName.setForeground(new java.awt.Color(228, 143, 69));
+        userName.setBorder(null);
+        userName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                userNameActionPerformed(evt);
             }
         });
-        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 170, 20));
+        jPanel2.add(userName, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 170, 20));
 
-        jPasswordField1.setBackground(new java.awt.Color(153, 77, 28));
-        jPasswordField1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jPasswordField1.setForeground(new java.awt.Color(228, 143, 69));
-        jPasswordField1.setBorder(null);
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+        userPassword.setBackground(new java.awt.Color(153, 77, 28));
+        userPassword.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        userPassword.setForeground(new java.awt.Color(228, 143, 69));
+        userPassword.setBorder(null);
+        userPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
+                userPasswordActionPerformed(evt);
             }
         });
-        jPanel2.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 170, 20));
+        jPanel2.add(userPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 170, 20));
 
         jSeparator1.setForeground(new java.awt.Color(228, 143, 69));
         jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 170, -1));
@@ -152,81 +155,103 @@ public class Login extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void loginbottonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginbottonActionPerformed
+     String uN = userName.getText();
+     char[] passwordArray = userPassword.getPassword();
+     String UP = new String(passwordArray);
+     
+       
+       String url = "jdbc:mysql://localhost:3306/payroll_db";
+       String user = "root";
+       String pass = "";
+       
+       
+       if("".equals(uN)) {
+          JOptionPane.showMessageDialog(new JFrame(), "UserName is requires", "Dialog", JOptionPane.ERROR_MESSAGE);
+       return;
+       }
+       
+        if ("".equals(UP)) {
+           JOptionPane.showMessageDialog(new JFrame(), "Password is requires", "Dialog", JOptionPane.ERROR_MESSAGE);    
+       return;
+       }
+        
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+             Connection con = DriverManager.getConnection(url, user, pass);
+             Statement st = con.createStatement();
+        
+             String query = "SELECT * FROM login WHERE userName = '" + uN + "' AND password = '" + UP + "'";
+        
+             ResultSet rs = st.executeQuery(query);
+        
+        if (rs.next()) {
+            JOptionPane.showMessageDialog(null, "Login successful", "Success", JOptionPane.INFORMATION_MESSAGE);
+            
+        }
+        
+        else {
+             JOptionPane.showMessageDialog(null, "Invalid Username or Password", "ERROR", JOptionPane.INFORMATION_MESSAGE);            
+       }
+            rs.close();
+            st.close();
+            con.close();
+            
+       }catch(Exception e){
+       JOptionPane.showMessageDialog(new JFrame(), "ERROR:" + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+       
+       }
+    }//GEN-LAST:event_loginbottonActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    private void userNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userNameActionPerformed
+        
+        
+    }//GEN-LAST:event_userNameActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         if(jCheckBox1.isSelected())
         {
-            jPasswordField1.setEchoChar((char)0);
+            userPassword.setEchoChar((char)0);
             jCheckBox1.setText("Hide password");
             
         }
         else
         {
-            jPasswordField1.setEchoChar('*');
+            userPassword.setEchoChar('*');
             jCheckBox1.setText("Show password");
         }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+    private void userPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userPasswordActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
+    }//GEN-LAST:event_userPasswordActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Login().setVisible(true);
-            }
+        
+        
+        java.awt.EventQueue.invokeLater(() -> {
+            new Login().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton loginbotton;
     private javax.swing.JLabel txtPassword;
+    private javax.swing.JTextField userName;
+    private javax.swing.JPasswordField userPassword;
     // End of variables declaration//GEN-END:variables
 }
+
