@@ -4,6 +4,8 @@
  */
 package payroll;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author sophi
@@ -179,19 +181,27 @@ public class AdminDashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void viewTimesheetbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewTimesheetbuttonActionPerformed
-        // TODO add your handling code here:
+     this.setVisible(false);
+     Timesheet viewTimesheet = new Timesheet();
+     viewTimesheet.setVisible(true);
     }//GEN-LAST:event_viewTimesheetbuttonActionPerformed
 
     private void viewPayrollbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewPayrollbuttonActionPerformed
-        // TODO add your handling code here:
+  this.setVisible(false);
+     MainPayrollPanel viewPayrollbutton = new MainPayrollPanel();
+     viewPayrollbutton.setVisible(true);
     }//GEN-LAST:event_viewPayrollbuttonActionPerformed
 
     private void logOutbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutbuttonActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_logOutbuttonActionPerformed
 
     private void viewEmployeebottonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewEmployeebottonActionPerformed
-        // TODO add your handling code here:
+     this.setVisible(false);
+     ViewEmployee viewEmployee = new ViewEmployee();
+     viewEmployee.setVisible(true);
+     
+             
     }//GEN-LAST:event_viewEmployeebottonActionPerformed
 
     /**
