@@ -63,27 +63,32 @@
                       <Component id="txtEmployeeselection" min="-2" pref="220" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace pref="65" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               <Component id="jButton1" min="-2" pref="80" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="190" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jTextField1" min="-2" pref="340" max="-2" attributes="0"/>
-                                      <Component id="txtSelectemployee1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtSelectemployee" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jDateChooser1" alignment="0" min="-2" pref="155" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="jDateChooser1" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="jDateChooser2" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jDateChooser2" max="32767" attributes="0"/>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Component id="txtSelectemployee2" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="103" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="txtSelectemployee1" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="194" max="-2" attributes="0"/>
+                                              <Component id="txtSelectemployee2" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="jTextField1" alignment="0" min="-2" pref="340" max="-2" attributes="0"/>
+                                          <Component id="txtSelectemployee" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
@@ -100,21 +105,21 @@
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Component id="txtSelectemployee" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTextField1" min="-2" pref="28" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txtSelectemployee1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtSelectemployee2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
+                              <Component id="jTextField1" min="-2" pref="28" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="txtSelectemployee1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtSelectemployee2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="jDateChooser1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jDateChooser2" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="22" max="32767" attributes="0"/>
                   </Group>
               </Group>
