@@ -188,7 +188,7 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     private void viewPayrollbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewPayrollbuttonActionPerformed
   this.setVisible(false);
-     MainPayrollPanel viewPayrollbutton = new MainPayrollPanel();
+     PayrollEmployeeSelection viewPayrollbutton = new PayrollEmployeeSelection();
      viewPayrollbutton.setVisible(true);
     }//GEN-LAST:event_viewPayrollbuttonActionPerformed
 
