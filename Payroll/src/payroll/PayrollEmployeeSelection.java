@@ -30,7 +30,7 @@ public class PayrollEmployeeSelection extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         txtSelectemployee = new javax.swing.JLabel();
         txtEmployeeselection = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        goToPayrollButton = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -47,10 +47,15 @@ public class PayrollEmployeeSelection extends javax.swing.JFrame {
         txtEmployeeselection.setText("Employee Selection");
         txtEmployeeselection.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(153, 77, 28)));
 
-        jButton1.setBackground(new java.awt.Color(228, 143, 69));
-        jButton1.setForeground(new java.awt.Color(107, 36, 12));
-        jButton1.setText("GO");
-        jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        goToPayrollButton.setBackground(new java.awt.Color(228, 143, 69));
+        goToPayrollButton.setForeground(new java.awt.Color(107, 36, 12));
+        goToPayrollButton.setText("GO");
+        goToPayrollButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        goToPayrollButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                goToPayrollButtonActionPerformed(evt);
+            }
+        });
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,7 +74,7 @@ public class PayrollEmployeeSelection extends javax.swing.JFrame {
                         .addComponent(txtEmployeeselection, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(190, 190, 190)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(goToPayrollButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(65, Short.MAX_VALUE)
@@ -88,7 +93,7 @@ public class PayrollEmployeeSelection extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(goToPayrollButton)
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
@@ -110,6 +115,12 @@ public class PayrollEmployeeSelection extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void goToPayrollButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goToPayrollButtonActionPerformed
+        SecondPayrollPanel secondPayrollPanel = new SecondPayrollPanel();
+        secondPayrollPanel.setVisible(true);
+        PayrollEmployeeSelection.this.setVisible(false);
+    }//GEN-LAST:event_goToPayrollButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -148,7 +159,7 @@ public class PayrollEmployeeSelection extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton goToPayrollButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel txtEmployeeselection;

@@ -30,7 +30,7 @@ public class TimesheetEmployeeSelection extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         txtSelectemployee = new javax.swing.JLabel();
         txtEmployeeselection = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        goTimesheetButton = new javax.swing.JButton();
         txtSelectemployee1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         txtSelectemployee2 = new javax.swing.JLabel();
@@ -51,10 +51,15 @@ public class TimesheetEmployeeSelection extends javax.swing.JFrame {
         txtEmployeeselection.setText("Employee Selection");
         txtEmployeeselection.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(153, 77, 28)));
 
-        jButton1.setBackground(new java.awt.Color(228, 143, 69));
-        jButton1.setForeground(new java.awt.Color(107, 36, 12));
-        jButton1.setText("GO");
-        jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        goTimesheetButton.setBackground(new java.awt.Color(228, 143, 69));
+        goTimesheetButton.setForeground(new java.awt.Color(107, 36, 12));
+        goTimesheetButton.setText("GO");
+        goTimesheetButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        goTimesheetButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                goTimesheetButtonActionPerformed(evt);
+            }
+        });
 
         txtSelectemployee1.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         txtSelectemployee1.setForeground(new java.awt.Color(245, 204, 160));
@@ -88,7 +93,7 @@ public class TimesheetEmployeeSelection extends javax.swing.JFrame {
                                 .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtSelectemployee2)))
                         .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(goTimesheetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(144, Short.MAX_VALUE)
@@ -115,7 +120,7 @@ public class TimesheetEmployeeSelection extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(goTimesheetButton)
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
@@ -153,6 +158,12 @@ public class TimesheetEmployeeSelection extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void goTimesheetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goTimesheetButtonActionPerformed
+        Timesheet Timesheet = new Timesheet();
+        Timesheet.setVisible(true);
+        TimesheetEmployeeSelection.this.setVisible(false);
+    }//GEN-LAST:event_goTimesheetButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -189,7 +200,7 @@ public class TimesheetEmployeeSelection extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton goTimesheetButton;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JPanel jPanel1;

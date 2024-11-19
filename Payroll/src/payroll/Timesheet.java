@@ -43,6 +43,7 @@ public class Timesheet extends javax.swing.JFrame {
         backTodashboardButton = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
+        backToTSelectionButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -167,6 +168,17 @@ public class Timesheet extends javax.swing.JFrame {
             }
         });
 
+        backToTSelectionButton.setBackground(new java.awt.Color(228, 143, 69));
+        backToTSelectionButton.setForeground(new java.awt.Color(107, 36, 12));
+        backToTSelectionButton.setText("Back to Selection");
+        backToTSelectionButton.setToolTipText("");
+        backToTSelectionButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        backToTSelectionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backToTSelectionButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -174,6 +186,7 @@ public class Timesheet extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(backToTSelectionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(backTodashboardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
@@ -203,7 +216,9 @@ public class Timesheet extends javax.swing.JFrame {
                     .addComponent(saveButton)
                     .addComponent(deleteButton1)
                     .addComponent(editButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addComponent(backToTSelectionButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(backTodashboardButton)
                 .addGap(15, 15, 15))
         );
@@ -272,6 +287,12 @@ public class Timesheet extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void backToTSelectionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToTSelectionButtonActionPerformed
+        this.setVisible(false);
+        TimesheetEmployeeSelection back = new TimesheetEmployeeSelection();
+        back.setVisible(true);
+    }//GEN-LAST:event_backToTSelectionButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -310,6 +331,7 @@ public class Timesheet extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backToTSelectionButton;
     private javax.swing.JButton backTodashboardButton;
     private javax.swing.JButton deleteButton1;
     private javax.swing.JButton editButton;

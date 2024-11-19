@@ -116,19 +116,19 @@ public class AdminDashboard extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(26, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(logOutbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(viewTimesheetbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(viewEmployeebotton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(viewPayrollbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGap(24, 24, 24))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
+                .addGap(148, 148, 148)
                 .addComponent(viewEmployeebotton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(viewTimesheetbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -183,8 +183,8 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     private void viewTimesheetbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewTimesheetbuttonActionPerformed
      this.setVisible(false);
-     Timesheet viewTimesheet = new Timesheet();
-     viewTimesheet.setVisible(true);
+     TimesheetEmployeeSelection TimesheetEmployeeSelection = new TimesheetEmployeeSelection();
+     TimesheetEmployeeSelection.setVisible(true);
     }//GEN-LAST:event_viewTimesheetbuttonActionPerformed
 
     private void viewPayrollbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewPayrollbuttonActionPerformed

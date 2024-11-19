@@ -65,12 +65,12 @@
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jButton1" alignment="1" min="-2" pref="109" max="-2" attributes="0"/>
-                      <Component id="addEmployeeButton" alignment="1" min="-2" pref="109" max="-2" attributes="0"/>
-                      <Component id="jButton4" alignment="1" min="-2" pref="109" max="-2" attributes="0"/>
-                      <Component id="backTodashboard" alignment="1" min="-2" pref="109" max="-2" attributes="0"/>
+                      <Component id="jButton4" alignment="1" min="-2" pref="118" max="-2" attributes="0"/>
+                      <Component id="backTodashboard" alignment="1" min="-2" pref="118" max="-2" attributes="0"/>
+                      <Component id="jButton1" alignment="1" min="-2" pref="118" max="-2" attributes="0"/>
+                      <Component id="addEmployeeButton" alignment="1" min="-2" pref="118" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
@@ -302,10 +302,32 @@
               <Color blue="99" green="99" red="99" type="rgb"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="1">
+              <StringArray count="22">
                 <StringItem index="0" value="Select a Position"/>
+                <StringItem index="1" value="Manager"/>
+                <StringItem index="2" value="Assistant Manager"/>
+                <StringItem index="3" value="Head Chef"/>
+                <StringItem index="4" value="Sous Chef"/>
+                <StringItem index="5" value="Line Cook"/>
+                <StringItem index="6" value="Trainee Cook"/>
+                <StringItem index="7" value="Pastry Chef"/>
+                <StringItem index="8" value="Baker"/>
+                <StringItem index="9" value="Barista"/>
+                <StringItem index="10" value="Barista Trainee"/>
+                <StringItem index="11" value="Dishwasher"/>
+                <StringItem index="12" value="Waiter"/>
+                <StringItem index="13" value="Cashier"/>
+                <StringItem index="14" value="Receptionist"/>
+                <StringItem index="15" value="Host"/>
+                <StringItem index="16" value="Security Guard"/>
+                <StringItem index="17" value="Delivery Rider "/>
+                <StringItem index="18" value="Accountant"/>
+                <StringItem index="19" value="Inventory Specialist"/>
+                <StringItem index="20" value="Storage Coordinator"/>
+                <StringItem index="21" value="Janitor"/>
               </StringArray>
             </Property>
+            <Property name="focusCycleRoot" type="boolean" value="true"/>
           </Properties>
           <Events>
             <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cmbRoleItemStateChanged"/>
