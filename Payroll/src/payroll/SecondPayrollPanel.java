@@ -31,14 +31,12 @@ public class SecondPayrollPanel extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jToggleButton12 = new javax.swing.JToggleButton();
         jToggleButton5 = new javax.swing.JToggleButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         txtID1 = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
         txtSelectemployee = new javax.swing.JLabel();
         txtSelectemployee1 = new javax.swing.JLabel();
         txtID4 = new javax.swing.JTextField();
@@ -51,11 +49,12 @@ public class SecondPayrollPanel extends javax.swing.JFrame {
         txtSelectemployee4 = new javax.swing.JLabel();
         txtID7 = new javax.swing.JTextField();
         jToggleButton3 = new javax.swing.JToggleButton();
-        jToggleButton9 = new javax.swing.JToggleButton();
+        BacktoDB = new javax.swing.JToggleButton();
         txtSelectemployee7 = new javax.swing.JLabel();
         txtID10 = new javax.swing.JTextField();
         txtSelectemployee8 = new javax.swing.JLabel();
         txtID11 = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -70,18 +69,6 @@ public class SecondPayrollPanel extends javax.swing.JFrame {
         jLabel1.setText("EMPLOYEE PAYROLL DATA");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 27));
 
-        jToggleButton12.setBackground(new java.awt.Color(228, 143, 69));
-        jToggleButton12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jToggleButton12.setForeground(new java.awt.Color(107, 36, 12));
-        jToggleButton12.setText("Edit");
-        jToggleButton12.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jToggleButton12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton12ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jToggleButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 349, 67, -1));
-
         jToggleButton5.setBackground(new java.awt.Color(228, 143, 69));
         jToggleButton5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jToggleButton5.setForeground(new java.awt.Color(107, 36, 12));
@@ -92,7 +79,7 @@ public class SecondPayrollPanel extends javax.swing.JFrame {
                 jToggleButton5ActionPerformed(evt);
             }
         });
-        jPanel2.add(jToggleButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 497, 65, -1));
+        jPanel2.add(jToggleButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, 65, -1));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -107,7 +94,7 @@ public class SecondPayrollPanel extends javax.swing.JFrame {
         jTable1.setShowGrid(true);
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 402, 624, 90));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 630, 90));
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -134,18 +121,14 @@ public class SecondPayrollPanel extends javax.swing.JFrame {
         jTable2.setShowGrid(true);
         jScrollPane2.setViewportView(jTable2);
 
-        jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 624, 224));
+        jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 630, 224));
 
         txtID1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtID1ActionPerformed(evt);
             }
         });
-        jPanel2.add(txtID1, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 64, 272, -1));
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel7.setText("............................................................................................................................................................");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 33, -1, -1));
+        jPanel2.add(txtID1, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 64, 150, -1));
 
         txtSelectemployee.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         txtSelectemployee.setForeground(new java.awt.Color(245, 204, 160));
@@ -162,7 +145,7 @@ public class SecondPayrollPanel extends javax.swing.JFrame {
                 txtID4ActionPerformed(evt);
             }
         });
-        jPanel2.add(txtID4, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 92, 261, -1));
+        jPanel2.add(txtID4, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 92, 150, -1));
 
         txtSelectemployee2.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         txtSelectemployee2.setForeground(new java.awt.Color(245, 204, 160));
@@ -174,7 +157,7 @@ public class SecondPayrollPanel extends javax.swing.JFrame {
                 txtID5ActionPerformed(evt);
             }
         });
-        jPanel2.add(txtID5, new org.netbeans.lib.awtextra.AbsoluteConstraints(372, 64, 262, -1));
+        jPanel2.add(txtID5, new org.netbeans.lib.awtextra.AbsoluteConstraints(372, 64, 60, -1));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel8.setText("............................................................................................................................................................");
@@ -194,7 +177,7 @@ public class SecondPayrollPanel extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel9.setText("............................................................................................................................................................");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 371, -1, -1));
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, -1, -1));
 
         txtSelectemployee4.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         txtSelectemployee4.setForeground(new java.awt.Color(245, 204, 160));
@@ -220,17 +203,17 @@ public class SecondPayrollPanel extends javax.swing.JFrame {
         });
         jPanel2.add(jToggleButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(514, 556, 120, -1));
 
-        jToggleButton9.setBackground(new java.awt.Color(228, 143, 69));
-        jToggleButton9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jToggleButton9.setForeground(new java.awt.Color(107, 36, 12));
-        jToggleButton9.setText("Back to Dashboard");
-        jToggleButton9.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jToggleButton9.addActionListener(new java.awt.event.ActionListener() {
+        BacktoDB.setBackground(new java.awt.Color(228, 143, 69));
+        BacktoDB.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        BacktoDB.setForeground(new java.awt.Color(107, 36, 12));
+        BacktoDB.setText("Back to Dashboard");
+        BacktoDB.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        BacktoDB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton9ActionPerformed(evt);
+                BacktoDBActionPerformed(evt);
             }
         });
-        jPanel2.add(jToggleButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(514, 584, 120, -1));
+        jPanel2.add(BacktoDB, new org.netbeans.lib.awtextra.AbsoluteConstraints(514, 584, 120, -1));
 
         txtSelectemployee7.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         txtSelectemployee7.setForeground(new java.awt.Color(245, 204, 160));
@@ -256,14 +239,18 @@ public class SecondPayrollPanel extends javax.swing.JFrame {
         });
         jPanel2.add(txtID11, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 640, 272, -1));
 
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel10.setText("............................................................................................................................................................");
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 33, -1, -1));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 643, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 652, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -288,49 +275,47 @@ public class SecondPayrollPanel extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jToggleButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton5ActionPerformed
+    private void txtID11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtID11ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton5ActionPerformed
-
-    private void jToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton3ActionPerformed
-
-    private void jToggleButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton9ActionPerformed
-
-    private void jToggleButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton12ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton12ActionPerformed
-
-    private void txtID1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtID1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtID1ActionPerformed
-
-    private void txtID4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtID4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtID4ActionPerformed
-
-    private void txtID5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtID5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtID5ActionPerformed
-
-    private void txtID6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtID6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtID6ActionPerformed
-
-    private void txtID7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtID7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtID7ActionPerformed
+    }//GEN-LAST:event_txtID11ActionPerformed
 
     private void txtID10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtID10ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtID10ActionPerformed
 
-    private void txtID11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtID11ActionPerformed
+    private void BacktoDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BacktoDBActionPerformed
+        this.setVisible(false);
+     AdminDashboard back = new AdminDashboard();
+     back.setVisible(true);
+    }//GEN-LAST:event_BacktoDBActionPerformed
+
+    private void jToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton3ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtID11ActionPerformed
+    }//GEN-LAST:event_jToggleButton3ActionPerformed
+
+    private void txtID7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtID7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtID7ActionPerformed
+
+    private void txtID6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtID6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtID6ActionPerformed
+
+    private void txtID5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtID5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtID5ActionPerformed
+
+    private void txtID4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtID4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtID4ActionPerformed
+
+    private void txtID1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtID1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtID1ActionPerformed
+
+    private void jToggleButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jToggleButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -368,8 +353,9 @@ public class SecondPayrollPanel extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton BacktoDB;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -378,10 +364,8 @@ public class SecondPayrollPanel extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JToggleButton jToggleButton12;
     private javax.swing.JToggleButton jToggleButton3;
     private javax.swing.JToggleButton jToggleButton5;
-    private javax.swing.JToggleButton jToggleButton9;
     private javax.swing.JTextField txtID1;
     private javax.swing.JTextField txtID10;
     private javax.swing.JTextField txtID11;

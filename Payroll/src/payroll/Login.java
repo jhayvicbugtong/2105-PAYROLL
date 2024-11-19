@@ -60,7 +60,7 @@ public class Login extends javax.swing.JFrame {
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pictures/Resto Logo 2.png"))); // NOI18N
         jLabel4.setText("jLabel4");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-80, 150, 440, 430));
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-80, 160, 440, 430));
 
         loginbotton.setBackground(new java.awt.Color(228, 143, 69));
         loginbotton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -96,15 +96,18 @@ public class Login extends javax.swing.JFrame {
         });
         jPanel2.add(userPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 170, 20));
 
+        jSeparator1.setBackground(new java.awt.Color(228, 143, 69));
         jSeparator1.setForeground(new java.awt.Color(228, 143, 69));
         jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 170, -1));
 
+        jSeparator2.setBackground(new java.awt.Color(228, 143, 69));
         jSeparator2.setForeground(new java.awt.Color(228, 143, 69));
         jPanel2.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 170, -1));
 
         jCheckBox1.setFont(new java.awt.Font("Segoe UI", 2, 9)); // NOI18N
         jCheckBox1.setForeground(new java.awt.Color(228, 143, 69));
         jCheckBox1.setText("Show Password");
+        jCheckBox1.setBorder(null);
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox1ActionPerformed(evt);
