@@ -49,25 +49,23 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel1" min="-2" pref="24" max="-2" attributes="0"/>
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="Name" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       <Component id="address" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="txtID" alignment="0" max="32767" attributes="0"/>
-                      <Component id="txtUsername" alignment="0" max="32767" attributes="0"/>
-                      <Component id="txtPassword" alignment="0" max="32767" attributes="0"/>
-                      <Component id="cmbRole" pref="193" max="32767" attributes="0"/>
+                      <Component id="txtUsername" alignment="0" pref="193" max="32767" attributes="0"/>
+                      <Component id="txtContactnumber" alignment="0" max="32767" attributes="0"/>
                       <Component id="txtAddress" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txtPosition" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jButton4" alignment="1" min="-2" pref="118" max="-2" attributes="0"/>
                       <Component id="backTodashboard" alignment="1" min="-2" pref="118" max="-2" attributes="0"/>
-                      <Component id="jButton1" alignment="1" min="-2" pref="118" max="-2" attributes="0"/>
+                      <Component id="deleteEmployeeButton" alignment="1" min="-2" pref="118" max="-2" attributes="0"/>
                       <Component id="addEmployeeButton" alignment="1" min="-2" pref="118" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
@@ -85,24 +83,20 @@
                   <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txtID" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel1" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="txtUsername" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Name" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtPassword" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtContactnumber" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="cmbRole" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtPosition" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -113,7 +107,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="addEmployeeButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                          <Component id="deleteEmployeeButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jButton4" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -186,18 +180,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JLabel" name="jLabel1">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="12" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="a0" green="cc" red="f5" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="ID"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel2">
+        <Component class="javax.swing.JLabel" name="Name">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="12" style="1"/>
@@ -230,16 +213,14 @@
             <Property name="text" type="java.lang.String" value="POSITION"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtID">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtIDActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JTextField" name="txtUsername">
         </Component>
-        <Component class="javax.swing.JTextField" name="txtPassword">
+        <Component class="javax.swing.JTextField" name="txtContactnumber">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtContactnumberActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="deleteEmployeeButton">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="45" green="8f" red="e4" type="rgb"/>
@@ -255,7 +236,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteEmployeeButtonActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="addEmployeeButton">
@@ -296,47 +277,6 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="backTodashboardActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JComboBox" name="cmbRole">
-          <Properties>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="99" green="99" red="99" type="rgb"/>
-            </Property>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="22">
-                <StringItem index="0" value="Select a Position"/>
-                <StringItem index="1" value="Manager"/>
-                <StringItem index="2" value="Assistant Manager"/>
-                <StringItem index="3" value="Head Chef"/>
-                <StringItem index="4" value="Sous Chef"/>
-                <StringItem index="5" value="Line Cook"/>
-                <StringItem index="6" value="Trainee Cook"/>
-                <StringItem index="7" value="Pastry Chef"/>
-                <StringItem index="8" value="Baker"/>
-                <StringItem index="9" value="Barista"/>
-                <StringItem index="10" value="Barista Trainee"/>
-                <StringItem index="11" value="Dishwasher"/>
-                <StringItem index="12" value="Waiter"/>
-                <StringItem index="13" value="Cashier"/>
-                <StringItem index="14" value="Receptionist"/>
-                <StringItem index="15" value="Host"/>
-                <StringItem index="16" value="Security Guard"/>
-                <StringItem index="17" value="Delivery Rider "/>
-                <StringItem index="18" value="Accountant"/>
-                <StringItem index="19" value="Inventory Specialist"/>
-                <StringItem index="20" value="Storage Coordinator"/>
-                <StringItem index="21" value="Janitor"/>
-              </StringArray>
-            </Property>
-            <Property name="focusCycleRoot" type="boolean" value="true"/>
-          </Properties>
-          <Events>
-            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cmbRoleItemStateChanged"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbRoleActionPerformed"/>
-          </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-          </AuxValues>
-        </Component>
         <Component class="javax.swing.JButton" name="jButton4">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -368,6 +308,11 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtAddress">
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtPosition">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPositionActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

@@ -1,5 +1,9 @@
 package payroll;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import javax.swing.JOptionPane;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -30,20 +34,18 @@ public class ViewEmployee extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        Name = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtID = new javax.swing.JTextField();
         txtUsername = new javax.swing.JTextField();
-        txtPassword = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtContactnumber = new javax.swing.JTextField();
+        deleteEmployeeButton = new javax.swing.JButton();
         addEmployeeButton = new javax.swing.JButton();
         backTodashboard = new javax.swing.JButton();
-        cmbRole = new javax.swing.JComboBox<>();
         jButton4 = new javax.swing.JButton();
         address = new javax.swing.JLabel();
         txtAddress = new javax.swing.JTextField();
+        txtPosition = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -160,13 +162,9 @@ public class ViewEmployee extends javax.swing.JFrame {
         jTable1.setShowGrid(true);
         jScrollPane1.setViewportView(jTable1);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(245, 204, 160));
-        jLabel1.setText("ID");
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(245, 204, 160));
-        jLabel2.setText("NAME");
+        Name.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        Name.setForeground(new java.awt.Color(245, 204, 160));
+        Name.setText("NAME");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(245, 204, 160));
@@ -176,19 +174,19 @@ public class ViewEmployee extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(245, 204, 160));
         jLabel4.setText("POSITION");
 
-        txtID.addActionListener(new java.awt.event.ActionListener() {
+        txtContactnumber.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIDActionPerformed(evt);
+                txtContactnumberActionPerformed(evt);
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(228, 143, 69));
-        jButton1.setForeground(new java.awt.Color(107, 36, 12));
-        jButton1.setText("Delete Employee");
-        jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        deleteEmployeeButton.setBackground(new java.awt.Color(228, 143, 69));
+        deleteEmployeeButton.setForeground(new java.awt.Color(107, 36, 12));
+        deleteEmployeeButton.setText("Delete Employee");
+        deleteEmployeeButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        deleteEmployeeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                deleteEmployeeButtonActionPerformed(evt);
             }
         });
 
@@ -212,20 +210,6 @@ public class ViewEmployee extends javax.swing.JFrame {
             }
         });
 
-        cmbRole.setForeground(new java.awt.Color(153, 153, 153));
-        cmbRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select a Position", "Manager", "Assistant Manager", "Head Chef", "Sous Chef", "Line Cook", "Trainee Cook", "Pastry Chef", "Baker", "Barista", "Barista Trainee", "Dishwasher", "Waiter", "Cashier", "Receptionist", "Host", "Security Guard", "Delivery Rider ", "Accountant", "Inventory Specialist", "Storage Coordinator", "Janitor" }));
-        cmbRole.setFocusCycleRoot(true);
-        cmbRole.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cmbRoleItemStateChanged(evt);
-            }
-        });
-        cmbRole.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbRoleActionPerformed(evt);
-            }
-        });
-
         jButton4.setBackground(new java.awt.Color(228, 143, 69));
         jButton4.setForeground(new java.awt.Color(107, 36, 12));
         jButton4.setText("Edit Information");
@@ -240,6 +224,12 @@ public class ViewEmployee extends javax.swing.JFrame {
         address.setForeground(new java.awt.Color(245, 204, 160));
         address.setText("ADDRESS");
 
+        txtPosition.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPositionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -247,23 +237,21 @@ public class ViewEmployee extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel2)
+                    .addComponent(Name)
                     .addComponent(jLabel4)
                     .addComponent(address))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtID)
-                    .addComponent(txtUsername)
-                    .addComponent(txtPassword)
-                    .addComponent(cmbRole, 0, 193, Short.MAX_VALUE)
-                    .addComponent(txtAddress))
+                    .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
+                    .addComponent(txtContactnumber)
+                    .addComponent(txtAddress)
+                    .addComponent(txtPosition))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(backTodashboard, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(deleteEmployeeButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addEmployeeButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -277,21 +265,18 @@ public class ViewEmployee extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(22, 22, 22)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
+                            .addComponent(Name))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtContactnumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmbRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4)
+                            .addComponent(txtPosition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(address)
@@ -299,7 +284,7 @@ public class ViewEmployee extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(addEmployeeButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
+                        .addComponent(deleteEmployeeButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -326,17 +311,76 @@ public class ViewEmployee extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIDActionPerformed
-
     private void addEmployeeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEmployeeButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addEmployeeButtonActionPerformed
+                                              
+    String name = txtUsername.getText(); 
+    String position = txtPosition.getText(); 
+    String contactNumber = txtContactnumber.getText(); 
+    String address = txtAddress.getText();
+    
+    
+    if (name.isEmpty() ||  position.isEmpty() || contactNumber.isEmpty() || address.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "All fields must be filled out.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    
+    String url = "jdbc:mysql://localhost:3306/payroll_db"; 
+    String user = "root"; 
+    String pass = ""; 
+
+    Connection conn = null;
+    PreparedStatement pst = null;
+
+    try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+      
+        conn = DriverManager.getConnection(url, user, pass);
+        
+        
+        String sql = "INSERT INTO `employees`(`name`, `position`, `contactnumber`, `address`)VALUES(?, ?, ?, ?)";
+        
+        pst = conn.prepareStatement(sql);
+        
+        
+        pst.setString(1, name);  
+        pst.setString(2, position);  
+        pst.setString(3, contactNumber); 
+        pst.setString(4, address); 
+        
+        
+        int rowsInserted = pst.executeUpdate();
+        
+       
+        if (rowsInserted > 0) {
+            JOptionPane.showMessageDialog(this, "Employee added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            
+            txtUsername.setText(""); 
+            txtPosition.setText("");
+            txtContactnumber.setText("");
+            txtAddress.setText("");
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed to add employee.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    } finally {
+        
+        try {
+            if (pst != null) pst.close();
+            if (conn != null) conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+      
+        }
+    }//GEN-LAST:event_addEmployeeButtonActionPerformed
+   
+    }
+
+    private void deleteEmployeeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteEmployeeButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_deleteEmployeeButtonActionPerformed
 
     private void backTodashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backTodashboardActionPerformed
          this.setVisible(false);
@@ -344,17 +388,17 @@ public class ViewEmployee extends javax.swing.JFrame {
      back.setVisible(true);
     }//GEN-LAST:event_backTodashboardActionPerformed
 
-    private void cmbRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRoleActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbRoleActionPerformed
-
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void cmbRoleItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbRoleItemStateChanged
+    private void txtContactnumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContactnumberActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbRoleItemStateChanged
+    }//GEN-LAST:event_txtContactnumberActionPerformed
+
+    private void txtPositionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPositionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPositionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -392,22 +436,20 @@ public class ViewEmployee extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Name;
     private javax.swing.JButton addEmployeeButton;
     private javax.swing.JLabel address;
     private javax.swing.JButton backTodashboard;
-    private javax.swing.JComboBox<String> cmbRole;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton deleteEmployeeButton;
     private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField txtAddress;
-    private javax.swing.JTextField txtID;
-    private javax.swing.JTextField txtPassword;
+    private javax.swing.JTextField txtContactnumber;
+    private javax.swing.JTextField txtPosition;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }
