@@ -4,12 +4,58 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JTable;
+import java.sql.*;
 
 public class ViewEmployee extends javax.swing.JFrame {
+    public void populateTable() {
+    try{
+    
+    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/your_database_name", "your_username", "your_password");
 
-    /**
-     * Creates new form ViewEmployee
-     */
+        // Prepare   
+
+        String sql = "SELECT * FROM employees";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+
+        // Execute query and get result set
+        ResultSet rs = stmt.executeQuery();
+
+        // Create a DefaultTableModel
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Employee ID");
+        model.addColumn("Name");
+        model.addColumn("Position");
+
+        // Iterate through ResultSet and add rows to the model
+        while (rs.next()) {
+            Object[] rowData = {
+                rs.getInt("employee_id"),
+                rs.getString("name"),
+                rs.getString("position")
+            };
+            model.addRow(rowData);
+        }
+
+        // Set the model to the JTable
+        EmployeeInfoTable.setModel(model);
+
+        // Close resources
+        rs.close();
+        stmt.close();
+        conn.close();
+
+        // Print a message to confirm successful population (optional)
+        System.out.println("Table populated successfully!");
+    } catch (SQLException e) {
+        e.printStackTrace();
+        // Handle exceptions appropriately, e.g., display error messages to the user
+        System.err.println("Error populating table: " + e.getMessage());
+    }
+    
+    }
+
     public ViewEmployee() {
         initComponents();
     }
