@@ -204,7 +204,6 @@ public class AdminDashboard extends javax.swing.JFrame {
      ViewEmployee viewEmployee = new ViewEmployee();
      viewEmployee.setVisible(true);
      
-             
     }//GEN-LAST:event_viewEmployeebottonActionPerformed
 
     /**

@@ -4,15 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 
-/**
- *
- * @author sophi
- */
 public class ViewEmployee extends javax.swing.JFrame {
 
     /**
@@ -21,7 +13,7 @@ public class ViewEmployee extends javax.swing.JFrame {
     public ViewEmployee() {
         initComponents();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,9 +23,10 @@ public class ViewEmployee extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTextField1 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        EmployeeInfoTable = new javax.swing.JTable();
         Name = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -47,11 +40,13 @@ public class ViewEmployee extends javax.swing.JFrame {
         txtAddress = new javax.swing.JTextField();
         txtPosition = new javax.swing.JTextField();
 
+        jTextField1.setText("jTextField1");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(107, 36, 12));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        EmployeeInfoTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -158,9 +153,9 @@ public class ViewEmployee extends javax.swing.JFrame {
                 "ID", "Name", "Position", "Contact Number ", "Address"
             }
         ));
-        jTable1.setSelectionBackground(new java.awt.Color(255, 255, 255));
-        jTable1.setShowGrid(true);
-        jScrollPane1.setViewportView(jTable1);
+        EmployeeInfoTable.setSelectionBackground(new java.awt.Color(255, 255, 255));
+        EmployeeInfoTable.setShowGrid(true);
+        jScrollPane1.setViewportView(EmployeeInfoTable);
 
         Name.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         Name.setForeground(new java.awt.Color(245, 204, 160));
@@ -235,7 +230,7 @@ public class ViewEmployee extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(Name)
@@ -243,10 +238,10 @@ public class ViewEmployee extends javax.swing.JFrame {
                     .addComponent(address))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
+                    .addComponent(txtUsername)
                     .addComponent(txtContactnumber)
                     .addComponent(txtAddress)
-                    .addComponent(txtPosition))
+                    .addComponent(txtPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -265,7 +260,14 @@ public class ViewEmployee extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
+                        .addComponent(addEmployeeButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(deleteEmployeeButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(backTodashboard))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Name))
@@ -280,16 +282,8 @@ public class ViewEmployee extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(address)
-                            .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(addEmployeeButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(deleteEmployeeButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(backTodashboard)))
-                .addGap(18, 18, Short.MAX_VALUE)
+                            .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -311,6 +305,7 @@ public class ViewEmployee extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    
     private void addEmployeeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEmployeeButtonActionPerformed
                                               
     String name = txtUsername.getText(); 
@@ -318,16 +313,16 @@ public class ViewEmployee extends javax.swing.JFrame {
     String contactNumber = txtContactnumber.getText(); 
     String address = txtAddress.getText();
     
+    String url = "jdbc:mysql://localhost:3306/payroll_db"; 
+    String user = "root"; 
+    String pass = ""; 
+
     
     if (name.isEmpty() ||  position.isEmpty() || contactNumber.isEmpty() || address.isEmpty()) {
         JOptionPane.showMessageDialog(this, "All fields must be filled out.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
-    
-    String url = "jdbc:mysql://localhost:3306/payroll_db"; 
-    String user = "root"; 
-    String pass = ""; 
 
     Connection conn = null;
     PreparedStatement pst = null;
@@ -359,6 +354,7 @@ public class ViewEmployee extends javax.swing.JFrame {
             txtPosition.setText("");
             txtContactnumber.setText("");
             txtAddress.setText("");
+            
         } else {
             JOptionPane.showMessageDialog(this, "Failed to add employee.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -374,8 +370,9 @@ public class ViewEmployee extends javax.swing.JFrame {
             e.printStackTrace();
       
         }
+        
     }//GEN-LAST:event_addEmployeeButtonActionPerformed
-   
+    
     }
 
     private void deleteEmployeeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteEmployeeButtonActionPerformed
@@ -436,6 +433,7 @@ public class ViewEmployee extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable EmployeeInfoTable;
     private javax.swing.JLabel Name;
     private javax.swing.JButton addEmployeeButton;
     private javax.swing.JLabel address;
@@ -446,7 +444,7 @@ public class ViewEmployee extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtContactnumber;
     private javax.swing.JTextField txtPosition;
