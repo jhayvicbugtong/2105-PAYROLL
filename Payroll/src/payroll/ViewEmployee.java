@@ -3,57 +3,60 @@ package payroll;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import javax.swing.JOptionPane;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JTable;
-import java.sql.*;
+
+import javax.swing.JOptionPane;
+
+
 
 public class ViewEmployee extends javax.swing.JFrame {
-    public void populateTable() {
-    try{
     
-    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/your_database_name", "your_username", "your_password");
+    public void loadEmployeeDataToTable() {
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        
+        String query = "SELECT * FROM employees";
+    
+         try {
+        // Set up database connection
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/payroll_db", "root", "");
+        stmt = conn.createStatement();
+        rs = stmt.executeQuery(query);
+        
+        // Create a DefaultTableModel to hold the data for the JTable
+        DefaultTableModel model = (DefaultTableModel) EmployeeInfoTable.getModel();
+        
+        // Clear any existing rows
+        model.setRowCount(0);
 
-        // Prepare   
-
-        String sql = "SELECT * FROM employees";
-        PreparedStatement stmt = conn.prepareStatement(sql);
-
-        // Execute query and get result set
-        ResultSet rs = stmt.executeQuery();
-
-        // Create a DefaultTableModel
-        DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("Employee ID");
-        model.addColumn("Name");
-        model.addColumn("Position");
-
-        // Iterate through ResultSet and add rows to the model
+        // Add each row from the ResultSet to the table
         while (rs.next()) {
-            Object[] rowData = {
-                rs.getInt("employee_id"),
-                rs.getString("name"),
-                rs.getString("position")
-            };
-            model.addRow(rowData);
+            Object[] row = new Object[5];
+            row[0] = rs.getInt("id");        // Assuming "id" is the first column
+            row[1] = rs.getString("name");
+            row[2] = rs.getString("position");
+            row[3] = rs.getString("contactnumber");
+            row[4] = rs.getString("address");
+            
+            model.addRow(row);  // Add the row to the table model
         }
-
-        // Set the model to the JTable
-        EmployeeInfoTable.setModel(model);
-
-        // Close resources
-        rs.close();
-        stmt.close();
-        conn.close();
-
-        // Print a message to confirm successful population (optional)
-        System.out.println("Table populated successfully!");
     } catch (SQLException e) {
         e.printStackTrace();
-        // Handle exceptions appropriately, e.g., display error messages to the user
-        System.err.println("Error populating table: " + e.getMessage());
-    }
-    
+        JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    } finally {
+        try {
+            if (rs != null) rs.close();
+            if (stmt != null) stmt.close();
+            if (conn != null) conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+         }
     }
 
     public ViewEmployee() {
@@ -319,12 +322,12 @@ public class ViewEmployee extends javax.swing.JFrame {
                             .addComponent(Name))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtPosition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(txtContactnumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4)
-                            .addComponent(txtPosition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(address)
@@ -353,8 +356,7 @@ public class ViewEmployee extends javax.swing.JFrame {
 
     
     private void addEmployeeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEmployeeButtonActionPerformed
-                                              
-    String name = txtUsername.getText(); 
+String name = txtUsername.getText(); 
     String position = txtPosition.getText(); 
     String contactNumber = txtContactnumber.getText(); 
     String address = txtAddress.getText();
@@ -363,58 +365,55 @@ public class ViewEmployee extends javax.swing.JFrame {
     String user = "root"; 
     String pass = ""; 
 
-    
-    if (name.isEmpty() ||  position.isEmpty() || contactNumber.isEmpty() || address.isEmpty()) {
+    if (name.isEmpty() || position.isEmpty() || contactNumber.isEmpty() || address.isEmpty()) {
         JOptionPane.showMessageDialog(this, "All fields must be filled out.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
-
 
     Connection conn = null;
     PreparedStatement pst = null;
 
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
-      
+
         conn = DriverManager.getConnection(url, user, pass);
         
-        
-        String sql = "INSERT INTO `employees`(`name`, `position`, `contactnumber`, `address`)VALUES(?, ?, ?, ?)";
-        
+        String sql = "INSERT INTO `employees`(`name`, `position`, `contactnumber`, `address`) VALUES(?, ?, ?, ?)";
         pst = conn.prepareStatement(sql);
-        
-        
-        pst.setString(1, name);  
-        pst.setString(2, position);  
-        pst.setString(3, contactNumber); 
-        pst.setString(4, address); 
-        
-        
+
+        pst.setString(1, name);
+        pst.setString(2, position);
+        pst.setString(3, contactNumber);
+        pst.setString(4, address);
+
         int rowsInserted = pst.executeUpdate();
-        
-       
+
         if (rowsInserted > 0) {
             JOptionPane.showMessageDialog(this, "Employee added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-            
+
+            // Clear the input fields
             txtUsername.setText(""); 
             txtPosition.setText("");
             txtContactnumber.setText("");
             txtAddress.setText("");
-            
+
+            // Refresh the table to show the new employee
+            loadEmployeeData();
         } else {
             JOptionPane.showMessageDialog(this, "Failed to add employee.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    } catch (Exception e) {
+    } catch (SQLException e) {
         e.printStackTrace();
         JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    } catch (ClassNotFoundException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Driver not found: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     } finally {
-        
         try {
             if (pst != null) pst.close();
             if (conn != null) conn.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
-      
         }
         
     }//GEN-LAST:event_addEmployeeButtonActionPerformed
@@ -496,4 +495,8 @@ public class ViewEmployee extends javax.swing.JFrame {
     private javax.swing.JTextField txtPosition;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
+
+    private void loadEmployeeData() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

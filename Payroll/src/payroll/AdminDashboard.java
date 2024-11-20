@@ -200,9 +200,10 @@ public class AdminDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_logOutbuttonActionPerformed
 
     private void viewEmployeebottonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewEmployeebottonActionPerformed
-     this.setVisible(false);
-     ViewEmployee viewEmployee = new ViewEmployee();
-     viewEmployee.setVisible(true);
+    this.setVisible(false);
+    ViewEmployee viewEmployee = new ViewEmployee();
+    viewEmployee.setVisible(true);
+    viewEmployee.loadEmployeeDataToTable();
      
     }//GEN-LAST:event_viewEmployeebottonActionPerformed
 
