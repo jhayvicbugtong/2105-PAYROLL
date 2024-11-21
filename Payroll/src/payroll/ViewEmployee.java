@@ -20,44 +20,50 @@ public class ViewEmployee extends javax.swing.JFrame {
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
-        
-        String query = "SELECT * FROM employees";
-    
-         try {
-        // Set up database connection
-        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/payroll_db", "root", "");
-        stmt = conn.createStatement();
-        rs = stmt.executeQuery(query);
-        
-        // Create a DefaultTableModel to hold the data for the JTable
-        DefaultTableModel model = (DefaultTableModel) EmployeeInfoTable.getModel();
-        
-        // Clear any existing rows
-        model.setRowCount(0);
 
-        // Add each row from the ResultSet to the table
-        while (rs.next()) {
-            Object[] row = new Object[5];
-            row[0] = rs.getInt("id");        // Assuming "id" is the first column
-            row[1] = rs.getString("name");
-            row[2] = rs.getString("position");
-            row[3] = rs.getString("contactnumber");
-            row[4] = rs.getString("address");
-            
-            model.addRow(row);  // Add the row to the table model
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    } finally {
+        // SQL query to join employees and positions tables
+        String query = "SELECT e.employee_id, e.name, p.position_name, e.contact_number, e.address, e.day_off, e.date_hired " +
+                       "FROM employees e " +
+                       "JOIN positions p ON e.position_id = p.position_id";
+
         try {
-            if (rs != null) rs.close();
-            if (stmt != null) stmt.close();
-            if (conn != null) conn.close();
+            // Set up database connection
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/payroll_db", "root", "");
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(query);
+
+            // Create a DefaultTableModel to hold the data for the JTable
+            DefaultTableModel model = (DefaultTableModel) EmployeeInfoTable.getModel();
+
+            // Clear any existing rows
+            model.setRowCount(0);
+
+            // Add each row from the ResultSet to the table
+            while (rs.next()) {
+                Object[] row = new Object[7]; // Adjust the array size to match the number of columns
+
+                row[0] = rs.getInt("employee_id");  // Employee ID
+                row[1] = rs.getString("name");       // Name
+                row[2] = rs.getString("position_name"); // Position Name from positions table
+                row[3] = rs.getString("contact_number"); // Contact Number
+                row[4] = rs.getString("address");    // Address
+                row[5] = rs.getString("day_off");    // Day Off
+                row[6] = rs.getDate("date_hired");   // Date Hired
+
+                model.addRow(row);  // Add the row to the table model
+            }
         } catch (SQLException e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-         }
     }
 
     public ViewEmployee() {
@@ -89,6 +95,10 @@ public class ViewEmployee extends javax.swing.JFrame {
         address = new javax.swing.JLabel();
         txtAddress = new javax.swing.JTextField();
         txtPosition = new javax.swing.JTextField();
+        address1 = new javax.swing.JLabel();
+        txtDayOff = new javax.swing.JTextField();
+        address2 = new javax.swing.JLabel();
+        txtDateHired = new javax.swing.JTextField();
 
         jTextField1.setText("jTextField1");
 
@@ -98,74 +108,83 @@ public class ViewEmployee extends javax.swing.JFrame {
 
         EmployeeInfoTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Name", "Position", "Contact Number ", "Address"
+                "ID", "Name", "Position", "Contact No. ", "Address", "Day Off", "Date Hired"
             }
         ));
+        EmployeeInfoTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         EmployeeInfoTable.setSelectionBackground(new java.awt.Color(255, 255, 255));
         EmployeeInfoTable.setShowGrid(true);
         jScrollPane1.setViewportView(EmployeeInfoTable);
+        if (EmployeeInfoTable.getColumnModel().getColumnCount() > 0) {
+            EmployeeInfoTable.getColumnModel().getColumn(0).setPreferredWidth(30);
+            EmployeeInfoTable.getColumnModel().getColumn(1).setPreferredWidth(185);
+            EmployeeInfoTable.getColumnModel().getColumn(2).setPreferredWidth(160);
+            EmployeeInfoTable.getColumnModel().getColumn(3).setPreferredWidth(120);
+            EmployeeInfoTable.getColumnModel().getColumn(4).setPreferredWidth(250);
+            EmployeeInfoTable.getColumnModel().getColumn(6).setPreferredWidth(70);
+        }
 
         Name.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         Name.setForeground(new java.awt.Color(245, 204, 160));
@@ -235,37 +254,46 @@ public class ViewEmployee extends javax.swing.JFrame {
             }
         });
 
+        address1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        address1.setForeground(new java.awt.Color(245, 204, 160));
+        address1.setText("DAY OFF");
+
+        address2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        address2.setForeground(new java.awt.Color(245, 204, 160));
+        address2.setText("DATE HIRED");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(Name)
                     .addComponent(jLabel4)
-                    .addComponent(address))
+                    .addComponent(address)
+                    .addComponent(address1)
+                    .addComponent(address2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtUsername)
                     .addComponent(txtContactnumber)
                     .addComponent(txtAddress)
-                    .addComponent(txtPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
+                    .addComponent(txtPosition, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
+                    .addComponent(txtDayOff)
+                    .addComponent(txtDateHired))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(addEmployeeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(100, 100, 100))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(deleteEmployeeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(backTodashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(addEmployeeButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(deleteEmployeeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(backTodashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 899, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -294,10 +322,18 @@ public class ViewEmployee extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(address)
-                            .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(backTodashboard))))
+                            .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDayOff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(address1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDateHired, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(address2)
+                    .addComponent(backTodashboard))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -316,7 +352,7 @@ public class ViewEmployee extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 // Method to refresh the table with updated data
-private void refreshEmployeeTable() {
+    private void refreshEmployeeTable() {
     String url = "jdbc:mysql://localhost:3306/payroll_db";
     String user = "root";
     String pass = "";
@@ -330,7 +366,11 @@ private void refreshEmployeeTable() {
 
         conn = DriverManager.getConnection(url, user, pass);
 
-        String sql = "SELECT * FROM employees";
+        // SQL query to fetch employee details along with the position name
+        String sql = "SELECT e.employee_id, e.name, p.position_name, e.contact_number, e.address, e.day_off, e.date_hired " +
+                     "FROM employees e " +
+                     "JOIN positions p ON e.position_id = p.position_id";
+
         pst = conn.prepareStatement(sql);
         rs = pst.executeQuery();
 
@@ -341,11 +381,13 @@ private void refreshEmployeeTable() {
         // Add rows to the table model
         while (rs.next()) {
             Object[] row = {
-                rs.getInt("id"),
+                rs.getInt("employee_id"),
                 rs.getString("name"),
-                rs.getString("position"),
-                rs.getString("contactnumber"),
-                rs.getString("address")
+                rs.getString("position_name"), // Fetching position name from the positions table
+                rs.getString("contact_number"),
+                rs.getString("address"),
+                rs.getString("day_off"),
+                rs.getDate("date_hired") // Display the date hired
             };
             model.addRow(row);
         }
@@ -364,56 +406,78 @@ private void refreshEmployeeTable() {
             e.printStackTrace();
         }
     }
-}
-
+    }
     
     private void addEmployeeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEmployeeButtonActionPerformed
-    String name = txtUsername.getText(); 
-    String position = txtPosition.getText(); 
-    String contactNumber = txtContactnumber.getText(); 
+    String name = txtUsername.getText();
+    String contactNumber = txtContactnumber.getText();
     String address = txtAddress.getText();
-    
-    String url = "jdbc:mysql://localhost:3306/payroll_db"; 
-    String user = "root"; 
-    String pass = ""; 
+    String positionName = txtPosition.getText(); // Get position name
+    String dayOff = txtDayOff.getText(); // Get day off
+    String dateHired = txtDateHired.getText(); // Get date hired
 
-    if (name.isEmpty() || position.isEmpty() || contactNumber.isEmpty() || address.isEmpty()) {
+    String url = "jdbc:mysql://localhost:3306/payroll_db";
+    String user = "root";
+    String pass = "";
+
+    // Validate input
+    if (name.isEmpty() || positionName.isEmpty() || contactNumber.isEmpty() || address.isEmpty() || dayOff.isEmpty() || dateHired.isEmpty()) {
         JOptionPane.showMessageDialog(this, "All fields must be filled out.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
     Connection conn = null;
     PreparedStatement pst = null;
+    ResultSet rs = null;
 
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
-
         conn = DriverManager.getConnection(url, user, pass);
-        
-        String sql = "INSERT INTO `employees`(`name`, `position`, `contactnumber`, `address`) VALUES(?, ?, ?, ?)";
-        pst = conn.prepareStatement(sql);
 
+        // Step 1: Retrieve position_id based on position_name
+        String getPositionIdSql = "SELECT position_id FROM positions WHERE position_name = ?";
+        pst = conn.prepareStatement(getPositionIdSql);
+        pst.setString(1, positionName);
+        rs = pst.executeQuery();
+
+        int positionId = -1;
+        if (rs.next()) {
+            positionId = rs.getInt("position_id");
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid position name. Please check the positions.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        pst.close(); // Close previous PreparedStatement
+
+        // Step 2: Insert the new employee with day_off and date_hired
+        String insertEmployeeSql = "INSERT INTO employees (name, position_id, contact_number, address, day_off, date_hired) VALUES (?, ?, ?, ?, ?, ?)";
+        pst = conn.prepareStatement(insertEmployeeSql);
         pst.setString(1, name);
-        pst.setString(2, position);
+        pst.setInt(2, positionId);
         pst.setString(3, contactNumber);
         pst.setString(4, address);
+        pst.setString(5, dayOff); // Insert the day off as a string (e.g., 'Monday')
+        pst.setDate(6, java.sql.Date.valueOf(dateHired)); // Convert date string to SQL date
 
         int rowsInserted = pst.executeUpdate();
 
         if (rowsInserted > 0) {
-         JOptionPane.showMessageDialog(this, "Employee added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Employee added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
-         // Clear the input fields
-           txtUsername.setText("");
-        txtPosition.setText("");
-        txtContactnumber.setText("");
-        txtAddress.setText("");
+            // Clear input fields
+            txtUsername.setText("");
+            txtPosition.setText("");
+            txtContactnumber.setText("");
+            txtAddress.setText("");
+            txtDayOff.setText("");
+            txtDateHired.setText("");
 
             // Refresh the employee table
-        refreshEmployeeTable();
-    } else {
-    JOptionPane.showMessageDialog(this, "Failed to add employee.", "Error", JOptionPane.ERROR_MESSAGE);
-    }
+            refreshEmployeeTable();
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed to add employee.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
 
     } catch (SQLException e) {
         e.printStackTrace();
@@ -423,11 +487,14 @@ private void refreshEmployeeTable() {
         JOptionPane.showMessageDialog(this, "Driver not found: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     } finally {
         try {
+            if (rs != null) rs.close();
             if (pst != null) pst.close();
             if (conn != null) conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    
+
         
     }//GEN-LAST:event_addEmployeeButtonActionPerformed
     
@@ -552,6 +619,8 @@ private void refreshEmployeeTable() {
     private javax.swing.JLabel Name;
     private javax.swing.JButton addEmployeeButton;
     private javax.swing.JLabel address;
+    private javax.swing.JLabel address1;
+    private javax.swing.JLabel address2;
     private javax.swing.JButton backTodashboard;
     private javax.swing.JButton deleteEmployeeButton;
     private javax.swing.JButton jButton4;
@@ -562,6 +631,8 @@ private void refreshEmployeeTable() {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtContactnumber;
+    private javax.swing.JTextField txtDateHired;
+    private javax.swing.JTextField txtDayOff;
     private javax.swing.JTextField txtPosition;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
