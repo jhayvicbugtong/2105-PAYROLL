@@ -4,6 +4,16 @@
  */
 package payroll;
 
+import com.sun.jdi.connect.spi.Connection;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 /**
  *
  * @author sophi
@@ -32,10 +42,10 @@ public class TimesheetEmployeeSelection extends javax.swing.JFrame {
         txtEmployeeselection = new javax.swing.JLabel();
         goTimesheetButton = new javax.swing.JButton();
         txtSelectemployee1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        EmployeeName = new javax.swing.JTextField();
         txtSelectemployee2 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        StartDate = new com.toedter.calendar.JDateChooser();
+        EndDate = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,9 +75,9 @@ public class TimesheetEmployeeSelection extends javax.swing.JFrame {
         txtSelectemployee1.setForeground(new java.awt.Color(245, 204, 160));
         txtSelectemployee1.setText("Start Date:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        EmployeeName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                EmployeeNameActionPerformed(evt);
             }
         });
 
@@ -87,12 +97,12 @@ public class TimesheetEmployeeSelection extends javax.swing.JFrame {
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtSelectemployee1)
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(StartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(EndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtSelectemployee2)))
-                        .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(EmployeeName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(goTimesheetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -108,17 +118,17 @@ public class TimesheetEmployeeSelection extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtSelectemployee)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(EmployeeName, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(txtSelectemployee2)
                         .addGap(28, 28, 28))
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(EndDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(txtSelectemployee1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(StartDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(goTimesheetButton)
                 .addContainerGap(26, Short.MAX_VALUE))
@@ -134,7 +144,7 @@ public class TimesheetEmployeeSelection extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -154,16 +164,98 @@ public class TimesheetEmployeeSelection extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    private void EmployeeNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmployeeNameActionPerformed
+        
+    }//GEN-LAST:event_EmployeeNameActionPerformed
 
     private void goTimesheetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goTimesheetButtonActionPerformed
-        Timesheet Timesheet = new Timesheet();
-        Timesheet.setVisible(true);
-        TimesheetEmployeeSelection.this.setVisible(false);
+                // Retrieve Employee Name or ID
+        String employeeNameOrId = EmployeeName.getText();
+
+    // Retrieve dates from JDateChooser
+        Date startDate = StartDate.getDate();
+        Date endDate = EndDate.getDate();
+
+    // Validate if Employee Name/ID field is empty
+        if (employeeNameOrId.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please enter the Employee Name or ID.");
+        return;
+    }
+        // Validate if Start Date or End Date is not selected
+        if (startDate == null || endDate == null) {
+        JOptionPane.showMessageDialog(this, "Please select both Start Date and End Date.");
+        return;
+    }
+        if (startDate.after(endDate)) {
+        JOptionPane.showMessageDialog(this, "Invalid date range. Start Date must be before or equal to End Date.");
+        return;
+    }
+        // Format dates into "YYYY-MM-DD" string format
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    String startDateStr = dateFormat.format(startDate);
+    String endDateStr = dateFormat.format(endDate);
+
+    try {
+        if (doesEmployeeExist(employeeNameOrId)) {
+            JOptionPane.showMessageDialog(this, "Employee found! Proceeding...");
+            
+            // Proceed with further actions, like showing data
+            showEmployeeData(employeeNameOrId, startDateStr, endDateStr);
+        } else {
+            JOptionPane.showMessageDialog(this, "Employee not found in the database.");
+        }
+    } catch (IOException ex) {
+        JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
+    }     
     }//GEN-LAST:event_goTimesheetButtonActionPerformed
 
+    // Function to check if employee exists in the database
+    private boolean doesEmployeeExist(String employeeNameOrId) throws IOException {
+     boolean exists = false;
+    
+    java.sql.Connection conn = null;
+    PreparedStatement preparedStatement = null;
+    ResultSet rs = null;
+
+    String url = "jdbc:mysql://localhost:3306/payroll_db";
+    String user = "root";
+    String pass = "";
+
+    try {
+        // Connect to the database (no need for extra cast)
+        conn = DriverManager.getConnection(url, user, pass);
+
+        // Query to check if employee exists
+        String query = "SELECT * FROM timesheet WHERE employee_id = ? OR name = ?";
+        preparedStatement = conn.prepareStatement(query); // Use the preparedStatement variable
+        preparedStatement.setString(1, employeeNameOrId);
+        preparedStatement.setString(2, employeeNameOrId);
+
+        rs = preparedStatement.executeQuery(); // Use rs instead of pst to store query result
+
+        // If a result is found, the employee exists
+        exists = rs.next();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Database error: " + ex.getMessage());
+    } finally {
+        // Close resources
+        try {
+            if (rs != null) rs.close();   // Close ResultSet
+            if (preparedStatement != null) preparedStatement.close(); // Close PreparedStatement
+            if (conn != null) conn.close(); // Close Connection
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error closing database resources: " + ex.getMessage());
+        }
+    }
+
+    return exists;
+}
+
+// Function to display or process employee data
+private void showEmployeeData(String employeeNameOrId, String startDate, String endDate) {
+    // Add logic to retrieve and display data (e.g., open a new panel or populate a table)
+    JOptionPane.showMessageDialog(this, "Showing data for " + employeeNameOrId + " from " + startDate + " to " + endDate);
+}
     /**
      * @param args the command line arguments
      */
@@ -200,15 +292,23 @@ public class TimesheetEmployeeSelection extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField EmployeeName;
+    private com.toedter.calendar.JDateChooser EndDate;
+    private com.toedter.calendar.JDateChooser StartDate;
     private javax.swing.JButton goTimesheetButton;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel txtEmployeeselection;
     private javax.swing.JLabel txtSelectemployee;
     private javax.swing.JLabel txtSelectemployee1;
     private javax.swing.JLabel txtSelectemployee2;
     // End of variables declaration//GEN-END:variables
+
+    private boolean doesEmployeeExist() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private void showEmployeeData(String startDateStr, String endDateStr) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

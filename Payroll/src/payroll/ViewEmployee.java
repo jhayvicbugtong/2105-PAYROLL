@@ -91,7 +91,6 @@ public class ViewEmployee extends javax.swing.JFrame {
         deleteEmployeeButton = new javax.swing.JButton();
         addEmployeeButton = new javax.swing.JButton();
         backTodashboard = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
         address = new javax.swing.JLabel();
         txtAddress = new javax.swing.JTextField();
         txtPosition = new javax.swing.JTextField();
@@ -172,17 +171,35 @@ public class ViewEmployee extends javax.swing.JFrame {
             new String [] {
                 "ID", "Name", "Position", "Contact No. ", "Address", "Day Off", "Date Hired"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         EmployeeInfoTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        EmployeeInfoTable.setColumnSelectionAllowed(true);
         EmployeeInfoTable.setSelectionBackground(new java.awt.Color(255, 255, 255));
         EmployeeInfoTable.setShowGrid(true);
+        EmployeeInfoTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(EmployeeInfoTable);
+        EmployeeInfoTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         if (EmployeeInfoTable.getColumnModel().getColumnCount() > 0) {
+            EmployeeInfoTable.getColumnModel().getColumn(0).setResizable(false);
             EmployeeInfoTable.getColumnModel().getColumn(0).setPreferredWidth(30);
+            EmployeeInfoTable.getColumnModel().getColumn(1).setResizable(false);
             EmployeeInfoTable.getColumnModel().getColumn(1).setPreferredWidth(185);
+            EmployeeInfoTable.getColumnModel().getColumn(2).setResizable(false);
             EmployeeInfoTable.getColumnModel().getColumn(2).setPreferredWidth(160);
+            EmployeeInfoTable.getColumnModel().getColumn(3).setResizable(false);
             EmployeeInfoTable.getColumnModel().getColumn(3).setPreferredWidth(120);
+            EmployeeInfoTable.getColumnModel().getColumn(4).setResizable(false);
             EmployeeInfoTable.getColumnModel().getColumn(4).setPreferredWidth(250);
+            EmployeeInfoTable.getColumnModel().getColumn(5).setResizable(false);
+            EmployeeInfoTable.getColumnModel().getColumn(6).setResizable(false);
             EmployeeInfoTable.getColumnModel().getColumn(6).setPreferredWidth(70);
         }
 
@@ -234,16 +251,6 @@ public class ViewEmployee extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setBackground(new java.awt.Color(228, 143, 69));
-        jButton4.setForeground(new java.awt.Color(107, 36, 12));
-        jButton4.setText("Edit Information");
-        jButton4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
         address.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         address.setForeground(new java.awt.Color(245, 204, 160));
         address.setText("ADDRESS");
@@ -287,8 +294,7 @@ public class ViewEmployee extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(addEmployeeButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(deleteEmployeeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(deleteEmployeeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(backTodashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -304,9 +310,7 @@ public class ViewEmployee extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(addEmployeeButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(deleteEmployeeButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4))
+                        .addComponent(deleteEmployeeButton))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -581,10 +585,6 @@ if (confirmation == JOptionPane.YES_OPTION) {
      back.setVisible(true);
     }//GEN-LAST:event_backTodashboardActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
-
     private void txtContactnumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContactnumberActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtContactnumberActionPerformed
@@ -637,7 +637,6 @@ if (confirmation == JOptionPane.YES_OPTION) {
     private javax.swing.JLabel address2;
     private javax.swing.JButton backTodashboard;
     private javax.swing.JButton deleteEmployeeButton;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
