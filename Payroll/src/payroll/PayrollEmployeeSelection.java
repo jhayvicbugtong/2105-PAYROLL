@@ -1,5 +1,10 @@
 package payroll;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -117,9 +122,77 @@ public class PayrollEmployeeSelection extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void goToPayrollButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goToPayrollButtonActionPerformed
-        SecondPayrollPanel secondPayrollPanel = new SecondPayrollPanel();
-        secondPayrollPanel.setVisible(true);
-        PayrollEmployeeSelection.this.setVisible(false);
+        // Retrieve Employee Name or ID from the text field
+    String employeeNameOrId = jTextField1.getText();
+
+    // Validate if the input field is empty
+    if (employeeNameOrId.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please enter the Employee Name or ID.");
+        return;
+    }
+
+    try {
+        // Check if the employee exists in the payroll table
+        if (doesEmployeeExist(employeeNameOrId)) {
+            // Employee found, open the SecondPayrollPanel
+            JOptionPane.showMessageDialog(this, "Employee found! Proceeding to payroll...");
+
+            // Create and display the SecondPayrollPanel
+            SecondPayrollPanel secondPayrollPanel = new SecondPayrollPanel();
+            secondPayrollPanel.setVisible(true);
+
+            // Close the current window if necessary
+            this.setVisible(false);
+        } else {
+            // Employee not found
+            JOptionPane.showMessageDialog(this, "Employee not found in the payroll database.");
+        }
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
+    }   
+}
+
+// Function to check if the employee exists in the payroll database
+private boolean doesEmployeeExist(String employeeNameOrId) {
+    boolean exists = false;
+
+    java.sql.Connection conn = null;
+    PreparedStatement preparedStatement = null;
+    ResultSet rs = null;
+
+    String url = "jdbc:mysql://localhost:3306/payroll_db";
+    String user = "root";
+    String pass = "";
+
+    try {
+        // Connect to the database
+        conn = DriverManager.getConnection(url, user, pass);
+
+        // Query to check if employee exists in the payroll table
+        String query = "SELECT * FROM employees WHERE employee_id = ? OR name = ?";
+        preparedStatement = conn.prepareStatement(query);
+        preparedStatement.setString(1, employeeNameOrId);
+        preparedStatement.setString(2, employeeNameOrId);
+
+        // Execute the query
+        rs = preparedStatement.executeQuery();
+
+        // If a result is found, the employee exists
+        exists = rs.next();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Database error: " + ex.getMessage());
+    } finally {
+        // Close resources
+        try {
+            if (rs != null) rs.close();
+            if (preparedStatement != null) preparedStatement.close();
+            if (conn != null) conn.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error closing database resources: " + ex.getMessage());
+        }
+    }
+
+    return exists;
     }//GEN-LAST:event_goToPayrollButtonActionPerformed
 
     /**

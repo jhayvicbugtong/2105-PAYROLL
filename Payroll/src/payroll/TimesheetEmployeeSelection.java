@@ -237,7 +237,7 @@ public class TimesheetEmployeeSelection extends javax.swing.JFrame {
         conn = DriverManager.getConnection(url, user, pass);
 
         // Query to check if employee exists
-        String query = "SELECT * FROM employees WHERE employee_id = ? OR name = ?";
+        String query = "SELECT * FROM timesheet WHERE employee_id = ? OR name = ?";
         preparedStatement = conn.prepareStatement(query);
         preparedStatement.setString(1, employeeNameOrId);
         preparedStatement.setString(2, employeeNameOrId);
