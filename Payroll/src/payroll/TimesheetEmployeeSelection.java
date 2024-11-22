@@ -209,10 +209,21 @@ public class TimesheetEmployeeSelection extends javax.swing.JFrame {
     }     
     }//GEN-LAST:event_goTimesheetButtonActionPerformed
 
+    // Function to open the Timesheet window
+    private void openTimesheetWindow(String employeeNameOrId, String startDateStr, String endDateStr) {
+    // Create an instance of the Timesheet class (Assuming it's a JFrame)
+    Timesheet timesheetWindow = new Timesheet();
+
+    // Set the window to visible
+    timesheetWindow.setVisible(true);
+
+    // Optionally, you can hide the current window if needed:
+    this.setVisible(false);
+}
     // Function to check if employee exists in the database
     private boolean doesEmployeeExist(String employeeNameOrId) throws IOException {
      boolean exists = false;
-    
+
     java.sql.Connection conn = null;
     PreparedStatement preparedStatement = null;
     ResultSet rs = null;
@@ -222,16 +233,16 @@ public class TimesheetEmployeeSelection extends javax.swing.JFrame {
     String pass = "";
 
     try {
-        // Connect to the database (no need for extra cast)
+        // Connect to the database
         conn = DriverManager.getConnection(url, user, pass);
 
         // Query to check if employee exists
-        String query = "SELECT * FROM timesheet WHERE employee_id = ? OR name = ?";
-        preparedStatement = conn.prepareStatement(query); // Use the preparedStatement variable
+        String query = "SELECT * FROM employees WHERE employee_id = ? OR name = ?";
+        preparedStatement = conn.prepareStatement(query);
         preparedStatement.setString(1, employeeNameOrId);
         preparedStatement.setString(2, employeeNameOrId);
 
-        rs = preparedStatement.executeQuery(); // Use rs instead of pst to store query result
+        rs = preparedStatement.executeQuery();
 
         // If a result is found, the employee exists
         exists = rs.next();
@@ -240,9 +251,9 @@ public class TimesheetEmployeeSelection extends javax.swing.JFrame {
     } finally {
         // Close resources
         try {
-            if (rs != null) rs.close();   // Close ResultSet
-            if (preparedStatement != null) preparedStatement.close(); // Close PreparedStatement
-            if (conn != null) conn.close(); // Close Connection
+            if (rs != null) rs.close();
+            if (preparedStatement != null) preparedStatement.close();
+            if (conn != null) conn.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error closing database resources: " + ex.getMessage());
         }
