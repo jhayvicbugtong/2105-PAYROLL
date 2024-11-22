@@ -501,64 +501,78 @@ public class ViewEmployee extends javax.swing.JFrame {
     }
 
     private void deleteEmployeeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteEmployeeButtonActionPerformed
-        // Get the selected row from the table
-    int selectedRow = EmployeeInfoTable.getSelectedRow();
-    
-    if (selectedRow == -1) {
-        // No row is selected, show an error message
-        JOptionPane.showMessageDialog(this, "Please select an employee to delete.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+    // Get the selected row from the table
+int selectedRow = EmployeeInfoTable.getSelectedRow();
 
-    // Get the employee ID from the selected row (assuming the ID is in the first column)
-    int employeeId = (int) EmployeeInfoTable.getValueAt(selectedRow, 0); // Assuming the ID is in the first column
+if (selectedRow == -1) {
+    // No row is selected, show an error message
+    JOptionPane.showMessageDialog(this, "Please select an employee to delete.", "Error", JOptionPane.ERROR_MESSAGE);
+    return;
+}
 
-    // Ask for confirmation before deleting
-    int confirmation = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this employee?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
-    
-    if (confirmation == JOptionPane.YES_OPTION) {
-        String url = "jdbc:mysql://localhost:3306/payroll_db";
-        String user = "root";
-        String pass = "";
+// Get the employee ID from the selected row (assuming the ID is in the first column)
+int employeeId = (int) EmployeeInfoTable.getValueAt(selectedRow, 0); // Assuming the ID is in the first column
 
-        Connection conn = null;
-        PreparedStatement pst = null;
+// Ask for confirmation before deleting
+int confirmation = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this employee?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
 
+if (confirmation == JOptionPane.YES_OPTION) {
+    String url = "jdbc:mysql://localhost:3306/payroll_db";
+    String user = "root";
+    String pass = "";
+
+    Connection conn = null;
+    PreparedStatement pst = null;
+
+    try {
+        // Connect to the database
+        conn = DriverManager.getConnection(url, user, pass);
+
+        // Step 1: Delete from employee_deductions
+        String deleteEmployeeDeductionsSql = "DELETE FROM employee_deductions WHERE employee_id = ?";
+        pst = conn.prepareStatement(deleteEmployeeDeductionsSql);
+        pst.setInt(1, employeeId);
+        pst.executeUpdate();
+        pst.close();
+
+        // Step 2: Delete from timesheet
+        String deleteTimesheetSql = "DELETE FROM timesheet WHERE employee_id = ?";
+        pst = conn.prepareStatement(deleteTimesheetSql);
+        pst.setInt(1, employeeId);
+        pst.executeUpdate();
+        pst.close();
+
+        // Step 3: Delete from employees
+        String deleteEmployeeSql = "DELETE FROM employees WHERE employee_id = ?";
+        pst = conn.prepareStatement(deleteEmployeeSql);
+        pst.setInt(1, employeeId);
+
+        // Execute the DELETE query
+        int rowsDeleted = pst.executeUpdate();
+
+        if (rowsDeleted > 0) {
+            // Successfully deleted
+            JOptionPane.showMessageDialog(this, "Employee deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            
+            // Refresh the table to reflect the changes
+            refreshEmployeeTable();
+        } else {
+            // No employee found with the specified ID
+            JOptionPane.showMessageDialog(this, "Failed to delete employee. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    } finally {
         try {
-            // Connect to the database
-            conn = DriverManager.getConnection(url, user, pass);
-
-            // SQL query to delete the employee
-            String sql = "DELETE FROM employees WHERE id = ?";
-            pst = conn.prepareStatement(sql);
-            pst.setInt(1, employeeId);
-
-            // Execute the DELETE query
-            int rowsDeleted = pst.executeUpdate();
-
-            if (rowsDeleted > 0) {
-                // Successfully deleted
-                JOptionPane.showMessageDialog(this, "Employee deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-                
-                // Refresh the table to reflect the changes
-                refreshEmployeeTable();
-            } else {
-                // No employee found with the specified ID
-                JOptionPane.showMessageDialog(this, "Failed to delete employee. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-
+            if (pst != null) pst.close();
+            if (conn != null) conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        } finally {
-            try {
-                if (pst != null) pst.close();
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
+}
     }//GEN-LAST:event_deleteEmployeeButtonActionPerformed
 
     private void backTodashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backTodashboardActionPerformed
