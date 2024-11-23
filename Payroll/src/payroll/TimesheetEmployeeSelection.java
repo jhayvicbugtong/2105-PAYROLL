@@ -41,11 +41,7 @@ public class TimesheetEmployeeSelection extends javax.swing.JFrame {
         txtSelectemployee = new javax.swing.JLabel();
         txtEmployeeselection = new javax.swing.JLabel();
         goTimesheetButton = new javax.swing.JButton();
-        txtSelectemployee1 = new javax.swing.JLabel();
         EmployeeName = new javax.swing.JTextField();
-        txtSelectemployee2 = new javax.swing.JLabel();
-        StartDate = new com.toedter.calendar.JDateChooser();
-        EndDate = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,74 +67,53 @@ public class TimesheetEmployeeSelection extends javax.swing.JFrame {
             }
         });
 
-        txtSelectemployee1.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        txtSelectemployee1.setForeground(new java.awt.Color(245, 204, 160));
-        txtSelectemployee1.setText("Start Date:");
-
         EmployeeName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EmployeeNameActionPerformed(evt);
             }
         });
 
-        txtSelectemployee2.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        txtSelectemployee2.setForeground(new java.awt.Color(245, 204, 160));
-        txtSelectemployee2.setText("End Date:");
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtSelectemployee, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtSelectemployee1)
-                                .addComponent(StartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(EndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtSelectemployee2)))
-                        .addComponent(EmployeeName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(goTimesheetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(144, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtEmployeeselection, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(130, 130, 130))
+                .addGap(122, 122, 122))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(192, 192, 192)
+                        .addComponent(goTimesheetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtSelectemployee)
+                            .addComponent(EmployeeName, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(22, 22, 22)
                 .addComponent(txtEmployeeselection, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(txtSelectemployee)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(EmployeeName, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtSelectemployee2)
-                        .addGap(28, 28, 28))
-                    .addComponent(EndDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtSelectemployee1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(StartDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(EmployeeName, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(goTimesheetButton)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,13 +126,11 @@ public class TimesheetEmployeeSelection extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -169,44 +142,7 @@ public class TimesheetEmployeeSelection extends javax.swing.JFrame {
     }//GEN-LAST:event_EmployeeNameActionPerformed
 
     private void goTimesheetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goTimesheetButtonActionPerformed
-                // Retrieve Employee Name or ID
-        String employeeNameOrId = EmployeeName.getText();
-
-    // Retrieve dates from JDateChooser
-        Date startDate = StartDate.getDate();
-        Date endDate = EndDate.getDate();
-
-    // Validate if Employee Name/ID field is empty
-        if (employeeNameOrId.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Please enter the Employee Name or ID.");
-        return;
-    }
-        // Validate if Start Date or End Date is not selected
-        if (startDate == null || endDate == null) {
-        JOptionPane.showMessageDialog(this, "Please select both Start Date and End Date.");
-        return;
-    }
-        if (startDate.after(endDate)) {
-        JOptionPane.showMessageDialog(this, "Invalid date range. Start Date must be before or equal to End Date.");
-        return;
-    }
-        // Format dates into "YYYY-MM-DD" string format
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    String startDateStr = dateFormat.format(startDate);
-    String endDateStr = dateFormat.format(endDate);
-
-    try {
-        if (doesEmployeeExist(employeeNameOrId)) {
-            JOptionPane.showMessageDialog(this, "Employee found! Proceeding...");
-            
-            // Proceed with further actions, like showing data
-            showEmployeeData(employeeNameOrId, startDateStr, endDateStr);
-        } else {
-            JOptionPane.showMessageDialog(this, "Employee not found in the database.");
-        }
-    } catch (IOException ex) {
-        JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
-    }     
+                
     }//GEN-LAST:event_goTimesheetButtonActionPerformed
 
     // Function to open the Timesheet window
@@ -304,15 +240,11 @@ private void showEmployeeData(String employeeNameOrId, String startDate, String 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField EmployeeName;
-    private com.toedter.calendar.JDateChooser EndDate;
-    private com.toedter.calendar.JDateChooser StartDate;
     private javax.swing.JButton goTimesheetButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel txtEmployeeselection;
     private javax.swing.JLabel txtSelectemployee;
-    private javax.swing.JLabel txtSelectemployee1;
-    private javax.swing.JLabel txtSelectemployee2;
     // End of variables declaration//GEN-END:variables
 
     private boolean doesEmployeeExist() {

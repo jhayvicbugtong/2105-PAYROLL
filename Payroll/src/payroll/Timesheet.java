@@ -113,7 +113,7 @@ public class Timesheet extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Date", "Time In", "Time Out", "Total Hours", "Overtime"
+                "Date", "Time In", "Time Out", "Overtime", "Total Hours"
             }
         ));
         jTable1.setShowGrid(true);
