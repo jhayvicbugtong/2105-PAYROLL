@@ -1,25 +1,84 @@
 package payroll;
-
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane;
+// * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+// * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+// */
 
 /**
  *
  * @author sophi
  */
 public class Timesheet extends javax.swing.JFrame {
-
+    private int employeeId;
     /**
-     * Creates new form Timesheet
+
      */
-    public Timesheet() {
-        initComponents();
-        
-        
+    // Constructor that takes employee_id as argument
+    public Timesheet(int employeeId) {
+        this.employeeId = employeeId; // Save the employee_id
+        initComponents(); // Initialize components (auto-generated code)
+        loadTimesheetDataToTable(); // Load timesheet data based on employee_id
     }
 
+    public void loadTimesheetDataToTable() {
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+
+String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out, ts.overtime, ts.hours_worked " +
+               "FROM timesheet ts " +
+               "JOIN employees e ON ts.employee_id = e.employee_id " +  // Join with the employee table to get the name
+               "WHERE ts.employee_id = " + employeeId; // Use the passed employee_id
+        
+
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/payroll_db", "root", "");
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(query);
+
+            // Assuming you have a JTextField named jTextField1 to display the employee name
+        if (rs.next()) {
+            // Set the employee name to jTextField1
+            jTextField1.setText(rs.getString("name"));
+        }
+            
+            
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel(); // Assuming you have a JTable named timesheetTable
+            model.setRowCount(0); // Clear the table before populating
+
+            while (rs.next()) {
+                Object[] row = new Object[6]; // Adjust size of row as per the columns
+                row[0] = rs.getInt("employee_id");
+                row[1] = rs.getDate("date");
+                row[2] = rs.getTime("time_in");
+                row[3] = rs.getTime("time_out");
+                row[4] = rs.getDouble("overtime");
+                row[5] = rs.getDouble("hours_worked");
+
+                model.addRow(row); // Add the row to the table
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }    
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -323,7 +382,8 @@ public class Timesheet extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Timesheet().setVisible(true);
+                new Timesheet(122).setVisible(true);
+                
             }
         });
     }

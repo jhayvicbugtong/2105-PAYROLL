@@ -142,16 +142,39 @@ public class TimesheetEmployeeSelection extends javax.swing.JFrame {
     }//GEN-LAST:event_EmployeeNameActionPerformed
 
     private void goTimesheetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goTimesheetButtonActionPerformed
-                
+    
+    // Assuming you have a JTextField where user enters employee_id
+//    String employeeIdText = EmployeeName.getText(); // Replace with your actual field name
+
+        String employeeIdText = EmployeeName.getText(); // Replace with actual text field name
+
+    try {
+        int employeeId = Integer.parseInt(employeeIdText); // Parse the employee_id to int
+        
+        // Hide the current screen
+        this.setVisible(false);
+
+        // Create a new instance of Timesheet class and pass the employee_id
+        Timesheet timesheet = new Timesheet(employeeId); // Pass employee_id to the constructor
+        timesheet.setVisible(true); // Show the Timesheet screen
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Please enter a valid Employee ID.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+    }
+
+        
+//    this.setVisible(false);
+//    Timesheet Timesheet = new Timesheet();
+//    Timesheet.setVisible(true);
+          
     }//GEN-LAST:event_goTimesheetButtonActionPerformed
 
     // Function to open the Timesheet window
     private void openTimesheetWindow(String employeeNameOrId, String startDateStr, String endDateStr) {
     // Create an instance of the Timesheet class (Assuming it's a JFrame)
-    Timesheet timesheetWindow = new Timesheet();
+//    Timesheet timesheetWindow = new Timesheet();
 
     // Set the window to visible
-    timesheetWindow.setVisible(true);
+//    timesheetWindow.setVisible(true);
 
     // Optionally, you can hide the current window if needed:
     this.setVisible(false);

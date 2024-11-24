@@ -13,6 +13,9 @@ import javax.swing.JOptionPane;
 import payroll.AdminDashboard;
 
 
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 
 public class ViewEmployee extends javax.swing.JFrame {
     
@@ -52,6 +55,11 @@ public class ViewEmployee extends javax.swing.JFrame {
 
                 model.addRow(row);  // Add the row to the table model
             }
+
+            // Call this method after populating the table
+            setupTableSelectionListener();            
+            
+            
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -66,6 +74,37 @@ public class ViewEmployee extends javax.swing.JFrame {
         }
     }
 
+    // In your constructor or method where you set up your table
+private void setupTableSelectionListener() {
+    // Add a ListSelectionListener to EmployeeInfoTable
+    EmployeeInfoTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        @Override
+        public void valueChanged(ListSelectionEvent e) {
+            // Check if a row is selected (i.e., the selection is not empty)
+            if (!e.getValueIsAdjusting() && EmployeeInfoTable.getSelectedRow() != -1) {
+                int selectedRow = EmployeeInfoTable.getSelectedRow();
+
+                // Retrieve data from the selected row
+                String employeeName = EmployeeInfoTable.getValueAt(selectedRow, 1).toString();
+                String positionName = EmployeeInfoTable.getValueAt(selectedRow, 2).toString();
+                String contactNumber = EmployeeInfoTable.getValueAt(selectedRow, 3).toString();
+                String address = EmployeeInfoTable.getValueAt(selectedRow, 4).toString();
+                String dayOff = EmployeeInfoTable.getValueAt(selectedRow, 5).toString();
+                String dateHired = EmployeeInfoTable.getValueAt(selectedRow, 6).toString();
+
+                // Set the values in the text fields
+                txtUsername.setText(employeeName);
+                txtPosition.setText(positionName);
+                txtContactnumber.setText(contactNumber);
+                txtAddress.setText(address);
+                txtDayOff.setText(dayOff);
+                txtDateHired.setText(dateHired);
+            }
+        }
+    });
+}
+    
+    
     public ViewEmployee() {
         initComponents();
     }
@@ -98,6 +137,7 @@ public class ViewEmployee extends javax.swing.JFrame {
         txtDayOff = new javax.swing.JTextField();
         address2 = new javax.swing.JLabel();
         txtDateHired = new javax.swing.JTextField();
+        editInformationButton = new javax.swing.JButton();
 
         jTextField1.setText("jTextField1");
 
@@ -215,6 +255,12 @@ public class ViewEmployee extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(245, 204, 160));
         jLabel4.setText("POSITION");
 
+        txtUsername.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUsernameActionPerformed(evt);
+            }
+        });
+
         txtContactnumber.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtContactnumberActionPerformed(evt);
@@ -269,6 +315,16 @@ public class ViewEmployee extends javax.swing.JFrame {
         address2.setForeground(new java.awt.Color(245, 204, 160));
         address2.setText("DATE HIRED");
 
+        editInformationButton.setBackground(new java.awt.Color(228, 143, 69));
+        editInformationButton.setForeground(new java.awt.Color(107, 36, 12));
+        editInformationButton.setText("Edit Information");
+        editInformationButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        editInformationButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editInformationButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -294,7 +350,8 @@ public class ViewEmployee extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(addEmployeeButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(deleteEmployeeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(deleteEmployeeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(editInformationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(backTodashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -310,7 +367,9 @@ public class ViewEmployee extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(addEmployeeButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(deleteEmployeeButton))
+                        .addComponent(deleteEmployeeButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(editInformationButton))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -593,6 +652,109 @@ if (confirmation == JOptionPane.YES_OPTION) {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPositionActionPerformed
 
+    private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUsernameActionPerformed
+
+    private void editInformationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editInformationButtonActionPerformed
+        // TODO add your handling code here:
+
+   // Retrieve the updated data from the text fields
+    String name = txtUsername.getText();
+    String contactNumber = txtContactnumber.getText();
+    String address = txtAddress.getText();
+    String positionName = txtPosition.getText();
+    String dayOff = txtDayOff.getText();
+    String dateHired = txtDateHired.getText();
+    
+    // Get the selected row index
+    int selectedRow = EmployeeInfoTable.getSelectedRow();
+    
+    if (selectedRow == -1) {
+        JOptionPane.showMessageDialog(this, "No employee selected!", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Get the employee ID from the selected row
+    int employeeId = (int) EmployeeInfoTable.getValueAt(selectedRow, 0);
+    
+    // Validate input
+    if (name.isEmpty() || positionName.isEmpty() || contactNumber.isEmpty() || address.isEmpty() || dayOff.isEmpty() || dateHired.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "All fields must be filled out.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Database connection parameters
+    String url = "jdbc:mysql://localhost:3306/payroll_db";
+    String user = "root";
+    String pass = "";
+
+    Connection conn = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+
+    try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        conn = DriverManager.getConnection(url, user, pass);
+
+        // Step 1: Retrieve the position_id based on the position_name
+        String getPositionIdSql = "SELECT position_id FROM positions WHERE position_name = ?";
+        pst = conn.prepareStatement(getPositionIdSql);
+        pst.setString(1, positionName);
+        rs = pst.executeQuery();
+
+        int positionId = -1;
+        if (rs.next()) {
+            positionId = rs.getInt("position_id");
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid position name. Please check the positions.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        pst.close(); // Close previous PreparedStatement
+
+        // Step 2: Update the employee record in the database
+        String updateEmployeeSql = "UPDATE employees SET name = ?, position_id = ?, contact_number = ?, address = ?, day_off = ?, date_hired = ? WHERE employee_id = ?";
+        pst = conn.prepareStatement(updateEmployeeSql);
+        pst.setString(1, name);
+        pst.setInt(2, positionId);
+        pst.setString(3, contactNumber);
+        pst.setString(4, address);
+        pst.setString(5, dayOff);  // Update the day off
+        pst.setDate(6, java.sql.Date.valueOf(dateHired));  // Convert date string to SQL date
+        pst.setInt(7, employeeId);  // Set employee_id to update the correct record
+
+        int rowsUpdated = pst.executeUpdate();
+
+        if (rowsUpdated > 0) {
+            JOptionPane.showMessageDialog(this, "Employee updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+            // Refresh the employee table to reflect changes
+            refreshEmployeeTable();
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed to update employee.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    } catch (ClassNotFoundException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Driver not found: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    } finally {
+        try {
+            if (rs != null) rs.close();
+            if (pst != null) pst.close();
+            if (conn != null) conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+        
+        
+        
+    }//GEN-LAST:event_editInformationButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -637,6 +799,7 @@ if (confirmation == JOptionPane.YES_OPTION) {
     private javax.swing.JLabel address2;
     private javax.swing.JButton backTodashboard;
     private javax.swing.JButton deleteEmployeeButton;
+    private javax.swing.JButton editInformationButton;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;

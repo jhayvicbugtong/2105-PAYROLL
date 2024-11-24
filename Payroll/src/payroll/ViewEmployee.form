@@ -74,6 +74,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="addEmployeeButton" alignment="1" min="-2" pref="118" max="-2" attributes="0"/>
                           <Component id="deleteEmployeeButton" min="-2" pref="118" max="-2" attributes="0"/>
+                          <Component id="editInformationButton" min="-2" pref="118" max="-2" attributes="0"/>
                       </Group>
                       <Component id="backTodashboard" min="-2" pref="118" max="-2" attributes="0"/>
                   </Group>
@@ -95,6 +96,8 @@
                           <Component id="addEmployeeButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="deleteEmployeeButton" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="editInformationButton" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -243,6 +246,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtUsername">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtUsernameActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtContactnumber">
           <Events>
@@ -349,6 +355,25 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtDateHired">
+        </Component>
+        <Component class="javax.swing.JButton" name="editInformationButton">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="45" green="8f" red="e4" type="rgb"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="c" green="24" red="6b" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Edit Information"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
+                <BevelBorder/>
+              </Border>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editInformationButtonActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
