@@ -1,5 +1,13 @@
 package payroll;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -11,7 +19,66 @@ package payroll;
  * @author sophi
  */
 public class SecondPayrollPanel extends javax.swing.JFrame {
+    private int employeeId;     
+    /**
+     * Creates new form SecondPayrollPanel
+     */
+    public SecondPayrollPanel(int employeeId) {
+        this.employeeId = employeeId; // Save the employee_id
+        initComponents(); // Initialize components (auto-generated code)
+        loadTimesheetDataToTable(); // Load timesheet data based on employee_id
+    }
+    public void loadTimesheetDataToTable() {
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
 
+String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out, ts.overtime, ts.hours_worked " +
+               "FROM timesheet ts " +
+               "JOIN employees e ON ts.employee_id = e.employee_id " +  // Join with the employee table to get the name
+               "WHERE ts.employee_id = " + employeeId;
+        
+        
+
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/payroll_db", "root", "");
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(query);
+
+            // Assuming you have a JTextField named jTextField1 to display the employee name
+        if (rs.next()) {
+            // Set the employee name to jTextField1
+            txtID1.setText(rs.getString("name"));
+        }
+            
+            
+            DefaultTableModel model = (DefaultTableModel) PayrollTimesheet.getModel(); // Assuming you have a JTable named timesheetTable
+            model.setRowCount(0); // Clear the table before populating
+
+            while (rs.next()) {
+                Object[] row = new Object[6]; // Adjust size of row as per the columns
+                row[1] = rs.getDate("date");
+                row[2] = rs.getTime("time_in");
+                row[3] = rs.getTime("time_out");
+                row[4] = rs.getDouble("overtime");
+                row[5] = rs.getDouble("hours_worked");
+
+                model.addRow(row); // Add the row to the table
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }    
     /**
      * Creates new form SecondPayrollPanel
      */
@@ -33,9 +100,9 @@ public class SecondPayrollPanel extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jToggleButton5 = new javax.swing.JToggleButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        DeductionsTable = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        PayrollTimesheet = new javax.swing.JTable();
         txtID1 = new javax.swing.JTextField();
         txtSelectemployee = new javax.swing.JLabel();
         txtSelectemployee1 = new javax.swing.JLabel();
@@ -46,16 +113,18 @@ public class SecondPayrollPanel extends javax.swing.JFrame {
         txtSelectemployee3 = new javax.swing.JLabel();
         txtID6 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        txtSelectemployee4 = new javax.swing.JLabel();
-        txtID7 = new javax.swing.JTextField();
         backToPESelection = new javax.swing.JToggleButton();
-        txtSelectemployee7 = new javax.swing.JLabel();
-        txtID10 = new javax.swing.JTextField();
         txtSelectemployee8 = new javax.swing.JLabel();
         txtID11 = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         BacktoDB1 = new javax.swing.JToggleButton();
         generatePayslipButton = new javax.swing.JToggleButton();
+        jToggleButton6 = new javax.swing.JToggleButton();
+        jToggleButton7 = new javax.swing.JToggleButton();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -73,54 +142,55 @@ public class SecondPayrollPanel extends javax.swing.JFrame {
         jToggleButton5.setBackground(new java.awt.Color(228, 143, 69));
         jToggleButton5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jToggleButton5.setForeground(new java.awt.Color(107, 36, 12));
-        jToggleButton5.setText("Edit");
+        jToggleButton5.setText("Add");
         jToggleButton5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jToggleButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton5ActionPerformed(evt);
             }
         });
-        jPanel2.add(jToggleButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, 65, -1));
+        jPanel2.add(jToggleButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 530, 65, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        DeductionsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Tax", null, null},
-                {"SSS", null, null},
-                {"PhilHealth", null, null}
+                {"", null},
+                {"", null},
+                {"", null},
+                {null, null}
             },
             new String [] {
-                "Deductions", "Amount", "Reason"
+                "Deductions", "Amount"
             }
         ));
-        jTable1.setShowGrid(true);
-        jScrollPane1.setViewportView(jTable1);
+        DeductionsTable.setShowGrid(true);
+        jScrollPane1.setViewportView(DeductionsTable);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 630, 90));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 630, 110));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        PayrollTimesheet.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Date", "Time In", "Time Out", "Income per Hour", "Overtime", "Total Hours"
+                "Date", "Time In", "Time Out", "Overtime", "Total Hours"
             }
         ));
-        jTable2.setShowGrid(true);
-        jScrollPane2.setViewportView(jTable2);
+        PayrollTimesheet.setShowGrid(true);
+        jScrollPane2.setViewportView(PayrollTimesheet);
 
         jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 630, 224));
 
@@ -162,35 +232,23 @@ public class SecondPayrollPanel extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel8.setText("............................................................................................................................................................");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 519, -1, -1));
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 550, -1, -1));
 
         txtSelectemployee3.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         txtSelectemployee3.setForeground(new java.awt.Color(245, 204, 160));
-        txtSelectemployee3.setText("Gross Income: ");
-        jPanel2.add(txtSelectemployee3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 550, -1, -1));
+        txtSelectemployee3.setText("Total Salary:  ");
+        jPanel2.add(txtSelectemployee3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 610, -1, -1));
 
         txtID6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtID6ActionPerformed(evt);
             }
         });
-        jPanel2.add(txtID6, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 550, 272, -1));
+        jPanel2.add(txtID6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 610, 272, -1));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel9.setText("............................................................................................................................................................");
         jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, -1, -1));
-
-        txtSelectemployee4.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        txtSelectemployee4.setForeground(new java.awt.Color(245, 204, 160));
-        txtSelectemployee4.setText("Overtime Income: ");
-        jPanel2.add(txtSelectemployee4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 580, -1, -1));
-
-        txtID7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtID7ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(txtID7, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 580, 272, -1));
 
         backToPESelection.setBackground(new java.awt.Color(228, 143, 69));
         backToPESelection.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -202,31 +260,19 @@ public class SecondPayrollPanel extends javax.swing.JFrame {
                 backToPESelectionActionPerformed(evt);
             }
         });
-        jPanel2.add(backToPESelection, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 620, 120, -1));
-
-        txtSelectemployee7.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        txtSelectemployee7.setForeground(new java.awt.Color(245, 204, 160));
-        txtSelectemployee7.setText("Total Deductions:");
-        jPanel2.add(txtSelectemployee7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 610, -1, -1));
-
-        txtID10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtID10ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(txtID10, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 610, 272, -1));
+        jPanel2.add(backToPESelection, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 640, 120, -1));
 
         txtSelectemployee8.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         txtSelectemployee8.setForeground(new java.awt.Color(245, 204, 160));
         txtSelectemployee8.setText("Net Salary: ");
-        jPanel2.add(txtSelectemployee8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 640, -1, -1));
+        jPanel2.add(txtSelectemployee8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 580, -1, -1));
 
         txtID11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtID11ActionPerformed(evt);
             }
         });
-        jPanel2.add(txtID11, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 640, 272, -1));
+        jPanel2.add(txtID11, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 580, 272, -1));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel10.setText("............................................................................................................................................................");
@@ -242,7 +288,7 @@ public class SecondPayrollPanel extends javax.swing.JFrame {
                 BacktoDB1ActionPerformed(evt);
             }
         });
-        jPanel2.add(BacktoDB1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 590, 120, -1));
+        jPanel2.add(BacktoDB1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 610, 120, -1));
 
         generatePayslipButton.setBackground(new java.awt.Color(228, 143, 69));
         generatePayslipButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -254,7 +300,47 @@ public class SecondPayrollPanel extends javax.swing.JFrame {
                 generatePayslipButtonActionPerformed(evt);
             }
         });
-        jPanel2.add(generatePayslipButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 560, 120, -1));
+        jPanel2.add(generatePayslipButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 580, 120, -1));
+
+        jToggleButton6.setBackground(new java.awt.Color(228, 143, 69));
+        jToggleButton6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jToggleButton6.setForeground(new java.awt.Color(107, 36, 12));
+        jToggleButton6.setText("Edit");
+        jToggleButton6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jToggleButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton6ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jToggleButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 530, 65, -1));
+
+        jToggleButton7.setBackground(new java.awt.Color(228, 143, 69));
+        jToggleButton7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jToggleButton7.setForeground(new java.awt.Color(107, 36, 12));
+        jToggleButton7.setText("Delete");
+        jToggleButton7.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jToggleButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton7ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jToggleButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 530, 65, -1));
+        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 490, 130, -1));
+
+        jLabel2.setForeground(new java.awt.Color(245, 204, 160));
+        jLabel2.setText("Deduction Name:");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 490, -1, -1));
+
+        jLabel3.setForeground(new java.awt.Color(245, 204, 160));
+        jLabel3.setText("Amount:");
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 490, -1, -1));
+
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 490, 140, -1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -292,19 +378,11 @@ public class SecondPayrollPanel extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtID11ActionPerformed
 
-    private void txtID10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtID10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtID10ActionPerformed
-
     private void backToPESelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToPESelectionActionPerformed
         this.setVisible(false);
         PayrollEmployeeSelection back = new PayrollEmployeeSelection();
         back.setVisible(true);
     }//GEN-LAST:event_backToPESelectionActionPerformed
-
-    private void txtID7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtID7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtID7ActionPerformed
 
     private void txtID6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtID6ActionPerformed
         // TODO add your handling code here:
@@ -337,6 +415,18 @@ public class SecondPayrollPanel extends javax.swing.JFrame {
         GeneratePayslip.setVisible(true);
         SecondPayrollPanel.this.setVisible(false);
     }//GEN-LAST:event_generatePayslipButtonActionPerformed
+
+    private void jToggleButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jToggleButton6ActionPerformed
+
+    private void jToggleButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jToggleButton7ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -375,32 +465,34 @@ public class SecondPayrollPanel extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton BacktoDB1;
+    private javax.swing.JTable DeductionsTable;
+    private javax.swing.JTable PayrollTimesheet;
     private javax.swing.JToggleButton backToPESelection;
     private javax.swing.JToggleButton generatePayslipButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JToggleButton jToggleButton5;
+    private javax.swing.JToggleButton jToggleButton6;
+    private javax.swing.JToggleButton jToggleButton7;
     private javax.swing.JTextField txtID1;
-    private javax.swing.JTextField txtID10;
     private javax.swing.JTextField txtID11;
     private javax.swing.JTextField txtID4;
     private javax.swing.JTextField txtID5;
     private javax.swing.JTextField txtID6;
-    private javax.swing.JTextField txtID7;
     private javax.swing.JLabel txtSelectemployee;
     private javax.swing.JLabel txtSelectemployee1;
     private javax.swing.JLabel txtSelectemployee2;
     private javax.swing.JLabel txtSelectemployee3;
-    private javax.swing.JLabel txtSelectemployee4;
-    private javax.swing.JLabel txtSelectemployee7;
     private javax.swing.JLabel txtSelectemployee8;
     // End of variables declaration//GEN-END:variables
 }
