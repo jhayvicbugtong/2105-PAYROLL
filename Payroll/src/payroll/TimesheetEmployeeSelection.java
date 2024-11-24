@@ -49,7 +49,7 @@ public class TimesheetEmployeeSelection extends javax.swing.JFrame {
 
         txtSelectemployee.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         txtSelectemployee.setForeground(new java.awt.Color(245, 204, 160));
-        txtSelectemployee.setText("Type Employee Name/ID:");
+        txtSelectemployee.setText("Type Employee ID:");
 
         txtEmployeeselection.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         txtEmployeeselection.setForeground(new java.awt.Color(245, 204, 160));

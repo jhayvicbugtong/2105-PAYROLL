@@ -50,7 +50,7 @@ String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out,
         }
             
             
-            DefaultTableModel model = (DefaultTableModel) jTable1.getModel(); // Assuming you have a JTable named timesheetTable
+            DefaultTableModel model = (DefaultTableModel) EmployeeInfoTable.getModel(); // Assuming you have a JTable named timesheetTable
             model.setRowCount(0); // Clear the table before populating
 
             while (rs.next()) {
@@ -95,7 +95,7 @@ String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out,
         jTextArea2 = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        EmployeeInfoTable = new javax.swing.JTable();
         saveButton = new javax.swing.JButton();
         editButton = new javax.swing.JButton();
         deleteButton1 = new javax.swing.JButton();
@@ -103,6 +103,16 @@ String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out,
         jLabel7 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         backToTSelectionButton = new javax.swing.JButton();
+        Name = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        address = new javax.swing.JLabel();
+        address1 = new javax.swing.JLabel();
+        dateField = new javax.swing.JTextField();
+        timeinField = new javax.swing.JTextField();
+        timeoutField = new javax.swing.JTextField();
+        overtimeField = new javax.swing.JTextField();
+        totalhoursField = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -118,7 +128,7 @@ String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out,
 
         jPanel1.setBackground(new java.awt.Color(107, 36, 12));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        EmployeeInfoTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -174,9 +184,17 @@ String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out,
             new String [] {
                 "Date", "Time In", "Time Out", "Overtime", "Total Hours"
             }
-        ));
-        jTable1.setShowGrid(true);
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        EmployeeInfoTable.setShowGrid(true);
+        jScrollPane1.setViewportView(EmployeeInfoTable);
 
         saveButton.setBackground(new java.awt.Color(228, 143, 69));
         saveButton.setForeground(new java.awt.Color(107, 36, 12));
@@ -238,28 +256,82 @@ String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out,
             }
         });
 
+        Name.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        Name.setForeground(new java.awt.Color(245, 204, 160));
+        Name.setText("DATE:");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(245, 204, 160));
+        jLabel4.setText("TIME IN:");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(245, 204, 160));
+        jLabel3.setText("TIME OU:");
+
+        address.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        address.setForeground(new java.awt.Color(245, 204, 160));
+        address.setText("OVERTIME:");
+
+        address1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        address1.setForeground(new java.awt.Color(245, 204, 160));
+        address1.setText("TOTAL HOURS:");
+
+        dateField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dateFieldActionPerformed(evt);
+            }
+        });
+
+        timeinField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                timeinFieldActionPerformed(evt);
+            }
+        });
+
+        timeoutField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                timeoutFieldActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(backToTSelectionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(backTodashboardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel7)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3)
+                                .addComponent(Name)
+                                .addComponent(jLabel4)
+                                .addComponent(address)
+                                .addComponent(address1))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(dateField)
+                                .addComponent(timeoutField)
+                                .addComponent(overtimeField)
+                                .addComponent(timeinField)
+                                .addComponent(totalhoursField, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(backTodashboardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(deleteButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                            .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(backToTSelectionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 666, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -274,13 +346,35 @@ String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out,
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saveButton)
                     .addComponent(deleteButton1)
-                    .addComponent(editButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                .addComponent(backToTSelectionButton)
+                    .addComponent(editButton)
+                    .addComponent(backToTSelectionButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(backTodashboardButton)
-                .addGap(15, 15, 15))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(backTodashboardButton)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(dateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Name))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(timeinField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(timeoutField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(address)
+                            .addComponent(overtimeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(totalhoursField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(address1))))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
+
+        dateField.getAccessibleContext().setAccessibleDescription("");
 
         jPanel2.setBackground(new java.awt.Color(153, 77, 28));
 
@@ -292,17 +386,17 @@ String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out,
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(173, 173, 173)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(276, 276, 276))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
+                .addContainerGap(14, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(14, 14, 14))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -335,11 +429,134 @@ String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out,
     }//GEN-LAST:event_backTodashboardButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_saveButtonActionPerformed
+        // Get text values from the components
+    String date1 = dateField.getText();
+    String timein1 = timeinField.getText();
+    String timeout1 = timeoutField.getText();
+    String overtime1 = overtimeField.getText();
+    String totalhours1 = totalhoursField.getText();
 
+    // Database connection details
+    String url = "jdbc:mysql://localhost:3306/payroll_db";
+    String user = "root";
+    String pass = "";
+
+    // Validate that all fields are filled out
+    if (date1.isEmpty() || timein1.isEmpty() || timeout1.isEmpty() || overtime1.isEmpty() || totalhours1.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "All fields must be filled out.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Check if a row is selected in the table
+    int selectedRow = EmployeeInfoTable.getSelectedRow();
+    if (selectedRow == -1) {
+        JOptionPane.showMessageDialog(this, "Please select a row from the table.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Get the employee_id from the selected row (assuming it's in the first column of the table)
+    int employeeId = (int) EmployeeInfoTable.getValueAt(selectedRow, 0); // Assuming the employee_id is in the first column
+
+    Connection conn = null;
+    PreparedStatement pst = null;
+                  
+    try {
+        // Establish database connection
+        conn = DriverManager.getConnection(url, user, pass);
+
+        // Step 2: Insert the timesheet data associated with the employee_id
+        String insertTimesheetSql = "INSERT INTO timesheet (employee_id, date, time_in, time_out, overtime, hours_worked) VALUES (?, ?, ?, ?, ?, ?)";
+        pst = conn.prepareStatement(insertTimesheetSql);
+
+        pst.setInt(1, employeeId); // Use the employee_id from the table row
+        pst.setDate(2, java.sql.Date.valueOf(date1)); // Convert date string to SQL Date
+        pst.setTime(3, java.sql.Time.valueOf(timein1)); // Convert time string to SQL Time
+        pst.setTime(4, java.sql.Time.valueOf(timeout1)); // Convert time string to SQL Time
+        pst.setDouble(5, Double.parseDouble(overtime1)); // Parse overtime as double
+        pst.setDouble(6, Double.parseDouble(totalhours1)); // Parse total hours worked as double
+
+        int rowsInserted = pst.executeUpdate();
+
+        if (rowsInserted > 0) {
+            // Add the data to the JTable
+            DefaultTableModel model = (DefaultTableModel) EmployeeInfoTable.getModel();
+            model.addRow(new Object[]{employeeId, date1, timein1, timeout1, overtime1, totalhours1});
+
+            JOptionPane.showMessageDialog(this, "Timesheet entry added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+            // Clear input fields
+            dateField.setText("");
+            timeinField.setText("");
+            timeoutField.setText("");
+            overtimeField.setText("");
+            totalhoursField.setText("");
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed to add timesheet entry.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    } finally {
+        try {
+            if (pst != null) pst.close();
+            if (conn != null) conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    }//GEN-LAST:event_saveButtonActionPerformed
+private void refreshEmployeeTable() {
+    // Database connection details
+    String url = "jdbc:mysql://localhost:3306/payroll_db";
+    String user = "root";
+    String pass = "";
+
+    Connection conn = null;
+    Statement stmt = null;
+    ResultSet rs = null;
+
+    try {
+        // Establish a connection to the database
+        conn = DriverManager.getConnection(url, user, pass);
+        stmt = conn.createStatement();
+
+        // SQL query to fetch all employee data
+        String sql = "SELECT employee_id, name, position, salary, status FROM employees";
+        rs = stmt.executeQuery(sql);
+
+        // Clear existing table data
+        DefaultTableModel model = (DefaultTableModel) EmployeeInfoTable.getModel();
+        model.setRowCount(0); // Reset the table's row count
+
+        // Populate the table with data from the database
+        while (rs.next()) {
+            Object[] row = {
+                rs.getInt("employee_id"),
+                rs.getString("name"),
+                rs.getString("position"),
+                rs.getDouble("salary"),
+                rs.getString("status")
+            };
+            model.addRow(row);
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error refreshing employee table: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    } finally {
+        try {
+            if (rs != null) rs.close();
+            if (stmt != null) stmt.close();
+            if (conn != null) conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
     private void deleteButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButton1ActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_deleteButton1ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -351,6 +568,18 @@ String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out,
         TimesheetEmployeeSelection back = new TimesheetEmployeeSelection();
         back.setVisible(true);
     }//GEN-LAST:event_backToTSelectionButtonActionPerformed
+
+    private void dateFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dateFieldActionPerformed
+
+    private void timeinFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeinFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_timeinFieldActionPerformed
+
+    private void timeoutFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeoutFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_timeoutFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -391,21 +620,31 @@ String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out,
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable EmployeeInfoTable;
+    private javax.swing.JLabel Name;
+    private javax.swing.JLabel address;
+    private javax.swing.JLabel address1;
     private javax.swing.JButton backToTSelectionButton;
     private javax.swing.JButton backTodashboardButton;
+    private javax.swing.JTextField dateField;
     private javax.swing.JButton deleteButton1;
     private javax.swing.JButton editButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField overtimeField;
     private javax.swing.JButton saveButton;
+    private javax.swing.JTextField timeinField;
+    private javax.swing.JTextField timeoutField;
+    private javax.swing.JTextField totalhoursField;
     // End of variables declaration//GEN-END:variables
 }
