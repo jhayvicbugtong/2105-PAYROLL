@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 // * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 // * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
 // */
@@ -25,14 +27,45 @@ public class Timesheet extends javax.swing.JFrame {
         this.employeeId = employeeId; // Save the employee_id
         initComponents(); // Initialize components (auto-generated code)
         loadTimesheetDataToTable(); // Load timesheet data based on employee_id
+        setupTableSelectionListener();
     }
+    
+    private void setupTableSelectionListener() {
+    // Add a ListSelectionListener to EmployeeInfoTable
+    EmployeeTimesheetTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        @Override
+        public void valueChanged(ListSelectionEvent e) {
+            // Check if a row is selected (i.e., the selection is not empty)
+            if (!e.getValueIsAdjusting() && EmployeeTimesheetTable.getSelectedRow() != -1) {
+                int selectedRow = EmployeeTimesheetTable.getSelectedRow();
 
+             
+    
+                // Retrieve data from the selected row
+                String date = EmployeeTimesheetTable.getValueAt(selectedRow, 1).toString();
+                String timeIn = EmployeeTimesheetTable.getValueAt(selectedRow, 2).toString();
+                String timeOut = EmployeeTimesheetTable.getValueAt(selectedRow, 3).toString();
+                String overtimeStr = EmployeeTimesheetTable.getValueAt(selectedRow, 4).toString();
+                String totalHoursStr = EmployeeTimesheetTable.getValueAt(selectedRow, 5).toString();
+                
+
+                // Set the values in the text fields
+                txtDate.setText(date);
+                txtTimeIn.setText(timeIn);
+                txtTimeOut.setText(timeOut);
+                txtOvertime.setText(overtimeStr);
+                txtTotalHours.setText(totalHoursStr);
+                
+            }
+        }
+    });
+}
     public void loadTimesheetDataToTable() {
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
 
-String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out, ts.overtime, ts.hours_worked " +
+    String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out, ts.overtime, ts.hours_worked " +
                "FROM timesheet ts " +
                "JOIN employees e ON ts.employee_id = e.employee_id " +  // Join with the employee table to get the name
                "WHERE ts.employee_id = " + employeeId; // Use the passed employee_id
