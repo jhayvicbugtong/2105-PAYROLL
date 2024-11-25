@@ -113,7 +113,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="deleteButton1" min="-2" pref="79" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="editButton" min="-2" pref="112" max="-2" attributes="0"/>
+                              <Component id="editRow" min="-2" pref="112" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="backToTSelectionButton" min="-2" pref="116" max="-2" attributes="0"/>
                           </Group>
@@ -138,7 +138,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="saveButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="deleteButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="editButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="editRow" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="backToTSelectionButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -184,10 +184,11 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="EmployeeInfoTable">
+            <Component class="javax.swing.JTable" name="EmployeeTimesheetTable">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="5" rowCount="50">
+                  <Table columnCount="6" rowCount="50">
+                    <Column editable="false" title="ID" type="java.lang.Object"/>
                     <Column editable="false" title="Date" type="java.lang.Object"/>
                     <Column editable="false" title="Time In" type="java.lang.Object"/>
                     <Column editable="false" title="Time Out" type="java.lang.Object"/>
@@ -197,6 +198,11 @@
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
@@ -251,7 +257,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="editButton">
+        <Component class="javax.swing.JButton" name="editRow">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="45" green="8f" red="e4" type="rgb"/>
@@ -267,7 +273,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editRowActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="deleteButton1">

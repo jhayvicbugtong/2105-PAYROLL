@@ -50,7 +50,7 @@ String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out,
         }
             
             
-            DefaultTableModel model = (DefaultTableModel) EmployeeInfoTable.getModel(); // Assuming you have a JTable named timesheetTable
+            DefaultTableModel model = (DefaultTableModel) EmployeeTimesheetTable.getModel(); // Assuming you have a JTable named timesheetTable
             model.setRowCount(0); // Clear the table before populating
 
             while (rs.next()) {
@@ -95,9 +95,9 @@ String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out,
         jTextArea2 = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        EmployeeInfoTable = new javax.swing.JTable();
+        EmployeeTimesheetTable = new javax.swing.JTable();
         saveButton = new javax.swing.JButton();
-        editButton = new javax.swing.JButton();
+        editRow = new javax.swing.JButton();
         deleteButton1 = new javax.swing.JButton();
         backTodashboardButton = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
@@ -128,73 +128,73 @@ String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out,
 
         jPanel1.setBackground(new java.awt.Color(107, 36, 12));
 
-        EmployeeInfoTable.setModel(new javax.swing.table.DefaultTableModel(
+        EmployeeTimesheetTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Date", "Time In", "Time Out", "Overtime", "Total Hours"
+                "ID", "Date", "Time In", "Time Out", "Overtime", "Total Hours"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        EmployeeInfoTable.setShowGrid(true);
-        jScrollPane1.setViewportView(EmployeeInfoTable);
+        EmployeeTimesheetTable.setShowGrid(true);
+        jScrollPane1.setViewportView(EmployeeTimesheetTable);
 
         saveButton.setBackground(new java.awt.Color(228, 143, 69));
         saveButton.setForeground(new java.awt.Color(107, 36, 12));
@@ -206,13 +206,13 @@ String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out,
             }
         });
 
-        editButton.setBackground(new java.awt.Color(228, 143, 69));
-        editButton.setForeground(new java.awt.Color(107, 36, 12));
-        editButton.setText("Edit Selected Row");
-        editButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        editButton.addActionListener(new java.awt.event.ActionListener() {
+        editRow.setBackground(new java.awt.Color(228, 143, 69));
+        editRow.setForeground(new java.awt.Color(107, 36, 12));
+        editRow.setText("Edit Selected Row");
+        editRow.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        editRow.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editButtonActionPerformed(evt);
+                editRowActionPerformed(evt);
             }
         });
 
@@ -327,7 +327,7 @@ String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out,
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(deleteButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(editRow, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(backToTSelectionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 666, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -346,7 +346,7 @@ String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out,
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saveButton)
                     .addComponent(deleteButton1)
-                    .addComponent(editButton)
+                    .addComponent(editRow)
                     .addComponent(backToTSelectionButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -418,9 +418,9 @@ String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out,
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
+    private void editRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editRowActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_editButtonActionPerformed
+    }//GEN-LAST:event_editRowActionPerformed
 
     private void backTodashboardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backTodashboardButtonActionPerformed
          this.setVisible(false);
@@ -448,14 +448,14 @@ String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out,
     }
 
     // Check if a row is selected in the table
-    int selectedRow = EmployeeInfoTable.getSelectedRow();
+    int selectedRow = EmployeeTimesheetTable.getSelectedRow();
     if (selectedRow == -1) {
         JOptionPane.showMessageDialog(this, "Please select a row from the table.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
     // Get the employee_id from the selected row (assuming it's in the first column of the table)
-    int employeeId = (int) EmployeeInfoTable.getValueAt(selectedRow, 0); // Assuming the employee_id is in the first column
+    int employeeId = (int) EmployeeTimesheetTable.getValueAt(selectedRow, 0); // Assuming the employee_id is in the first column
 
     Connection conn = null;
     PreparedStatement pst = null;
@@ -479,7 +479,7 @@ String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out,
 
         if (rowsInserted > 0) {
             // Add the data to the JTable
-            DefaultTableModel model = (DefaultTableModel) EmployeeInfoTable.getModel();
+            DefaultTableModel model = (DefaultTableModel) EmployeeTimesheetTable.getModel();
             model.addRow(new Object[]{employeeId, date1, timein1, timeout1, overtime1, totalhours1});
 
             JOptionPane.showMessageDialog(this, "Timesheet entry added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
@@ -507,48 +507,45 @@ String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out,
     }
 
     }//GEN-LAST:event_saveButtonActionPerformed
-private void refreshEmployeeTable() {
-    // Database connection details
+private void refreshEmployeeTimesheet() {
+    DefaultTableModel model = (DefaultTableModel) EmployeeTimesheetTable.getModel();
+    model.setRowCount(0); // Clear the table
+
     String url = "jdbc:mysql://localhost:3306/payroll_db";
     String user = "root";
     String pass = "";
 
     Connection conn = null;
-    Statement stmt = null;
+    PreparedStatement pst = null;
     ResultSet rs = null;
 
     try {
-        // Establish a connection to the database
+        // Connect to the database
         conn = DriverManager.getConnection(url, user, pass);
-        stmt = conn.createStatement();
 
-        // SQL query to fetch all employee data
-        String sql = "SELECT employee_id, name, position, salary, status FROM employees";
-        rs = stmt.executeQuery(sql);
+        // SQL to fetch all timesheet records
+        String sql = "SELECT employee_id, date, time_in, time_out, overtime, hours_worked FROM timesheet";
+        pst = conn.prepareStatement(sql);
+        rs = pst.executeQuery();
 
-        // Clear existing table data
-        DefaultTableModel model = (DefaultTableModel) EmployeeInfoTable.getModel();
-        model.setRowCount(0); // Reset the table's row count
-
-        // Populate the table with data from the database
+        // Populate the table with data
         while (rs.next()) {
-            Object[] row = {
-                rs.getInt("employee_id"),
-                rs.getString("name"),
-                rs.getString("position"),
-                rs.getDouble("salary"),
-                rs.getString("status")
-            };
-            model.addRow(row);
-        }
+            int id = rs.getInt("employee_id");
+            String date = rs.getString("date");
+            String timeIn = rs.getString("time_in");
+            String timeOut = rs.getString("time_out");
+            double overtime = rs.getDouble("overtime");
+            double hoursWorked = rs.getDouble("hours_worked");
 
+            model.addRow(new Object[]{id, date, timeIn, timeOut, overtime, hoursWorked});
+        }
     } catch (SQLException e) {
         e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Error refreshing employee table: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     } finally {
         try {
             if (rs != null) rs.close();
-            if (stmt != null) stmt.close();
+            if (pst != null) pst.close();
             if (conn != null) conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -556,7 +553,65 @@ private void refreshEmployeeTable() {
     }
 }
     private void deleteButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButton1ActionPerformed
-       
+int selectedRow = EmployeeTimesheetTable.getSelectedRow();
+
+if (selectedRow == -1) {
+    // No row is selected, show an error message
+    JOptionPane.showMessageDialog(this, "Please select a timesheet entry to delete.", "Error", JOptionPane.ERROR_MESSAGE);
+    return;
+}
+
+// Get the ID and Date from the selected row (assuming ID is in the first column and Date is in the second)
+int timesheetId = (int) EmployeeTimesheetTable.getValueAt(selectedRow, 0); // Assuming ID is in the first column
+String date = EmployeeTimesheetTable.getValueAt(selectedRow, 1).toString(); // Assuming Date is in the second column
+
+// Ask for confirmation before deleting
+int confirmation = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this timesheet entry?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+
+if (confirmation == JOptionPane.YES_OPTION) {
+    String url = "jdbc:mysql://localhost:3306/payroll_db";
+    String user = "root";
+    String pass = "";
+
+    Connection conn = null;
+    PreparedStatement pst = null;
+
+    try {
+        // Connect to the database
+        conn = DriverManager.getConnection(url, user, pass);
+
+        // SQL to delete the specific timesheet entry
+        String deleteTimesheetSql = "DELETE FROM timesheet WHERE employee_id = ? AND date = ?";
+        pst = conn.prepareStatement(deleteTimesheetSql);
+        pst.setInt(1, timesheetId);
+        pst.setString(2, date);
+
+        // Execute the DELETE query
+        int rowsDeleted = pst.executeUpdate();
+
+        if (rowsDeleted > 0) {
+            // Successfully deleted
+            JOptionPane.showMessageDialog(this, "Timesheet entry deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            
+            // Refresh the table to reflect the changes
+            refreshEmployeeTimesheet();
+        } else {
+            // No entry found with the specified ID and Date
+            JOptionPane.showMessageDialog(this, "Failed to delete timesheet entry. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    } finally {
+        try {
+            if (pst != null) pst.close();
+            if (conn != null) conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}       
     }//GEN-LAST:event_deleteButton1ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -620,7 +675,7 @@ private void refreshEmployeeTable() {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable EmployeeInfoTable;
+    private javax.swing.JTable EmployeeTimesheetTable;
     private javax.swing.JLabel Name;
     private javax.swing.JLabel address;
     private javax.swing.JLabel address1;
@@ -628,7 +683,7 @@ private void refreshEmployeeTable() {
     private javax.swing.JButton backTodashboardButton;
     private javax.swing.JTextField dateField;
     private javax.swing.JButton deleteButton1;
-    private javax.swing.JButton editButton;
+    private javax.swing.JButton editRow;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
