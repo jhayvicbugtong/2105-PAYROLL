@@ -108,11 +108,11 @@ String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out,
         jLabel3 = new javax.swing.JLabel();
         address = new javax.swing.JLabel();
         address1 = new javax.swing.JLabel();
-        dateField = new javax.swing.JTextField();
-        timeinField = new javax.swing.JTextField();
-        timeoutField = new javax.swing.JTextField();
-        overtimeField = new javax.swing.JTextField();
-        totalhoursField = new javax.swing.JTextField();
+        txtDate = new javax.swing.JTextField();
+        txtTimeIn = new javax.swing.JTextField();
+        txtTimeOut = new javax.swing.JTextField();
+        txtOvertime = new javax.swing.JTextField();
+        txtTotalHours = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -266,7 +266,7 @@ String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out,
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(245, 204, 160));
-        jLabel3.setText("TIME OU:");
+        jLabel3.setText("TIME OUT:");
 
         address.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         address.setForeground(new java.awt.Color(245, 204, 160));
@@ -276,21 +276,21 @@ String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out,
         address1.setForeground(new java.awt.Color(245, 204, 160));
         address1.setText("TOTAL HOURS:");
 
-        dateField.addActionListener(new java.awt.event.ActionListener() {
+        txtDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dateFieldActionPerformed(evt);
+                txtDateActionPerformed(evt);
             }
         });
 
-        timeinField.addActionListener(new java.awt.event.ActionListener() {
+        txtTimeIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                timeinFieldActionPerformed(evt);
+                txtTimeInActionPerformed(evt);
             }
         });
 
-        timeoutField.addActionListener(new java.awt.event.ActionListener() {
+        txtTimeOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                timeoutFieldActionPerformed(evt);
+                txtTimeOutActionPerformed(evt);
             }
         });
 
@@ -315,11 +315,11 @@ String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out,
                                 .addComponent(address1))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(dateField)
-                                .addComponent(timeoutField)
-                                .addComponent(overtimeField)
-                                .addComponent(timeinField)
-                                .addComponent(totalhoursField, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtDate)
+                                .addComponent(txtTimeOut)
+                                .addComponent(txtOvertime)
+                                .addComponent(txtTimeIn)
+                                .addComponent(txtTotalHours, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(backTodashboardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel1Layout.createSequentialGroup()
@@ -353,28 +353,28 @@ String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out,
                     .addComponent(backTodashboardButton)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(dateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Name))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(timeinField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTimeIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(timeoutField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtTimeOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(address)
-                            .addComponent(overtimeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtOvertime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(totalhoursField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTotalHours, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(address1))))
                 .addContainerGap(59, Short.MAX_VALUE))
         );
 
-        dateField.getAccessibleContext().setAccessibleDescription("");
+        txtDate.getAccessibleContext().setAccessibleDescription("");
 
         jPanel2.setBackground(new java.awt.Color(153, 77, 28));
 
@@ -419,7 +419,83 @@ String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out,
     }// </editor-fold>//GEN-END:initComponents
 
     private void editRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editRowActionPerformed
-        // TODO add your handling code here:
+        int selectedRow = EmployeeTimesheetTable.getSelectedRow();
+
+    if (selectedRow == -1) {
+        // No row is selected, show an error message
+        JOptionPane.showMessageDialog(this, "Please select a timesheet entry to edit.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Get the timesheet ID from the selected row (assuming the ID is in the first column)
+    int timesheetId = (int) EmployeeTimesheetTable.getValueAt(selectedRow, 0); 
+
+    // Collect updated information from user inputs
+    String date = txtDate.getText();
+    String timeIn = txtTimeIn.getText();
+    String timeOut = txtTimeOut.getText();
+    String overtimeStr = txtOvertime.getText();
+    String totalHoursStr = txtTotalHours.getText();
+
+    // Validate input
+    if (date.isEmpty() || timeIn.isEmpty() || timeOut.isEmpty() || overtimeStr.isEmpty() || totalHoursStr.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please fill out all fields.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Parse numeric fields
+    double overtime, totalHours;
+    try {
+        overtime = Double.parseDouble(overtimeStr);
+        totalHours = Double.parseDouble(totalHoursStr);
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Overtime and Total Hours must be numeric values.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Update the timesheet entry in the database
+    String url = "jdbc:mysql://localhost:3306/payroll_db";
+    String user = "root";
+    String pass = "";
+
+    Connection conn = null;
+    PreparedStatement pst = null;
+
+    try {
+        // Connect to the database
+        conn = DriverManager.getConnection(url, user, pass);
+
+        // SQL query to update the timesheet
+        String sql = "UPDATE timesheet SET date = ?, time_in = ?, time_out = ?, overtime = ?, hours_worked = ? WHERE employee_id = ?";
+        pst = conn.prepareStatement(sql);
+        pst.setString(1, date);
+        pst.setString(2, timeIn);
+        pst.setString(3, timeOut);
+        pst.setDouble(4, overtime);
+        pst.setDouble(5, totalHours);
+        pst.setInt(6, timesheetId);
+
+        // Execute the update
+        int rowsUpdated = pst.executeUpdate();
+
+        if (rowsUpdated > 0) {
+            JOptionPane.showMessageDialog(this, "Timesheet entry updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            refreshEmployeeTimesheet();
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed to update timesheet entry.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    } finally {
+        try {
+            if (pst != null) pst.close();
+            if (conn != null) conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     }//GEN-LAST:event_editRowActionPerformed
 
     private void backTodashboardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backTodashboardButtonActionPerformed
@@ -430,11 +506,11 @@ String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out,
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         // Get text values from the components
-    String date1 = dateField.getText();
-    String timein1 = timeinField.getText();
-    String timeout1 = timeoutField.getText();
-    String overtime1 = overtimeField.getText();
-    String totalhours1 = totalhoursField.getText();
+    String date1 = txtDate.getText();
+    String timein1 = txtTimeIn.getText();
+    String timeout1 = txtTimeOut.getText();
+    String overtime1 = txtOvertime.getText();
+    String totalhours1 = txtTotalHours.getText();
 
     // Database connection details
     String url = "jdbc:mysql://localhost:3306/payroll_db";
@@ -485,11 +561,11 @@ String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out,
             JOptionPane.showMessageDialog(this, "Timesheet entry added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
             // Clear input fields
-            dateField.setText("");
-            timeinField.setText("");
-            timeoutField.setText("");
-            overtimeField.setText("");
-            totalhoursField.setText("");
+            txtDate.setText("");
+            txtTimeIn.setText("");
+            txtTimeOut.setText("");
+            txtOvertime.setText("");
+            txtTotalHours.setText("");
         } else {
             JOptionPane.showMessageDialog(this, "Failed to add timesheet entry.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -624,17 +700,17 @@ if (confirmation == JOptionPane.YES_OPTION) {
         back.setVisible(true);
     }//GEN-LAST:event_backToTSelectionButtonActionPerformed
 
-    private void dateFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateFieldActionPerformed
+    private void txtDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDateActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_dateFieldActionPerformed
+    }//GEN-LAST:event_txtDateActionPerformed
 
-    private void timeinFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeinFieldActionPerformed
+    private void txtTimeInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimeInActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_timeinFieldActionPerformed
+    }//GEN-LAST:event_txtTimeInActionPerformed
 
-    private void timeoutFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeoutFieldActionPerformed
+    private void txtTimeOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimeOutActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_timeoutFieldActionPerformed
+    }//GEN-LAST:event_txtTimeOutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -681,7 +757,6 @@ if (confirmation == JOptionPane.YES_OPTION) {
     private javax.swing.JLabel address1;
     private javax.swing.JButton backToTSelectionButton;
     private javax.swing.JButton backTodashboardButton;
-    private javax.swing.JTextField dateField;
     private javax.swing.JButton deleteButton1;
     private javax.swing.JButton editRow;
     private javax.swing.JLabel jLabel1;
@@ -696,10 +771,11 @@ if (confirmation == JOptionPane.YES_OPTION) {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField overtimeField;
     private javax.swing.JButton saveButton;
-    private javax.swing.JTextField timeinField;
-    private javax.swing.JTextField timeoutField;
-    private javax.swing.JTextField totalhoursField;
+    private javax.swing.JTextField txtDate;
+    private javax.swing.JTextField txtOvertime;
+    private javax.swing.JTextField txtTimeIn;
+    private javax.swing.JTextField txtTimeOut;
+    private javax.swing.JTextField txtTotalHours;
     // End of variables declaration//GEN-END:variables
 }
