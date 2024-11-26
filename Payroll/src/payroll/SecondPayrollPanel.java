@@ -256,7 +256,7 @@ public void loadDeductionsDataToTable(int employeeId) {
         jLabel10 = new javax.swing.JLabel();
         BacktoDB1 = new javax.swing.JToggleButton();
         generatePayslipButton = new javax.swing.JToggleButton();
-        editRow = new javax.swing.JToggleButton();
+        editDeduction = new javax.swing.JToggleButton();
         deleteDeduction = new javax.swing.JToggleButton();
         txtDeduction = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -439,17 +439,17 @@ public void loadDeductionsDataToTable(int employeeId) {
         });
         jPanel2.add(generatePayslipButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 580, 120, -1));
 
-        editRow.setBackground(new java.awt.Color(228, 143, 69));
-        editRow.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        editRow.setForeground(new java.awt.Color(107, 36, 12));
-        editRow.setText("Edit");
-        editRow.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        editRow.addActionListener(new java.awt.event.ActionListener() {
+        editDeduction.setBackground(new java.awt.Color(228, 143, 69));
+        editDeduction.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        editDeduction.setForeground(new java.awt.Color(107, 36, 12));
+        editDeduction.setText("Edit");
+        editDeduction.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        editDeduction.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editRowActionPerformed(evt);
+                editDeductionActionPerformed(evt);
             }
         });
-        jPanel2.add(editRow, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 530, 65, -1));
+        jPanel2.add(editDeduction, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 530, 65, -1));
 
         deleteDeduction.setBackground(new java.awt.Color(228, 143, 69));
         deleteDeduction.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -650,9 +650,94 @@ public void loadDeductionsDataToTable(int employeeId) {
         SecondPayrollPanel.this.setVisible(false);
     }//GEN-LAST:event_generatePayslipButtonActionPerformed
 
-    private void editRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editRowActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_editRowActionPerformed
+    private void editDeductionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editDeductionActionPerformed
+    // Step 1: Get the selected row from the DeductionsTable
+    int selectedRow = DeductionsTable.getSelectedRow();
+
+    if (selectedRow == -1) {
+        JOptionPane.showMessageDialog(this, "Please select a row to edit.");
+        return;
+    }
+
+    // Step 2: Get the employee_deductions_id from the selected row (first column, which is hidden)
+    int employeeDeductionId = (int) DeductionsTable.getValueAt(selectedRow, 0);  // Assuming the first column has employee_deductions_id
+
+    // Step 3: Retrieve the new deduction name and amount from the text fields
+    String deductionName = txtDeduction.getText();  // Deduction name
+    String amountText = txtAmount.getText();  // Deduction amount
+
+    // Validate the inputs
+    if (deductionName.isEmpty() || amountText.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please fill in all fields.");
+        return;
+    }
+
+    // Validate that the amount is a valid number (double)
+    double amount;
+    try {
+        amount = Double.parseDouble(amountText);
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Invalid amount. Please enter a valid number.");
+        return;
+    }
+
+    // Step 4: Update the record in the database
+    String url = "jdbc:mysql://localhost:3306/payroll_db";
+    String user = "root";
+    String pass = "";
+
+    Connection conn = null;
+    PreparedStatement pst = null;
+
+    try {
+        // Connect to the database
+        conn = DriverManager.getConnection(url, user, pass);
+
+        // Step 5: Get the deduction_id from the deductions table using the deductionName
+        String getDeductionIdQuery = "SELECT deduction_id FROM deductions WHERE deduction_name = ?";
+        pst = conn.prepareStatement(getDeductionIdQuery);
+        pst.setString(1, deductionName);  // Use the deduction name entered by the user
+        ResultSet rs = pst.executeQuery();
+
+        if (rs.next()) {
+            // Get the deduction_id from the deductions table
+            int deductionId = rs.getInt("deduction_id");
+
+            // Step 6: Update the employee_deductions table
+            String updateQuery = "UPDATE employee_deductions SET deduction_id = ?, deduction_amount = ? WHERE employee_deduction_id = ?";
+            pst = conn.prepareStatement(updateQuery);
+            pst.setInt(1, deductionId);  // Use the deduction_id obtained from the deductions table
+            pst.setDouble(2, amount);     // Set the new deduction amount
+            pst.setInt(3, employeeDeductionId);  // Use the employee_deductions_id to identify the row to update
+
+            // Execute the update query
+            int rowsUpdated = pst.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                JOptionPane.showMessageDialog(this, "Deduction updated successfully.");
+
+                // Step 7: Refresh the table to reflect the changes
+                loadDeductionsDataToTable(employeeId);  // Assuming you have a method to reload the table data
+            } else {
+                JOptionPane.showMessageDialog(this, "Failed to update deduction. Please try again.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid deduction name. Please select a valid deduction.");
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    } finally {
+        try {
+            if (pst != null) pst.close();
+            if (conn != null) conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    }//GEN-LAST:event_editDeductionActionPerformed
 
     private void deleteDeductionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteDeductionActionPerformed
 
@@ -760,7 +845,7 @@ private void deleteDeductionFromDatabase(int employeeDeductionId) {
     private javax.swing.JToggleButton addDeduction;
     private javax.swing.JToggleButton backToPESelection;
     private javax.swing.JToggleButton deleteDeduction;
-    private javax.swing.JToggleButton editRow;
+    private javax.swing.JToggleButton editDeduction;
     private javax.swing.JToggleButton generatePayslipButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
