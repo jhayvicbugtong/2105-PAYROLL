@@ -77,6 +77,12 @@ public class PayrollEmployeeSelection extends javax.swing.JFrame {
             }
         });
 
+        txtStartDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtStartDateActionPerformed(evt);
+            }
+        });
+
         txtEndDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtEndDateActionPerformed(evt);
@@ -162,34 +168,41 @@ public class PayrollEmployeeSelection extends javax.swing.JFrame {
     }//GEN-LAST:event_txtEmployeeActionPerformed
 
     private void goToPayrollButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goToPayrollButtonActionPerformed
-        // Retrieve Employee Name or ID from the text field
-    String employeeNameOrId = txtEmployee.getText();
+try {
+        // Parse Employee ID from the text field (txtEmployee)
+        int employeeId = Integer.parseInt(txtEmployee.getText());  // Parse employee ID to int
 
-    // Validate if the input field is empty
-    if (employeeNameOrId.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Please enter the Employee Name or ID.");
-        return;
-    }
+        // Retrieve start and end dates from the text fields (txtStartDate, txtEndDate)
+        String startDate = txtStartDate.getText();
+        String endDate = txtEndDate.getText();
 
-    try {
-        // Check if the employee exists in the payroll table
-        if (doesEmployeeExist(employeeNameOrId)) {
-            // Employee found, open the SecondPayrollPanel
-            JOptionPane.showMessageDialog(this, "Employee found! Proceeding to payroll...");
-
-            // Create and display the SecondPayrollPanel
-            SecondPayrollPanel secondPayrollPanel = new SecondPayrollPanel();
-            secondPayrollPanel.setVisible(true);
-
-            // Close the current window if necessary
-            this.setVisible(false);
-        } else {
-            // Employee not found
-            JOptionPane.showMessageDialog(this, "Employee not found in the payroll database.");
+        // Validate that the fields are not empty
+        if (startDate.isEmpty() || endDate.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill in all fields.");
+            return;
         }
-    } catch (Exception ex) {
-        JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
-    }   
+
+        // Now create the SecondPayrollPanel and pass the retrieved data
+        SecondPayrollPanel secondPayrollPanel = new SecondPayrollPanel();
+
+        // Set the employee ID and date range
+        secondPayrollPanel.setEmployeeId(employeeId);  // Pass employeeId as int
+        secondPayrollPanel.setDateRange(startDate, endDate);
+
+        // Load the employee's details in the second panel
+        secondPayrollPanel.loadEmployeeDetails(employeeId);
+
+        // Call the method to load the filtered payroll data into the table
+        secondPayrollPanel.loadFilteredPayrollDataToTable();
+
+        // Display the SecondPayrollPanel and hide the current panel if necessary
+        secondPayrollPanel.setVisible(true);
+        this.setVisible(false); // Optional: Hide current panel if transitioning to second panel
+
+    } catch (NumberFormatException e) {
+        // Handle invalid input for employee ID (non-integer value)
+        JOptionPane.showMessageDialog(this, "Invalid Employee ID format. Please enter a valid integer.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
 }
 
 // Function to check if the employee exists in the payroll database
@@ -238,6 +251,10 @@ private boolean doesEmployeeExist(String employeeNameOrId) {
     private void txtEndDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEndDateActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEndDateActionPerformed
+
+    private void txtStartDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStartDateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtStartDateActionPerformed
 
     /**
      * @param args the command line arguments

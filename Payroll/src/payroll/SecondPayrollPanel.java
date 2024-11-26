@@ -19,66 +19,125 @@ import javax.swing.JOptionPane;
  * @author sophi
  */
 public class SecondPayrollPanel extends javax.swing.JFrame {
-    private int employeeId;     
+    private int employeeId;   
+    private String startDate;
+    private String endDate;
+    
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    // Setter for start and end dates
+    public void setDateRange(String startDate, String endDate) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
     /**
      * Creates new form SecondPayrollPanel
      */
     public SecondPayrollPanel(int employeeId) {
         this.employeeId = employeeId; // Save the employee_id
         initComponents(); // Initialize components (auto-generated code)
-        loadTimesheetDataToTable(); // Load timesheet data based on employee_id
+        loadFilteredPayrollDataToTable(); // Load timesheet data based on employee_id
     }
-    public void loadTimesheetDataToTable() {
-        Connection conn = null;
-        Statement stmt = null;
-        ResultSet rs = null;
+    
+    public void loadFilteredPayrollDataToTable() {
+    Connection conn = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
 
-String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out, ts.overtime, ts.hours_worked " +
-               "FROM timesheet ts " +
-               "JOIN employees e ON ts.employee_id = e.employee_id " +  // Join with the employee table to get the name
-               "WHERE ts.employee_id = " + employeeId;
-        
-        
+    // SQL query to fetch filtered data
+    String query = "SELECT date, time_in, time_out, overtime, hours_worked " +
+                   "FROM timesheet " +
+                   "WHERE employee_id = ? AND date BETWEEN ? AND ?";
 
-        try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/payroll_db", "root", "");
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery(query);
+    try {
+        // Set up database connection
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/payroll_db", "root", "");
+        pst = conn.prepareStatement(query);
 
-            // Assuming you have a JTextField named jTextField1 to display the employee name
-        if (rs.next()) {
-            // Set the employee name to jTextField1
-            txtID1.setText(rs.getString("name"));
+        // Set query parameters
+        pst.setInt(1, employeeId);  // Pass employeeId as int
+        pst.setString(2, startDate);
+        pst.setString(3, endDate);
+
+        // Execute the query
+        rs = pst.executeQuery();
+
+        // Get the table model from the PayrollTimesheet table
+        DefaultTableModel model = (DefaultTableModel) PayrollTimesheet.getModel();
+
+        // Clear any existing rows
+        model.setRowCount(0);
+
+        // Populate the table with data from the ResultSet
+        while (rs.next()) {
+            Object[] row = new Object[5]; // Adjust to match the number of columns
+            row[0] = rs.getDate("date");
+            row[1] = rs.getTime("time_in");
+            row[2] = rs.getTime("time_out");
+            row[3] = rs.getInt("overtime");
+            row[4] = rs.getDouble("hours_worked");
+
+            model.addRow(row);
         }
-            
-            
-            DefaultTableModel model = (DefaultTableModel) PayrollTimesheet.getModel(); // Assuming you have a JTable named timesheetTable
-            model.setRowCount(0); // Clear the table before populating
 
-            while (rs.next()) {
-                Object[] row = new Object[6]; // Adjust size of row as per the columns
-                row[1] = rs.getDate("date");
-                row[2] = rs.getTime("time_in");
-                row[3] = rs.getTime("time_out");
-                row[4] = rs.getDouble("overtime");
-                row[5] = rs.getDouble("hours_worked");
-
-                model.addRow(row); // Add the row to the table
-            }
-
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    } finally {
+        try {
+            if (rs != null) rs.close();
+            if (pst != null) pst.close();
+            if (conn != null) conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (stmt != null) stmt.close();
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
-    }    
+    }
+    }
+    
+    public void loadEmployeeDetails(int employeeId) {
+    Connection conn = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+
+    String query = "SELECT e.name, p.position_name FROM employees e " +
+                   "JOIN positions p ON e.position_id = p.position_id " +
+                   "WHERE e.employee_id = ?";
+
+    try {
+        // Connect to the database
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/payroll_db", "root", "");
+
+        // Prepare the SQL statement to retrieve the employee's name and position
+        pst = conn.prepareStatement(query);
+        pst.setInt(1, employeeId); // Set the employee ID parameter
+
+        // Execute the query
+        rs = pst.executeQuery();
+
+        // If an employee is found
+        if (rs.next()) {
+            // Set the employee details in the text fields
+            txtID.setText(String.valueOf(employeeId));  // Set employee ID
+            txtName.setText(rs.getString("name"));      // Set employee name
+            txtPosition.setText(rs.getString("position_name"));  // Set position name
+        } else {
+            JOptionPane.showMessageDialog(this, "Employee not found.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    } finally {
+        try {
+            if (rs != null) rs.close();
+            if (pst != null) pst.close();
+            if (conn != null) conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
     /**
      * Creates new form SecondPayrollPanel
      */
@@ -103,12 +162,12 @@ String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out,
         DeductionsTable = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         PayrollTimesheet = new javax.swing.JTable();
-        txtID1 = new javax.swing.JTextField();
+        txtName = new javax.swing.JTextField();
         txtSelectemployee = new javax.swing.JLabel();
         txtSelectemployee1 = new javax.swing.JLabel();
-        txtID4 = new javax.swing.JTextField();
+        txtPosition = new javax.swing.JTextField();
         txtSelectemployee2 = new javax.swing.JLabel();
-        txtID5 = new javax.swing.JTextField();
+        txtID = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txtSelectemployee3 = new javax.swing.JLabel();
         txtID6 = new javax.swing.JTextField();
@@ -194,12 +253,12 @@ String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out,
 
         jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 630, 224));
 
-        txtID1.addActionListener(new java.awt.event.ActionListener() {
+        txtName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtID1ActionPerformed(evt);
+                txtNameActionPerformed(evt);
             }
         });
-        jPanel2.add(txtID1, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 64, 150, -1));
+        jPanel2.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 64, 150, -1));
 
         txtSelectemployee.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         txtSelectemployee.setForeground(new java.awt.Color(245, 204, 160));
@@ -211,24 +270,24 @@ String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out,
         txtSelectemployee1.setText("Position:");
         jPanel2.add(txtSelectemployee1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 94, -1, -1));
 
-        txtID4.addActionListener(new java.awt.event.ActionListener() {
+        txtPosition.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtID4ActionPerformed(evt);
+                txtPositionActionPerformed(evt);
             }
         });
-        jPanel2.add(txtID4, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 92, 150, -1));
+        jPanel2.add(txtPosition, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 92, 150, -1));
 
         txtSelectemployee2.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         txtSelectemployee2.setForeground(new java.awt.Color(245, 204, 160));
         txtSelectemployee2.setText("ID:");
         jPanel2.add(txtSelectemployee2, new org.netbeans.lib.awtextra.AbsoluteConstraints(352, 66, -1, -1));
 
-        txtID5.addActionListener(new java.awt.event.ActionListener() {
+        txtID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtID5ActionPerformed(evt);
+                txtIDActionPerformed(evt);
             }
         });
-        jPanel2.add(txtID5, new org.netbeans.lib.awtextra.AbsoluteConstraints(372, 64, 60, -1));
+        jPanel2.add(txtID, new org.netbeans.lib.awtextra.AbsoluteConstraints(372, 64, 60, -1));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel8.setText("............................................................................................................................................................");
@@ -388,17 +447,17 @@ String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out,
         // TODO add your handling code here:
     }//GEN-LAST:event_txtID6ActionPerformed
 
-    private void txtID5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtID5ActionPerformed
+    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtID5ActionPerformed
+    }//GEN-LAST:event_txtIDActionPerformed
 
-    private void txtID4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtID4ActionPerformed
+    private void txtPositionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPositionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtID4ActionPerformed
+    }//GEN-LAST:event_txtPositionActionPerformed
 
-    private void txtID1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtID1ActionPerformed
+    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtID1ActionPerformed
+    }//GEN-LAST:event_txtNameActionPerformed
 
     private void jToggleButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton5ActionPerformed
         // TODO add your handling code here:
@@ -484,11 +543,11 @@ String query = "SELECT ts.employee_id, e.name, ts.date, ts.time_in, ts.time_out,
     private javax.swing.JToggleButton jToggleButton5;
     private javax.swing.JToggleButton jToggleButton6;
     private javax.swing.JToggleButton jToggleButton7;
-    private javax.swing.JTextField txtID1;
+    private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtID11;
-    private javax.swing.JTextField txtID4;
-    private javax.swing.JTextField txtID5;
     private javax.swing.JTextField txtID6;
+    private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtPosition;
     private javax.swing.JLabel txtSelectemployee;
     private javax.swing.JLabel txtSelectemployee1;
     private javax.swing.JLabel txtSelectemployee2;
