@@ -23,7 +23,7 @@ import javax.swing.event.ListSelectionListener;
  * @author sophi
  */
 public class SecondPayrollPanel extends javax.swing.JFrame {
-    private int employeeId;   
+    private int employeeId;
     private String startDate;
     private String endDate;
     
@@ -648,6 +648,18 @@ public void loadDeductionsDataToTable(int employeeId) {
         GeneratePayslip GeneratePayslip = new GeneratePayslip();
         GeneratePayslip.setVisible(true);
         SecondPayrollPanel.this.setVisible(false);
+        
+        // Set the employee ID and date range
+        GeneratePayslip.setEmployeeId(employeeId);  // Pass employeeId as int
+        GeneratePayslip.setDateRange(startDate, endDate);
+        
+        
+        
+        // Load the employee's details in the second panel
+        GeneratePayslip.loadEmployeeDetails(employeeId);
+        
+        // Load payroll data into the table
+        GeneratePayslip.loadFilteredPayrollDataToTable();
     }//GEN-LAST:event_generatePayslipButtonActionPerformed
 
     private void editRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editRowActionPerformed
