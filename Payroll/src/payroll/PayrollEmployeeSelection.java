@@ -1,15 +1,11 @@
 package payroll;
 
-import com.sun.jdi.connect.spi.Connection;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import javax.swing.JOptionPane;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -168,7 +164,8 @@ public class PayrollEmployeeSelection extends javax.swing.JFrame {
     }//GEN-LAST:event_txtEmployeeActionPerformed
 
     private void goToPayrollButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goToPayrollButtonActionPerformed
-try {
+
+    try {
         // Parse Employee ID from the text field (txtEmployee)
         int employeeId = Integer.parseInt(txtEmployee.getText());  // Parse employee ID to int
 
@@ -192,8 +189,11 @@ try {
         // Load the employee's details in the second panel
         secondPayrollPanel.loadEmployeeDetails(employeeId);
 
-        // Call the method to load the filtered payroll data into the table
+        // Load payroll data into the table
         secondPayrollPanel.loadFilteredPayrollDataToTable();
+
+        // Load deductions data into the deductions table
+        secondPayrollPanel.loadDeductionsDataToTable(employeeId);
 
         // Display the SecondPayrollPanel and hide the current panel if necessary
         secondPayrollPanel.setVisible(true);

@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 
@@ -125,6 +124,59 @@ public class SecondPayrollPanel extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Employee not found.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    } finally {
+        try {
+            if (rs != null) rs.close();
+            if (pst != null) pst.close();
+            if (conn != null) conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+    
+    // Inside SecondPayrollPanel.java
+
+public void loadDeductionsDataToTable(int employeeId) {
+    Connection conn = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+
+    // SQL query to fetch deductions and their amounts based on the employee ID
+    String query = "SELECT d.deduction_name, ed.deduction_amount " + "FROM employee_deductions ed " +
+                    "JOIN deductions d ON ed.deduction_id = d.deduction_id " +
+                    "WHERE ed.employee_id = ?";
+
+    try {
+        // Connect to the database
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/payroll_db", "root", "");
+
+        // Prepare the SQL statement to retrieve deductions data
+        pst = conn.prepareStatement(query);
+        pst.setInt(1, employeeId);  // Set employee ID to filter deductions by employee
+
+        // Execute the query
+        rs = pst.executeQuery();
+
+        // Get the table model for the deductionsTable
+        DefaultTableModel model = (DefaultTableModel) DeductionsTable.getModel();
+
+        // Clear the existing rows
+        model.setRowCount(0);
+
+        // Add each row from the result set to the table
+        while (rs.next()) {
+            Object[] row = new Object[2];  // Assuming 2 columns: deduction_name and amount
+
+            row[0] = rs.getString("deduction_name");  // Deduction name
+            row[1] = rs.getDouble("deduction_amount");         // Deduction amount
+
+            model.addRow(row);  // Add the row to the table
+        }
+
     } catch (SQLException e) {
         e.printStackTrace();
         JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
