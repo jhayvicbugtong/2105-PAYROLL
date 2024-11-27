@@ -682,65 +682,38 @@ private void refreshTable() {
     }//GEN-LAST:event_addRowActionPerformed
 
     private void deleteButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButton1ActionPerformed
-int selectedRow = EmployeeTimesheetTable.getSelectedRow();
+ // Get the selected row index
+    int selectedRow = EmployeeTimesheetTable.getSelectedRow();
 
-if (selectedRow == -1) {
-    // No row is selected, show an error message
-    JOptionPane.showMessageDialog(this, "Please select a timesheet entry to delete.", "Error", JOptionPane.ERROR_MESSAGE);
-    return;
-}
+    if (selectedRow != -1) {
+        // Get the timesheet_id of the selected row
+        int timesheetId = (int) EmployeeTimesheetTable.getValueAt(selectedRow, 0); // Assuming timesheet_id is in the first column
 
-// Get the ID and Date from the selected row (assuming ID is in the first column and Date is in the second)
-int timesheetId = (int) EmployeeTimesheetTable.getValueAt(selectedRow, 0); // Assuming ID is in the first column
-String date = EmployeeTimesheetTable.getValueAt(selectedRow, 1).toString(); // Assuming Date is in the second column
+        // SQL query to delete the record
+        String query = "DELETE FROM timesheet WHERE timesheet_id = ?";
 
-// Ask for confirmation before deleting
-int confirmation = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this timesheet entry?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/payroll_db", "root", "");
+             PreparedStatement stmt = conn.prepareStatement(query)) {
 
-if (confirmation == JOptionPane.YES_OPTION) {
-    String url = "jdbc:mysql://localhost:3306/payroll_db";
-    String user = "root";
-    String pass = "";
+            // Set the timesheet_id parameter
+            stmt.setInt(1, timesheetId);
 
-    Connection conn = null;
-    PreparedStatement pst = null;
+            // Execute the delete query
+            stmt.executeUpdate();
 
-    try {
-        // Connect to the database
-        conn = DriverManager.getConnection(url, user, pass);
+            // Refresh the table to reflect changes
+            refreshTable();
 
-        // SQL to delete the specific timesheet entry
-        String deleteTimesheetSql = "DELETE FROM timesheet WHERE employee_id = ? AND date = ?";
-        pst = conn.prepareStatement(deleteTimesheetSql);
-        pst.setInt(1, timesheetId);
-        pst.setString(2, date);
+            // Optionally, show a success message
+            JOptionPane.showMessageDialog(null, "Row deleted successfully!");
 
-        // Execute the DELETE query
-        int rowsDeleted = pst.executeUpdate();
-
-        if (rowsDeleted > 0) {
-            // Successfully deleted
-            JOptionPane.showMessageDialog(this, "Timesheet entry deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-            
-            // Refresh the table to reflect the changes
-
-        } else {
-            // No entry found with the specified ID and Date
-            JOptionPane.showMessageDialog(this, "Failed to delete timesheet entry. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-
-    } catch (SQLException e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    } finally {
-        try {
-            if (pst != null) pst.close();
-            if (conn != null) conn.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
         }
+    } else {
+        JOptionPane.showMessageDialog(null, "Please select a row to delete.");
     }
-}       
+
     }//GEN-LAST:event_deleteButton1ActionPerformed
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
