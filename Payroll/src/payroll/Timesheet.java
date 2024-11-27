@@ -474,6 +474,8 @@ public class Timesheet extends javax.swing.JFrame {
     if (date.isEmpty() || timeIn.isEmpty() || timeOut.isEmpty() || overtimeStr.isEmpty() || totalHoursStr.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Please fill out all fields.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
+        
+        
     }
 
     // Parse numeric fields
