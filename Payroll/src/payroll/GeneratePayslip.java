@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JTable;
+
 /**
  *
  * @author bugtong
@@ -27,6 +29,7 @@ public class GeneratePayslip extends javax.swing.JFrame {
     private int employeeId;
     private String startDate;
     private String endDate;
+
     
     public void setEmployeeId(int employeeId) {
         this.employeeId = employeeId;
@@ -37,6 +40,8 @@ public class GeneratePayslip extends javax.swing.JFrame {
         this.startDate = startDate;
         this.endDate = endDate;
     }
+    
+    
     
     public void loadEmployeeDetails(int employeeId) {
     Connection conn = null;
@@ -241,9 +246,7 @@ public class GeneratePayslip extends javax.swing.JFrame {
         }
     }
 }
-
-
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -274,7 +277,6 @@ public class GeneratePayslip extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel13 = new javax.swing.JLabel();
-        savePayslip = new javax.swing.JButton();
         BackToDashboard1 = new javax.swing.JButton();
 
         jTextField3.setText("jTextField1");
@@ -330,7 +332,7 @@ public class GeneratePayslip extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(245, 204, 160));
         jLabel5.setText("EARNINGS:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 120, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
 
         PayrollComputationsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -352,7 +354,7 @@ public class GeneratePayslip extends javax.swing.JFrame {
         PayrollComputationsTable.setShowGrid(true);
         jScrollPane2.setViewportView(PayrollComputationsTable);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 146, 570, 67));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 560, 67));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(245, 204, 160));
@@ -370,7 +372,7 @@ public class GeneratePayslip extends javax.swing.JFrame {
                 txtNetPayActionPerformed(evt);
             }
         });
-        jPanel1.add(txtNetPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 260, 160, -1));
+        jPanel1.add(txtNetPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 260, 160, -1));
 
         txtDeductions.setEditable(false);
         txtDeductions.addActionListener(new java.awt.event.ActionListener() {
@@ -378,7 +380,7 @@ public class GeneratePayslip extends javax.swing.JFrame {
                 txtDeductionsActionPerformed(evt);
             }
         });
-        jPanel1.add(txtDeductions, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 230, 160, -1));
+        jPanel1.add(txtDeductions, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 230, 160, -1));
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 557, 79, -1));
 
         jSeparator1.setBackground(new java.awt.Color(245, 204, 160));
@@ -388,18 +390,6 @@ public class GeneratePayslip extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(245, 204, 160));
         jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 557, 1, -1));
-
-        savePayslip.setBackground(new java.awt.Color(245, 204, 160));
-        savePayslip.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        savePayslip.setForeground(new java.awt.Color(107, 36, 12));
-        savePayslip.setText("Save Payslip");
-        savePayslip.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        savePayslip.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                savePayslipActionPerformed(evt);
-            }
-        });
-        jPanel1.add(savePayslip, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, -1, -1));
 
         BackToDashboard1.setBackground(new java.awt.Color(245, 204, 160));
         BackToDashboard1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -411,22 +401,17 @@ public class GeneratePayslip extends javax.swing.JFrame {
                 BackToDashboard1ActionPerformed(evt);
             }
         });
-        jPanel1.add(BackToDashboard1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, -1, -1));
+        jPanel1.add(BackToDashboard1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 130, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 590, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -452,10 +437,6 @@ public class GeneratePayslip extends javax.swing.JFrame {
     private void txtNetPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNetPayActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNetPayActionPerformed
-
-    private void savePayslipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savePayslipActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_savePayslipActionPerformed
 
     private void BackToDashboard1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackToDashboard1ActionPerformed
         this.setVisible(false);
@@ -515,7 +496,6 @@ public class GeneratePayslip extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JButton savePayslip;
     private javax.swing.JTextField txtDeductions;
     private javax.swing.JTextField txtGross;
     private javax.swing.JTextField txtID;
