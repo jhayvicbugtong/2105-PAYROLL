@@ -274,7 +274,8 @@ public class GeneratePayslip extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel13 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        savePayslip = new javax.swing.JButton();
+        BackToDashboard1 = new javax.swing.JButton();
 
         jTextField3.setText("jTextField1");
 
@@ -388,17 +389,29 @@ public class GeneratePayslip extends javax.swing.JFrame {
         jLabel13.setForeground(new java.awt.Color(245, 204, 160));
         jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 557, 1, -1));
 
-        jButton1.setBackground(new java.awt.Color(245, 204, 160));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(107, 36, 12));
-        jButton1.setText("Back to Dashboard");
-        jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        savePayslip.setBackground(new java.awt.Color(245, 204, 160));
+        savePayslip.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        savePayslip.setForeground(new java.awt.Color(107, 36, 12));
+        savePayslip.setText("Save Payslip");
+        savePayslip.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        savePayslip.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                savePayslipActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, -1, -1));
+        jPanel1.add(savePayslip, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, -1, -1));
+
+        BackToDashboard1.setBackground(new java.awt.Color(245, 204, 160));
+        BackToDashboard1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        BackToDashboard1.setForeground(new java.awt.Color(107, 36, 12));
+        BackToDashboard1.setText("Back to Dashboard");
+        BackToDashboard1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        BackToDashboard1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BackToDashboard1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BackToDashboard1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -428,12 +441,6 @@ public class GeneratePayslip extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDeductionsActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.setVisible(false);
-        AdminDashboard Dashboard = new AdminDashboard();
-        Dashboard.setVisible(true);        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIDActionPerformed
@@ -445,6 +452,14 @@ public class GeneratePayslip extends javax.swing.JFrame {
     private void txtNetPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNetPayActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNetPayActionPerformed
+
+    private void savePayslipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savePayslipActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_savePayslipActionPerformed
+
+    private void BackToDashboard1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackToDashboard1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BackToDashboard1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -482,8 +497,8 @@ public class GeneratePayslip extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BackToDashboard1;
     private javax.swing.JTable PayrollComputationsTable;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -498,6 +513,7 @@ public class GeneratePayslip extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JButton savePayslip;
     private javax.swing.JTextField txtDeductions;
     private javax.swing.JTextField txtGross;
     private javax.swing.JTextField txtID;

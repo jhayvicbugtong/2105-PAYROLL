@@ -497,9 +497,10 @@ public class Timesheet extends javax.swing.JFrame {
     try {
         // Connect to the database
         conn = DriverManager.getConnection(url, user, pass);
-
+        
         // SQL query to update the timesheet
-        String sql = "UPDATE timesheet SET date = ?, time_in = ?, time_out = ?, overtime = ?, hours_worked = ? WHERE employee_id = ?";
+        String sql = "UPDATE timesheet SET date = ?, time_in = ?, time_out = ?, overtime = ?, hours_worked = ? WHERE timesheet_id = ?";
+                   
         pst = conn.prepareStatement(sql);
         pst.setString(1, date);
         pst.setString(2, timeIn);
@@ -633,6 +634,7 @@ private void refreshEmployeeTimesheet() {
         conn = DriverManager.getConnection(url, user, pass);
 
         // SQL to fetch all timesheet records
+        
         String sql = "SELECT employee_id, date, time_in, time_out, overtime, hours_worked FROM timesheet";
         pst = conn.prepareStatement(sql);
         rs = pst.executeQuery();
