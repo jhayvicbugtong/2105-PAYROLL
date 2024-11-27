@@ -258,7 +258,6 @@ public class GeneratePayslip extends javax.swing.JFrame {
         txtGross = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
@@ -267,7 +266,6 @@ public class GeneratePayslip extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         PayrollComputationsTable = new javax.swing.JTable();
-        jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         txtNetPay = new javax.swing.JTextField();
         txtDeductions = new javax.swing.JTextField();
@@ -280,6 +278,9 @@ public class GeneratePayslip extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
 
         jTextField3.setText("jTextField1");
 
@@ -297,13 +298,8 @@ public class GeneratePayslip extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setForeground(new java.awt.Color(245, 204, 160));
-        jLabel2.setText("End:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 100, 37, -1));
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(245, 204, 160));
-        jLabel1.setText("Range");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 50, -1, -1));
+        jLabel2.setText("End Date:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, -1, -1));
 
         jLabel3.setForeground(new java.awt.Color(245, 204, 160));
         jLabel3.setText("Position: ");
@@ -314,15 +310,25 @@ public class GeneratePayslip extends javax.swing.JFrame {
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 70, -1, -1));
 
         txtName.setEditable(false);
+        txtName.setBackground(new java.awt.Color(107, 36, 12));
+        txtName.setForeground(new java.awt.Color(245, 204, 160));
+        txtName.setBorder(null);
         txtName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNameActionPerformed(evt);
             }
         });
         jPanel1.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 154, -1));
+
+        txtPosition.setBackground(new java.awt.Color(107, 36, 12));
+        txtPosition.setForeground(new java.awt.Color(245, 204, 160));
+        txtPosition.setBorder(null);
         jPanel1.add(txtPosition, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 155, -1));
 
         txtID.setEditable(false);
+        txtID.setBackground(new java.awt.Color(107, 36, 12));
+        txtID.setForeground(new java.awt.Color(245, 204, 160));
+        txtID.setBorder(null);
         txtID.setName("txtID"); // NOI18N
         txtID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -356,33 +362,36 @@ public class GeneratePayslip extends javax.swing.JFrame {
         PayrollComputationsTable.setShowGrid(true);
         jScrollPane2.setViewportView(PayrollComputationsTable);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 570, 67));
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(245, 204, 160));
-        jLabel7.setText("Net Pay:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 290, -1, -1));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 570, 50));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(245, 204, 160));
         jLabel8.setText("Total Deductions:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 260, 100, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 270, 100, -1));
 
         txtNetPay.setEditable(false);
+        txtNetPay.setBackground(new java.awt.Color(107, 36, 12));
+        txtNetPay.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        txtNetPay.setForeground(new java.awt.Color(245, 204, 160));
+        txtNetPay.setBorder(null);
         txtNetPay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNetPayActionPerformed(evt);
             }
         });
-        jPanel1.add(txtNetPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 290, 160, -1));
+        jPanel1.add(txtNetPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 300, 130, -1));
 
         txtDeductions.setEditable(false);
+        txtDeductions.setBackground(new java.awt.Color(107, 36, 12));
+        txtDeductions.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        txtDeductions.setForeground(new java.awt.Color(245, 204, 160));
+        txtDeductions.setBorder(null);
         txtDeductions.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDeductionsActionPerformed(evt);
             }
         });
-        jPanel1.add(txtDeductions, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 260, 160, -1));
+        jPanel1.add(txtDeductions, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 270, 130, -1));
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 557, 79, -1));
 
         jSeparator1.setBackground(new java.awt.Color(245, 204, 160));
@@ -403,40 +412,62 @@ public class GeneratePayslip extends javax.swing.JFrame {
                 BackToDashboard1ActionPerformed(evt);
             }
         });
-        jPanel1.add(BackToDashboard1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 130, 30));
+        jPanel1.add(BackToDashboard1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 130, 30));
 
+        dateStart.setBackground(new java.awt.Color(107, 36, 12));
+        dateStart.setForeground(new java.awt.Color(245, 204, 160));
+        dateStart.setBorder(null);
         dateStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dateStartActionPerformed(evt);
             }
         });
         jPanel1.add(dateStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 70, 90, -1));
+
+        dateEnd.setBackground(new java.awt.Color(107, 36, 12));
+        dateEnd.setForeground(new java.awt.Color(245, 204, 160));
+        dateEnd.setBorder(null);
         jPanel1.add(dateEnd, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 100, 90, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(245, 204, 160));
-        jLabel6.setText("PAYSLIP");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, -1, -1));
+        jLabel6.setText("EMPLOYEE PAYSLIP");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, -1, -1));
 
         jLabel10.setForeground(new java.awt.Color(245, 204, 160));
         jLabel10.setText("Name:");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 37, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 37, -1));
 
         jLabel11.setForeground(new java.awt.Color(245, 204, 160));
-        jLabel11.setText("Start:");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 70, 37, -1));
+        jLabel11.setText("Start Date:");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(427, 70, 60, -1));
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(228, 143, 69));
+        jLabel14.setText(".....................................................................................................");
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 570, -1));
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(228, 143, 69));
+        jLabel15.setText(".....................................................................................................");
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 570, -1));
+
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(245, 204, 160));
+        jLabel18.setText("Net Pay:");
+        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 300, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -513,17 +544,18 @@ public class GeneratePayslip extends javax.swing.JFrame {
     private javax.swing.JTable PayrollComputationsTable;
     private javax.swing.JTextField dateEnd;
     private javax.swing.JTextField dateStart;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;

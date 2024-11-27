@@ -541,84 +541,55 @@ private void refreshTable() {
     }// </editor-fold>//GEN-END:initComponents
 
     private void editRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editRowActionPerformed
-        int selectedRow = EmployeeTimesheetTable.getSelectedRow();
+// Get the selected row from the table
+    int selectedRow = EmployeeTimesheetTable.getSelectedRow();
 
-    if (selectedRow == -1) {
-        // No row is selected, show an error message
-        JOptionPane.showMessageDialog(this, "Please select a timesheet entry to edit.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+    if (selectedRow != -1) {  // Ensure that a row is selected
+        // Retrieve values from the text fields
+        String date = txtDate.getText();
+        String timeIn = txtTimeIn.getText();
+        String timeOut = txtTimeOut.getText();
+        String overtime = txtOvertime.getText();
+        String totalHours = txtTotalHours.getText();
 
-    // Get the timesheet ID from the selected row (assuming the ID is in the first column)
-    int timesheetId = (int) EmployeeTimesheetTable.getValueAt(selectedRow, 0); 
+        // Get the timesheet_id from the selected row
+        int timesheetId = (int) EmployeeTimesheetTable.getValueAt(selectedRow, 0); // assuming timesheet_id is in column 0
 
-    // Collect updated information from user inputs
-    String date = txtDate.getText();
-    String timeIn = txtTimeIn.getText();
-    String timeOut = txtTimeOut.getText();
-    String overtimeStr = txtOvertime.getText();
-    String totalHoursStr = txtTotalHours.getText();
+        // Update the database with the new values
+        String query = "UPDATE timesheet SET date = ?, time_in = ?, time_out = ?, overtime = ?, hours_worked = ? WHERE timesheet_id = ?";
 
-    // Validate input
-    if (date.isEmpty() || timeIn.isEmpty() || timeOut.isEmpty() || overtimeStr.isEmpty() || totalHoursStr.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Please fill out all fields.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-        
-        
-    }
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/payroll_db", "root", "");
+             PreparedStatement stmt = conn.prepareStatement(query)) {
 
-    // Parse numeric fields
-    double overtime, totalHours;
-    try {
-        overtime = Double.parseDouble(overtimeStr);
-        totalHours = Double.parseDouble(totalHoursStr);
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Overtime and Total Hours must be numeric values.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+            // Set values for the prepared statement
+            stmt.setString(1, date);
+            stmt.setString(2, timeIn);
+            stmt.setString(3, timeOut);
+            stmt.setString(4, overtime);
+            stmt.setString(5, totalHours);
+            stmt.setInt(6, timesheetId); // Specify which row to update by timesheet_id
 
-    // Update the timesheet entry in the database
-    String url = "jdbc:mysql://localhost:3306/payroll_db";
-    String user = "root";
-    String pass = "";
+            // Execute the update query
+            stmt.executeUpdate();
 
-    Connection conn = null;
-    PreparedStatement pst = null;
+            // Optionally, refresh the table or show a success message
+            JOptionPane.showMessageDialog(null, "Row updated successfully!");
 
-    try {
-        // Connect to the database
-        conn = DriverManager.getConnection(url, user, pass);
-        
-        // SQL query to update the timesheet
-        String sql = "UPDATE timesheet SET date = ?, time_in = ?, time_out = ?, overtime = ?, hours_worked = ? WHERE timesheet_id = ?";
-                   
-        pst = conn.prepareStatement(sql);
-        pst.setString(1, date);
-        pst.setString(2, timeIn);
-        pst.setString(3, timeOut);
-        pst.setDouble(4, overtime);
-        pst.setDouble(5, totalHours);
-        pst.setInt(6, timesheetId);
+            // Refresh the table to show the updated data
+            refreshTable(); // Update the table to reflect the changes
 
-        // Execute the update
-        int rowsUpdated = pst.executeUpdate();
+            // Clear the text fields after the update (optional)
+            txtDate.setText("");
+            txtTimeIn.setText("");
+            txtTimeOut.setText("");
+            txtOvertime.setText("");
+            txtTotalHours.setText("");
 
-        if (rowsUpdated > 0) {
-            JOptionPane.showMessageDialog(this, "Timesheet entry updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, "Failed to update timesheet entry.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-
-    } catch (SQLException e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    } finally {
-        try {
-            if (pst != null) pst.close();
-            if (conn != null) conn.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
         }
+    } else {
+        JOptionPane.showMessageDialog(null, "Please select a row to edit.");
     }
     }//GEN-LAST:event_editRowActionPerformed
 
