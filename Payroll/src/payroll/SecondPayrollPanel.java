@@ -635,6 +635,9 @@ public void loadDeductionsDataToTable(int employeeId) {
         
         // compute net pay
         GeneratePayslip.computeNetPay();
+        
+        GeneratePayslip.setStartDate(startDate);
+        GeneratePayslip.setEndDate(endDate);
     }//GEN-LAST:event_generatePayslipButtonActionPerformed
 
     private void editDeductionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editDeductionActionPerformed
