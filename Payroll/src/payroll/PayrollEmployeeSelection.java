@@ -198,6 +198,8 @@ public class PayrollEmployeeSelection extends javax.swing.JFrame {
         // Display the SecondPayrollPanel and hide the current panel if necessary
         secondPayrollPanel.setVisible(true);
         this.setVisible(false); // Optional: Hide current panel if transitioning to second panel
+        
+        ;
 
     } catch (NumberFormatException e) {
         // Handle invalid input for employee ID (non-integer value)

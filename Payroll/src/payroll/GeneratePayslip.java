@@ -125,18 +125,9 @@ public class GeneratePayslip extends javax.swing.JFrame {
             row[0] = rs.getString("total_hours");
             row[1] = rs.getString("rate_per_hour");
             row[2] = rs.getString("total_salary"); // gross pay w/out deductions
-
+            txtGross.setText(rs.getString("total_salary"));
             model.addRow(row);
-            
-//            double gross = rs.getString("total_salary");
-
-
-//            double gross = rs.getString("total_deduction");
-
-//              SELECT SUM(deduction_amount) AS total_deductions FROM employee_deductions WHERE employee_id = ?
-//            double net = 
-                    
-                    
+                           
         }
 
     } catch (SQLException e) {
@@ -152,6 +143,106 @@ public class GeneratePayslip extends javax.swing.JFrame {
         }
     }
     }
+    
+    public void loadDeductions() {
+    Connection conn = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+
+    // SQL query to fetch deductions data
+    String query =
+            "SELECT SUM(deduction_amount) AS total_deductions "
+            + "FROM employee_deductions "
+            + "WHERE employee_id = ?";
+
+    try {
+        // Set up database connection
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/payroll_db", "root", "");
+        pst = conn.prepareStatement(query);
+
+        // Set query parameters
+        pst.setInt(1, employeeId); // Pass employeeId as int
+
+        // Execute the query
+        rs = pst.executeQuery();
+        
+        // Check if there are deductions and populate the txtDeductions text box
+        if (rs.next()) {
+            // If no deductions (null or zero), display a message
+            double totalDeductions = rs.getDouble("total_deductions");
+            if (totalDeductions == 0) {
+                txtDeductions.setText("No deductions");
+            } else {
+                txtDeductions.setText(String.valueOf(totalDeductions));
+            }
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    } finally {
+        try {
+            if (rs != null) rs.close();
+            if (pst != null) pst.close();
+            if (conn != null) conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+    
+    public void loadDeductionsToTable(int employeeId) {
+    Connection conn = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+    
+    // Query to fetch deduction names and amounts for the employee
+    String query = "SELECT deduction_name, deduction_amount " +
+                   "FROM employee_deductions " +
+                   "WHERE employee_id = ?";
+    
+    try {
+        // Set up database connection
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/payroll_db", "root", "");
+        pst = conn.prepareStatement(query);
+
+        // Set query parameter for employee ID
+        pst.setInt(1, employeeId);
+
+        // Execute the query
+        rs = pst.executeQuery();
+
+        // Get the table model from the deductions table
+        DefaultTableModel model = (DefaultTableModel) PayrollComputationsTable.getModel();
+
+        // Clear any existing rows
+        model.setRowCount(0);
+
+        // Populate the table with data from the ResultSet
+        while (rs.next()) {
+            // Create an array for each row
+            Object[] row = new Object[2]; // Two columns: Deduction Name and Deduction Amount
+            row[0] = rs.getString("deduction_name"); // Deduction name
+            row[1] = rs.getDouble("deduction_amount"); // Deduction amount
+            model.addRow(row); // Add the row to the table model
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    } finally {
+        try {
+            if (rs != null) rs.close();
+            if (pst != null) pst.close();
+            if (conn != null) conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -164,6 +255,7 @@ public class GeneratePayslip extends javax.swing.JFrame {
 
         jTextField3 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
+        txtGross = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -177,8 +269,8 @@ public class GeneratePayslip extends javax.swing.JFrame {
         PayrollComputationsTable = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
+        txtNetPay = new javax.swing.JTextField();
+        txtDeductions = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel13 = new javax.swing.JLabel();
@@ -187,6 +279,12 @@ public class GeneratePayslip extends javax.swing.JFrame {
         jTextField3.setText("jTextField1");
 
         jLabel9.setText("jLabel9");
+
+        txtGross.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtGrossActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -217,8 +315,6 @@ public class GeneratePayslip extends javax.swing.JFrame {
             }
         });
         jPanel1.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(61, 52, 154, -1));
-
-        txtPosition.setEditable(false);
         jPanel1.add(txtPosition, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 155, -1));
 
         txtID.setEditable(false);
@@ -267,16 +363,21 @@ public class GeneratePayslip extends javax.swing.JFrame {
         jLabel8.setText("Total Deductions:");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 230, 110, -1));
 
-        jTextField5.setEditable(false);
-        jPanel1.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 260, 160, -1));
-
-        jTextField6.setEditable(false);
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+        txtNetPay.setEditable(false);
+        txtNetPay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
+                txtNetPayActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 230, 160, -1));
+        jPanel1.add(txtNetPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 260, 160, -1));
+
+        txtDeductions.setEditable(false);
+        txtDeductions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDeductionsActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtDeductions, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 230, 160, -1));
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 557, 79, -1));
 
         jSeparator1.setBackground(new java.awt.Color(245, 204, 160));
@@ -323,9 +424,9 @@ public class GeneratePayslip extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNameActionPerformed
 
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+    private void txtDeductionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDeductionsActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField6ActionPerformed
+    }//GEN-LAST:event_txtDeductionsActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.setVisible(false);
@@ -336,6 +437,14 @@ public class GeneratePayslip extends javax.swing.JFrame {
     private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIDActionPerformed
+
+    private void txtGrossActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGrossActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtGrossActionPerformed
+
+    private void txtNetPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNetPayActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNetPayActionPerformed
 
     /**
      * @param args the command line arguments
@@ -389,10 +498,43 @@ public class GeneratePayslip extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField txtDeductions;
+    private javax.swing.JTextField txtGross;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtNetPay;
     private javax.swing.JTextField txtPosition;
     // End of variables declaration//GEN-END:variables
+
+    public void computeNetPay() {
+    try {
+        // Parse values from the gross salary text field
+        double gross = Double.parseDouble(txtGross.getText());
+        
+        // Handle empty or invalid deductions
+        String deductionsText = txtDeductions.getText();
+        double deductions = 0; // Default to 0 if empty or invalid input
+        
+        if (deductionsText != null && !deductionsText.trim().isEmpty()) {
+            try {
+                deductions = Double.parseDouble(deductionsText);
+            } catch (NumberFormatException e) {
+                // If deductions field is not a valid number, default to 0
+                txtDeductions.setText("0");
+                deductions = 0;
+            }
+        }
+
+        // Perform subtraction to get the net pay
+        double netPay = gross - deductions;
+
+        // Display the net pay in the text field
+        txtNetPay.setText(String.valueOf(netPay));
+        
+    } catch (NumberFormatException e) {
+        // Handle invalid gross salary input
+        JOptionPane.showMessageDialog(null, "Please enter a valid gross salary.", "Input Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
 }

@@ -100,7 +100,7 @@ public class SecondPayrollPanel extends javax.swing.JFrame {
     }
     }
     
-    public void loadEmployeeDetails(int employeeId) {
+public void loadEmployeeDetails(int employeeId) {
     Connection conn = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
@@ -108,7 +108,6 @@ public class SecondPayrollPanel extends javax.swing.JFrame {
     String query = "SELECT e.name, p.position_name FROM employees e " +
                    "JOIN positions p ON e.position_id = p.position_id " +
                    "WHERE e.employee_id = ?";
-
     try {
         // Connect to the database
         conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/payroll_db", "root", "");
@@ -142,7 +141,7 @@ public class SecondPayrollPanel extends javax.swing.JFrame {
         }
     }
 }
- 
+
 private void setupDeductionsTableSelectionListener() {
     DeductionsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
         @Override
@@ -248,11 +247,8 @@ public void loadDeductionsDataToTable(int employeeId) {
         txtID = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txtSelectemployee3 = new javax.swing.JLabel();
-        txtID6 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         backToPESelection = new javax.swing.JToggleButton();
-        txtSelectemployee8 = new javax.swing.JLabel();
-        txtID11 = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         BacktoDB1 = new javax.swing.JToggleButton();
         generatePayslipButton = new javax.swing.JToggleButton();
@@ -301,6 +297,9 @@ public void loadDeductionsDataToTable(int employeeId) {
         ));
         DeductionsTable.setShowGrid(true);
         jScrollPane1.setViewportView(DeductionsTable);
+        if (DeductionsTable.getColumnModel().getColumnCount() > 0) {
+            DeductionsTable.getColumnModel().getColumn(0).setHeaderValue("ID");
+        }
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 630, 110));
 
@@ -373,15 +372,7 @@ public void loadDeductionsDataToTable(int employeeId) {
 
         txtSelectemployee3.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         txtSelectemployee3.setForeground(new java.awt.Color(245, 204, 160));
-        txtSelectemployee3.setText("Total Salary:  ");
         jPanel2.add(txtSelectemployee3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 610, -1, -1));
-
-        txtID6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtID6ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(txtID6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 610, 272, -1));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel9.setText("............................................................................................................................................................");
@@ -398,18 +389,6 @@ public void loadDeductionsDataToTable(int employeeId) {
             }
         });
         jPanel2.add(backToPESelection, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 640, 120, -1));
-
-        txtSelectemployee8.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        txtSelectemployee8.setForeground(new java.awt.Color(245, 204, 160));
-        txtSelectemployee8.setText("Net Salary: ");
-        jPanel2.add(txtSelectemployee8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 580, -1, -1));
-
-        txtID11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtID11ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(txtID11, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 580, 272, -1));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel10.setText("............................................................................................................................................................");
@@ -517,19 +496,11 @@ public void loadDeductionsDataToTable(int employeeId) {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtID11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtID11ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtID11ActionPerformed
-
     private void backToPESelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToPESelectionActionPerformed
         this.setVisible(false);
         PayrollEmployeeSelection back = new PayrollEmployeeSelection();
         back.setVisible(true);
     }//GEN-LAST:event_backToPESelectionActionPerformed
-
-    private void txtID6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtID6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtID6ActionPerformed
 
     private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
         // TODO add your handling code here:
@@ -652,14 +623,18 @@ public void loadDeductionsDataToTable(int employeeId) {
         // Set the employee ID and date range
         GeneratePayslip.setEmployeeId(employeeId);  // Pass employeeId as int
         GeneratePayslip.setDateRange(startDate, endDate);
-        
-        
-        
+               
         // Load the employee's details in the second panel
         GeneratePayslip.loadEmployeeDetails(employeeId);
         
         // Load payroll data into the table
         GeneratePayslip.loadFilteredPayrollDataToTable();
+        
+        // Load deductions data into txtDeductions
+        GeneratePayslip.loadDeductions();
+        
+        // compute net pay
+        GeneratePayslip.computeNetPay();
     }//GEN-LAST:event_generatePayslipButtonActionPerformed
 
     private void editDeductionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editDeductionActionPerformed
@@ -872,14 +847,11 @@ private void deleteDeductionFromDatabase(int employeeDeductionId) {
     private javax.swing.JTextField txtAmount;
     private javax.swing.JTextField txtDeduction;
     private javax.swing.JTextField txtID;
-    private javax.swing.JTextField txtID11;
-    private javax.swing.JTextField txtID6;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPosition;
     private javax.swing.JLabel txtSelectemployee;
     private javax.swing.JLabel txtSelectemployee1;
     private javax.swing.JLabel txtSelectemployee2;
     private javax.swing.JLabel txtSelectemployee3;
-    private javax.swing.JLabel txtSelectemployee8;
     // End of variables declaration//GEN-END:variables
 }
