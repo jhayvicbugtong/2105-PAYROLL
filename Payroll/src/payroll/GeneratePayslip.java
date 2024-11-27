@@ -458,7 +458,9 @@ public class GeneratePayslip extends javax.swing.JFrame {
     }//GEN-LAST:event_savePayslipActionPerformed
 
     private void BackToDashboard1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackToDashboard1ActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false);
+        AdminDashboard back = new AdminDashboard();
+        back.setVisible(true);
     }//GEN-LAST:event_BackToDashboard1ActionPerformed
 
     /**

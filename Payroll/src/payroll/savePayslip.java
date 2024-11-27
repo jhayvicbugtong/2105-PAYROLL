@@ -162,7 +162,9 @@ public class savePayslip extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BackToDashboard1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackToDashboard1ActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false);
+        AdminDashboard back = new AdminDashboard();
+        back.setVisible(true);
     }//GEN-LAST:event_BackToDashboard1ActionPerformed
 
 
