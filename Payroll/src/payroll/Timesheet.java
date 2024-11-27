@@ -1,4 +1,5 @@
 package payroll;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -121,9 +122,85 @@ EmployeeTimesheetTable.addMouseListener(new java.awt.event.MouseAdapter() {
         }
     }
 
-
-
     
+private void addTimesheetToDatabase(String date, String timeIn, String timeOut, String overtime, String totalHours) {
+    // Database connection details
+    String url = "jdbc:mysql://localhost:3306/payroll_db";
+    String user = "root";
+    String pass = "";
+
+    Connection conn = null;
+    PreparedStatement preparedStatement = null;
+
+    try {
+        // Connect to the database
+        conn = DriverManager.getConnection(url, user, pass);
+
+        // Prepare the SQL query to insert a new record
+        String query = "INSERT INTO timesheet (date, time_in, time_out, overtime, hours_worked) VALUES (?, ?, ?, ?, ?)";
+        preparedStatement = conn.prepareStatement(query);
+
+        // Set the values for the query
+        preparedStatement.setString(1, date);
+        preparedStatement.setString(2, timeIn);
+        preparedStatement.setString(3, timeOut);
+        preparedStatement.setString(4, overtime);
+        preparedStatement.setString(5, totalHours);
+
+        // Execute the query
+        preparedStatement.executeUpdate();
+
+        // Optionally, show a success message
+        JOptionPane.showMessageDialog(this, "Timesheet added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(this, "Database error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    } finally {
+        // Close resources
+        try {
+            if (preparedStatement != null) preparedStatement.close();
+            if (conn != null) conn.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error closing database resources: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+}
+
+private void refreshTable() {
+    // Clear the existing rows in the table model
+    DefaultTableModel model = (DefaultTableModel) EmployeeTimesheetTable.getModel();
+    model.setRowCount(0);  // Clear the existing rows, but keep the column headers
+
+    // Query to fetch all records from the database (or filtered data if needed)
+    String query = "SELECT * FROM timesheet WHERE employee_id = ?";  // Use employee_id as a filter if necessary
+
+    try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/payroll_db", "root", "");
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+
+        // Set employee_id parameter if you want to filter the timesheet by employee
+        stmt.setInt(1, employeeId);  // employeeId from the selected employee
+
+        ResultSet rs = stmt.executeQuery();
+
+        // Loop through the result set and add rows to the table
+        while (rs.next()) {
+            int timesheetId = rs.getInt("timesheet_id");
+            String date = rs.getString("date");
+            String timeIn = rs.getString("time_in");
+            String timeOut = rs.getString("time_out");
+            String overtime = rs.getString("overtime");
+            String totalHours = rs.getString("hours_worked");
+
+            // Add each row to the table
+            model.addRow(new Object[]{timesheetId, date, timeIn, timeOut, overtime, totalHours});
+        }
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error fetching records: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -528,7 +605,6 @@ EmployeeTimesheetTable.addMouseListener(new java.awt.event.MouseAdapter() {
 
         if (rowsUpdated > 0) {
             JOptionPane.showMessageDialog(this, "Timesheet entry updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-            refreshEmployeeTimesheet();
         } else {
             JOptionPane.showMessageDialog(this, "Failed to update timesheet entry.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -547,136 +623,64 @@ EmployeeTimesheetTable.addMouseListener(new java.awt.event.MouseAdapter() {
     }//GEN-LAST:event_editRowActionPerformed
 
     private void backTodashboardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backTodashboardButtonActionPerformed
-         this.setVisible(false);
-     AdminDashboard back = new AdminDashboard();
-     back.setVisible(true);
+    this.setVisible(false);  
+    AdminDashboard back = new AdminDashboard();  
+    back.setVisible(true); 
     }//GEN-LAST:event_backTodashboardButtonActionPerformed
 
     private void addRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRowActionPerformed
-        // Get text values from the components
-    String date1 = txtDate.getText();
-    String timein1 = txtTimeIn.getText();
-    String timeout1 = txtTimeOut.getText();
-    String overtime1 = txtOvertime.getText();
-    String totalhours1 = txtTotalHours.getText();
+   // Retrieve values from text fields
+    String date = txtDate.getText();
+    String timeIn = txtTimeIn.getText();
+    String timeOut = txtTimeOut.getText();
+    String overtime = txtOvertime.getText();
+    String totalHours = txtTotalHours.getText();
 
-    // Database connection details
-    String url = "jdbc:mysql://localhost:3306/payroll_db";
-    String user = "root";
-    String pass = "";
+    // Retrieve the employee ID from the previous panel (TimesheetEmployeeSelection panel)
+    // Assuming the employee ID is stored in a variable called employeeId
+    String employeeIdText = txtName.getText(); // Assuming employee name's text field is used for employee ID
 
-    // Validate that all fields are filled out
-    if (date1.isEmpty() || timein1.isEmpty() || timeout1.isEmpty() || overtime1.isEmpty() || totalhours1.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "All fields must be filled out.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
+    // Handle empty totalHours and set a default value or validate the field
+    if (totalHours.isEmpty()) {
+        totalHours = "0";  // You can set a default value or handle it based on your logic
     }
 
-    // Check if a row is selected in the table
-    int selectedRow = EmployeeTimesheetTable.getSelectedRow();
-    if (selectedRow == -1) {
-        JOptionPane.showMessageDialog(this, "Please select a row from the table.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+    // Query for inserting into the timesheet table
+    String query = "INSERT INTO timesheet (employee_id, date, time_in, time_out, overtime, hours_worked) VALUES (?, ?, ?, ?, ?, ?)";
 
-    // Get the employee_id from the selected row (assuming it's in the first column of the table)
-    int employeeId = (int) EmployeeTimesheetTable.getValueAt(selectedRow, 0); // Assuming the employee_id is in the first column
+    try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/payroll_db", "root", "");
+         PreparedStatement stmt = conn.prepareStatement(query)) {
 
-    Connection conn = null;
-    PreparedStatement pst = null;
-                  
-    try {
-        // Establish database connection
-        conn = DriverManager.getConnection(url, user, pass);
+        // Set values for each parameter in the prepared statement
+        stmt.setInt(1, employeeId);        // employee_id
+        stmt.setString(2, date);           // date
+        stmt.setString(3, timeIn);         // time_in
+        stmt.setString(4, timeOut);        // time_out
+        stmt.setString(5, overtime);       // overtime
+        stmt.setString(6, totalHours);     // total_hours (ensure it's not empty)
 
-        // Step 2: Insert the timesheet data associated with the employee_id
-        String insertTimesheetSql = "INSERT INTO timesheet (employee_id, date, time_in, time_out, overtime, hours_worked) VALUES (?, ?, ?, ?, ?, ?)";
-        pst = conn.prepareStatement(insertTimesheetSql);
+        // Execute the query to insert the data
+        stmt.executeUpdate();
 
-        pst.setInt(1, employeeId); // Use the employee_id from the table row
-        pst.setDate(2, java.sql.Date.valueOf(date1)); // Convert date string to SQL Date
-        pst.setTime(3, java.sql.Time.valueOf(timein1)); // Convert time string to SQL Time
-        pst.setTime(4, java.sql.Time.valueOf(timeout1)); // Convert time string to SQL Time
-        pst.setDouble(5, Double.parseDouble(overtime1)); // Parse overtime as double
-        pst.setDouble(6, Double.parseDouble(totalhours1)); // Parse total hours worked as double
+        // Optionally, refresh the table or show a success message
+        JOptionPane.showMessageDialog(null, "Row added successfully!");
+        
+        refreshTable();
 
-        int rowsInserted = pst.executeUpdate();
-
-        if (rowsInserted > 0) {
-            // Add the data to the JTable
-            DefaultTableModel model = (DefaultTableModel) EmployeeTimesheetTable.getModel();
-            model.addRow(new Object[]{employeeId, date1, timein1, timeout1, overtime1, totalhours1});
-
-            JOptionPane.showMessageDialog(this, "Timesheet entry added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-
-            // Clear input fields
-            txtDate.setText("");
-            txtTimeIn.setText("");
-            txtTimeOut.setText("");
-            txtOvertime.setText("");
-            txtTotalHours.setText("");
-        } else {
-            JOptionPane.showMessageDialog(this, "Failed to add timesheet entry.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        // Clear the text fields after insertion (optional)
+        txtDate.setText("");
+        txtTimeIn.setText("");
+        txtTimeOut.setText("");
+        txtOvertime.setText("");
+        txtTotalHours.setText("");
 
     } catch (SQLException e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    } finally {
-        try {
-            if (pst != null) pst.close();
-            if (conn != null) conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        // Display an error message in case of a database error
+        JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
     }
 
     }//GEN-LAST:event_addRowActionPerformed
-private void refreshEmployeeTimesheet() {
-    DefaultTableModel model = (DefaultTableModel) EmployeeTimesheetTable.getModel();
-    model.setRowCount(0); // Clear the table
 
-    String url = "jdbc:mysql://localhost:3306/payroll_db";
-    String user = "root";
-    String pass = "";
-
-    Connection conn = null;
-    PreparedStatement pst = null;
-    ResultSet rs = null;
-
-    try {
-        // Connect to the database
-        conn = DriverManager.getConnection(url, user, pass);
-
-        // SQL to fetch all timesheet records
-        
-        String sql = "SELECT employee_id, date, time_in, time_out, overtime, hours_worked FROM timesheet";
-        pst = conn.prepareStatement(sql);
-        rs = pst.executeQuery();
-
-        // Populate the table with data
-        while (rs.next()) {
-            int id = rs.getInt("employee_id");
-            String date = rs.getString("date");
-            String timeIn = rs.getString("time_in");
-            String timeOut = rs.getString("time_out");
-            double overtime = rs.getDouble("overtime");
-            double hoursWorked = rs.getDouble("hours_worked");
-
-            model.addRow(new Object[]{id, date, timeIn, timeOut, overtime, hoursWorked});
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    } finally {
-        try {
-            if (rs != null) rs.close();
-            if (pst != null) pst.close();
-            if (conn != null) conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-}
     private void deleteButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButton1ActionPerformed
 int selectedRow = EmployeeTimesheetTable.getSelectedRow();
 
@@ -719,7 +723,7 @@ if (confirmation == JOptionPane.YES_OPTION) {
             JOptionPane.showMessageDialog(this, "Timesheet entry deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
             
             // Refresh the table to reflect the changes
-            refreshEmployeeTimesheet();
+
         } else {
             // No entry found with the specified ID and Date
             JOptionPane.showMessageDialog(this, "Failed to delete timesheet entry. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);

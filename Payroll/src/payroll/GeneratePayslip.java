@@ -298,12 +298,12 @@ public class GeneratePayslip extends javax.swing.JFrame {
 
         jLabel2.setForeground(new java.awt.Color(245, 204, 160));
         jLabel2.setText("End:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 110, 37, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 100, 37, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(245, 204, 160));
         jLabel1.setText("Range");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 60, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 50, -1, -1));
 
         jLabel3.setForeground(new java.awt.Color(245, 204, 160));
         jLabel3.setText("Position: ");
@@ -361,12 +361,12 @@ public class GeneratePayslip extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(245, 204, 160));
         jLabel7.setText("Net Pay:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 290, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 290, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(245, 204, 160));
         jLabel8.setText("Total Deductions:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 260, 110, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 260, 100, -1));
 
         txtNetPay.setEditable(false);
         txtNetPay.addActionListener(new java.awt.event.ActionListener() {
@@ -374,7 +374,7 @@ public class GeneratePayslip extends javax.swing.JFrame {
                 txtNetPayActionPerformed(evt);
             }
         });
-        jPanel1.add(txtNetPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 290, 160, -1));
+        jPanel1.add(txtNetPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 290, 160, -1));
 
         txtDeductions.setEditable(false);
         txtDeductions.addActionListener(new java.awt.event.ActionListener() {
@@ -382,7 +382,7 @@ public class GeneratePayslip extends javax.swing.JFrame {
                 txtDeductionsActionPerformed(evt);
             }
         });
-        jPanel1.add(txtDeductions, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 260, 160, -1));
+        jPanel1.add(txtDeductions, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 260, 160, -1));
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 557, 79, -1));
 
         jSeparator1.setBackground(new java.awt.Color(245, 204, 160));
@@ -403,15 +403,15 @@ public class GeneratePayslip extends javax.swing.JFrame {
                 BackToDashboard1ActionPerformed(evt);
             }
         });
-        jPanel1.add(BackToDashboard1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 330, 130, -1));
+        jPanel1.add(BackToDashboard1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 130, 30));
 
         dateStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dateStartActionPerformed(evt);
             }
         });
-        jPanel1.add(dateStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(483, 80, 90, -1));
-        jPanel1.add(dateEnd, new org.netbeans.lib.awtextra.AbsoluteConstraints(483, 110, 90, -1));
+        jPanel1.add(dateStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 70, 90, -1));
+        jPanel1.add(dateEnd, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 100, 90, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(245, 204, 160));
@@ -424,7 +424,7 @@ public class GeneratePayslip extends javax.swing.JFrame {
 
         jLabel11.setForeground(new java.awt.Color(245, 204, 160));
         jLabel11.setText("Start:");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 80, 37, -1));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 70, 37, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

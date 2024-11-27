@@ -176,52 +176,52 @@ private void openTimesheetWindow(String employeeNameOrId, String startDateStr, S
 }
 
     // Function to check if employee exists in the database
-    private boolean doesEmployeeExist(String employeeNameOrId) throws IOException {
-        boolean exists = false;
-        java.sql.Connection conn = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet rs = null;
+private boolean doesEmployeeExist(String employeeNameOrId) throws IOException {
+    boolean exists = false;
+    java.sql.Connection conn = null;
+    PreparedStatement preparedStatement = null;
+    ResultSet rs = null;
 
-        String url = "jdbc:mysql://localhost:3306/payroll_db";
-        String user = "root";
-        String pass = "";
+    String url = "jdbc:mysql://localhost:3306/payroll_db";
+    String user = "root";
+    String pass = "";
 
-        try {
-            // Connect to the database
-            conn = DriverManager.getConnection(url, user, pass);
+    try {
+        // Connect to the database
+        conn = DriverManager.getConnection(url, user, pass);
 
-            String query;
-            if (isNumeric(employeeNameOrId)) {
-                // If input is numeric, use it as employee_id
-                query = "SELECT * FROM employees WHERE employee_id = ?";
-                preparedStatement = conn.prepareStatement(query);
-                preparedStatement.setInt(1, Integer.parseInt(employeeNameOrId));
-            } else {
-                // If input is not numeric, assume it's the employee name
-                query = "SELECT * FROM employees WHERE name = ?";
-                preparedStatement = conn.prepareStatement(query);
-                preparedStatement.setString(1, employeeNameOrId);
-            }
-
-            rs = preparedStatement.executeQuery();
-
-            // If a result is found, the employee exists
-            exists = rs.next();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Database error: " + ex.getMessage());
-        } finally {
-            // Close resources
-            try {
-                if (rs != null) rs.close();
-                if (preparedStatement != null) preparedStatement.close();
-                if (conn != null) conn.close();
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Error closing database resources: " + ex.getMessage());
-            }
+        String query;
+        if (isNumeric(employeeNameOrId)) {
+            // If input is numeric, use it as employee_id
+            query = "SELECT * FROM timesheet WHERE employee_id = ?";
+            preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setInt(1, Integer.parseInt(employeeNameOrId));
+        } else {
+            // If input is not numeric, assume it's the employee name
+            query = "SELECT * FROM employees WHERE name = ?";
+            preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, employeeNameOrId);
         }
 
-        return exists;
+        rs = preparedStatement.executeQuery();
+
+        // If a result is found, the employee exists
+        exists = rs.next();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Database error: " + ex.getMessage());
+    } finally {
+        // Close resources
+        try {
+            if (rs != null) rs.close();
+            if (preparedStatement != null) preparedStatement.close();
+            if (conn != null) conn.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error closing database resources: " + ex.getMessage());
+        }
     }
+
+    return exists;
+}
 
 private boolean isNumeric(String str) {
     try {
