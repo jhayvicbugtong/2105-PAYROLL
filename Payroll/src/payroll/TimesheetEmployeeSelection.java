@@ -142,90 +142,98 @@ public class TimesheetEmployeeSelection extends javax.swing.JFrame {
     }//GEN-LAST:event_EmployeeNameActionPerformed
 
     private void goTimesheetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goTimesheetButtonActionPerformed
-    
-    // Assuming you have a JTextField where user enters employee_id
-//    String employeeIdText = EmployeeName.getText(); // Replace with your actual field name
-
-        String employeeIdText = EmployeeName.getText(); // Replace with actual text field name
+    String employeeIdText = EmployeeName.getText(); // Replace with actual text field name
 
     try {
         int employeeId = Integer.parseInt(employeeIdText); // Parse the employee_id to int
-        
-        // Hide the current screen
-        this.setVisible(false);
-
-        // Create a new instance of Timesheet class and pass the employee_id
+        // Now pass the employeeId to the Timesheet panel
         Timesheet timesheet = new Timesheet(employeeId); // Pass employee_id to the constructor
         timesheet.setVisible(true); // Show the Timesheet screen
+        this.setVisible(false); // Hide the current panel
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(this, "Please enter a valid Employee ID.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
     }
-
-        
-//    this.setVisible(false);
-//    Timesheet Timesheet = new Timesheet();
-//    Timesheet.setVisible(true);
-          
     }//GEN-LAST:event_goTimesheetButtonActionPerformed
 
     // Function to open the Timesheet window
-    private void openTimesheetWindow(String employeeNameOrId, String startDateStr, String endDateStr) {
-    // Create an instance of the Timesheet class (Assuming it's a JFrame)
-//    Timesheet timesheetWindow = new Timesheet();
+private void openTimesheetWindow(String employeeNameOrId, String startDateStr, String endDateStr) {
+    try {
+        // Check if the employee exists before opening the timesheet window
+        if (doesEmployeeExist(employeeNameOrId)) {
+            // Employee exists, proceed to open the Timesheet window
+            Timesheet timesheetWindow = new Timesheet(Integer.parseInt(employeeNameOrId)); // Assuming it's an ID
+            timesheetWindow.setVisible(true);
 
-    // Set the window to visible
-//    timesheetWindow.setVisible(true);
-
-    // Optionally, you can hide the current window if needed:
-    this.setVisible(false);
+            // Optionally, hide the current window if needed:
+            this.setVisible(false);
+        } else {
+            // Show error message if employee doesn't exist
+            JOptionPane.showMessageDialog(this, "Employee not found.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } catch (IOException ex) {
+        JOptionPane.showMessageDialog(this, "Error checking employee existence: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
 }
+
     // Function to check if employee exists in the database
     private boolean doesEmployeeExist(String employeeNameOrId) throws IOException {
-     boolean exists = false;
+        boolean exists = false;
+        java.sql.Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
 
-    java.sql.Connection conn = null;
-    PreparedStatement preparedStatement = null;
-    ResultSet rs = null;
+        String url = "jdbc:mysql://localhost:3306/payroll_db";
+        String user = "root";
+        String pass = "";
 
-    String url = "jdbc:mysql://localhost:3306/payroll_db";
-    String user = "root";
-    String pass = "";
-
-    try {
-        // Connect to the database
-        conn = DriverManager.getConnection(url, user, pass);
-
-        // Query to check if employee exists
-        String query = "SELECT * FROM timesheet WHERE employee_id = ? OR name = ?";
-        preparedStatement = conn.prepareStatement(query);
-        preparedStatement.setString(1, employeeNameOrId);
-        preparedStatement.setString(2, employeeNameOrId);
-
-        rs = preparedStatement.executeQuery();
-
-        // If a result is found, the employee exists
-        exists = rs.next();
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Database error: " + ex.getMessage());
-    } finally {
-        // Close resources
         try {
-            if (rs != null) rs.close();
-            if (preparedStatement != null) preparedStatement.close();
-            if (conn != null) conn.close();
+            // Connect to the database
+            conn = DriverManager.getConnection(url, user, pass);
+
+            String query;
+            if (isNumeric(employeeNameOrId)) {
+                // If input is numeric, use it as employee_id
+                query = "SELECT * FROM employees WHERE employee_id = ?";
+                preparedStatement = conn.prepareStatement(query);
+                preparedStatement.setInt(1, Integer.parseInt(employeeNameOrId));
+            } else {
+                // If input is not numeric, assume it's the employee name
+                query = "SELECT * FROM employees WHERE name = ?";
+                preparedStatement = conn.prepareStatement(query);
+                preparedStatement.setString(1, employeeNameOrId);
+            }
+
+            rs = preparedStatement.executeQuery();
+
+            // If a result is found, the employee exists
+            exists = rs.next();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error closing database resources: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Database error: " + ex.getMessage());
+        } finally {
+            // Close resources
+            try {
+                if (rs != null) rs.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (conn != null) conn.close();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error closing database resources: " + ex.getMessage());
+            }
         }
+
+        return exists;
     }
 
-    return exists;
+private boolean isNumeric(String str) {
+    try {
+        Integer.parseInt(str); // Try parsing as integer
+        return true;
+    } catch (NumberFormatException e) {
+        return false; // Not a valid number
+    }
 }
 
+
 // Function to display or process employee data
-private void showEmployeeData(String employeeNameOrId, String startDate, String endDate) {
-    // Add logic to retrieve and display data (e.g., open a new panel or populate a table)
-    JOptionPane.showMessageDialog(this, "Showing data for " + employeeNameOrId + " from " + startDate + " to " + endDate);
-}
     /**
      * @param args the command line arguments
      */
